@@ -1,0 +1,20 @@
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/css3/user-interface";
+
+$prefix:  '.b';
+
+html, * , *:before, *:after{
+    @include box-sizing(border-box);
+}
+
+body {
+    font-family: $default-font-family;
+    font-size: $default-font-size;
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+}
