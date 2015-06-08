@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "out": "../build/js/blend.js",
+        "sourceMap": true,
+        "removeComments":true
+    },
+    "files": [    	
+        "src/Blend.ts"
+    ]
+}
