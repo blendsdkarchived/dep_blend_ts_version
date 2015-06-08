@@ -1,0 +1,6 @@
+build
+**/.sass-cache
+.buildpath
+.externalToolBuilders
+.settings
+**/*.swp
