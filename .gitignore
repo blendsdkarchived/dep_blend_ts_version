@@ -4,3 +4,5 @@ build
 .externalToolBuilders
 .settings
 **/*.swp
+tmp
+.project
