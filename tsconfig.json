@@ -1,10 +1,17 @@
 {
     "compilerOptions": {
-        "out": "../build/js/blend.js",
+        "out": "build/js/blend.js",
+        "sourceRoot":"../../blend-source",
         "sourceMap": true,
-        "removeComments":true
+        "removeComments":true,
+        "declaration":true
     },
-    "files": [    	
-        "src/Blend.ts"
+    "files": [
+        "src/Blend.ts",
+        "src/mvc/Model.ts",
+        "src/mvc/View.ts",
+        "src/mvc/Controller.ts",
+        "src/mvc/Application.ts",
+        "src/mvc/Context.ts"
     ]
 }
