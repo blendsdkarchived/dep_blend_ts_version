@@ -23,9 +23,17 @@
  */
  module Blend {
 
-    export function isNullOrUndef(value:any):boolean {
-        return (value === null || value === undefined);
-    }
+	export function ucFirst(value:string) {
+		return value.charAt(0).toUpperCase() + value.slice(1);
+	}
+
+	export function isNullOrUndef(value:any):boolean {
+		return (value === null || value === undefined);
+	}
+
+	export function isString(value:any):boolean {
+		return  (typeof value === 'string');
+	}
 
 	export class BaseClass {
 
