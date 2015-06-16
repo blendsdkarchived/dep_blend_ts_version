@@ -9,6 +9,7 @@
     "files": [
         "src/Blend.ts",
         "src/mvc/Model.ts",
+        "src/mvc/BindingClient.ts",
         "src/mvc/View.ts",
         "src/mvc/Controller.ts",
         "src/mvc/Application.ts",

@@ -1,20 +1,21 @@
 /// <reference path="../Blend.ts"/>
+/// <reference path="./BindingClient.ts"/>
 module Blend {
+
 
 	export module mvc {
 
 		export interface IViewConfig {
 			reference?:string;
-			bindings?:any;
 			controllers?:Array<string>;
 		}
 
-		export class View extends Blend.BaseClass implements IViewConfig {
+		export class View extends Blend.mvc.BindingClient implements IViewConfig, Blend.mvc.IBindingClientConfig {
 
 			parent:View;
 			reference:string;
-			controllers:Array<any>;
-			bindings:any;
+			controllers:Array<string>;
+			bindings:Blend.mvc.IBinding;
 
 			constructor(config?:IViewConfig) {
 				super(config);
@@ -32,39 +33,6 @@ module Blend {
 							controller.delegate(me.reference+'.'+eventName,me,args);
 						},1);
 					});
-				}
-			}
-
-			processBindings():void {
-				var me = this;
-				if(this.bindings) {
-					for(var key in this.bindings) {
-						if(Blend.isString(this.bindings[key])) {
-							var value:Array<string> = this.bindings[key].toString().split('.');
-							if(value.length == 2) {
-								var setterName = 'set'+Blend.ucFirst(key);
-								if(this[setterName]) {
-									var modelName = value[0];
-									var fieldName = value[1];
-									var model = Blend.mvc.Context.getModel(modelName);
-									if(model) {
-										model.bind(fieldName,function(){
-											me[setterName].apply(me,arguments);
-										});
-									} else {
-										throw Error(`Model ${modelName} does not exist!`);
-									}
-								} else {
-									throw new Error(`Unable to create binding. No setter found for ${key} (${setterName})`);
-								}
-								// check to see if we have a setter with the set"key"
-							} else {
-								throw new Error("Invalid binding key. Syntax must be [model].[field]");
-							}
-						} else {
-							throw new Error("Binding key is not a string!");
-						}
-					}
 				}
 			}
 
