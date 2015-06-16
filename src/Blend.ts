@@ -27,6 +27,18 @@
 		return value.charAt(0).toUpperCase() + value.slice(1);
 	}
 
+	export function isArray(value:any) {
+		return Object.prototype.toString.apply(value) === '[object Array]';
+	}
+
+	export function isObject(value:any) {
+		return (typeof value === "object" &&
+			(typeof value !== "function" &&
+			value !== null &&
+			value !== undefined &&
+			!Blend.isArray(value)));
+	}
+
 	export function isNullOrUndef(value:any):boolean {
 		return (value === null || value === undefined);
 	}
