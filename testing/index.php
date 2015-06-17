@@ -13,7 +13,7 @@
 	}
 
 	.testlog .log-message {
-		border-bottom: 1px solid white;
+		border-bottom: 1px solid #D8D8D8;
 	}
 
 	.testlog .type {
@@ -25,9 +25,7 @@
 	}
 
 	.testlog .message {
-		background-color:lightgray;
 		color:#000;
-		font-weight: bold;
 		width: 95%;
 		position: relative;
 		top:0;
@@ -73,8 +71,7 @@
 	}
 
 	.testlog .log-pass .message {
-		background-color: green;
-		color:#fff;
+		color:green;
 	}
 
 	.testlog .totals {

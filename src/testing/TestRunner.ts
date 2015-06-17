@@ -31,6 +31,46 @@ module Blend {
 				me.testLog.appendChild(me.totals);
 			}
 
+			isOk(actuall:any, message?:string) {
+				var me = this,
+					type = 'IS OK?';
+				if (actuall !== null && actuall !== undefined) {
+					me.pass(type,message);
+				} else {
+					me.fail.apply(me, [type,actuall, 'not null/undefined', message]);
+				}
+			};
+
+			isNotOk(actuall:any, message?:string) {
+				var me = this,
+				type = 'IS NOT OK?';
+				if (actuall === null || actuall === undefined) {
+					me.pass(type,message);
+				} else {
+					me.fail.apply(me, [type,actuall, 'null/undefined', message]);
+				}
+			};
+
+			isTrue(actuall:boolean, message?:string) {
+				var me = this,
+					type = 'IS TRUE?';
+				if (actuall === true) {
+					me.pass(type,message);
+				} else {
+					me.fail.apply(me, [type,actuall, true, message]);
+				}
+			}
+
+			isFalse(actuall:boolean, message?:string) {
+				var me = this,
+					type ='IS FALSE?';
+				if (actuall === false) {
+					me.pass(type,message);
+				} else {
+					me.fail.apply(me, [type,actuall, true, message]);
+				}
+			}
+
 			defineTest(category:string,name:string,fn:(t:TestRunnerSingleton) => void ) {
 				var me = this;
 				me.tests.push({
@@ -93,33 +133,23 @@ module Blend {
 				me.runNextTest();
 			};
 
-			pass(message?:string) {
+			pass(test:string,message?:string) {
 				var me = this;
 				me.currentTest.pass++;
 				me.totalPass++;
-				me.logPass(message || 'Test ' + me.currentTest.testn);
+				me.logPass(test + '  ' + (message || 'Test ' + me.currentTest.testn)) ;
 				me.currentTest.testn++;
 				me.totalTests++;
 			};
 
-			fail(actual:any, expected:any, message?:string) {
+			fail(test:string,actual:any, expected:any, message?:string) {
 				var me = this;
 				me.currentTest.fail++;
 				me.totalFail++;
-				me.logFail((message || 'Test ' + me.currentTest.testn) + ' : got [' + actual + '] expected [' + expected + ']');
+				me.logFail(test + '  ' + ((message || 'Test ' + me.currentTest.testn) + ' : got [' + actual + '] expected [' + expected + ']'));
 				me.currentTest.testn++;
 				me.totalTests++;
 			}
-
-			isTrue(actuall:boolean, message?:string) {
-				var me = this;
-				if (actuall === true) {
-					me.pass(message);
-				} else {
-					me.fail.apply(me, [actuall, true, message]);
-				}
-			}
-
 
 			runNextTest() {
 				var me = this;
