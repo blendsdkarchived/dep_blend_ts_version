@@ -181,7 +181,7 @@ module Blend {
 				el = document.createElement('div');
 				el.setAttribute('class','totals');
 				var pass = 'PASS: '  + me.totalPass;
-				var fail = 'FAIL: ' + me.totalFail;
+				var fail = 'FAILED: ' + me.totalFail;
 				el.innerHTML = `<span class="total">TOTAL: ${me.totalTests}</span><span class="pass">${pass}</span><span class="fail">${fail}</span>`;
 				return el;
 			}

@@ -39,9 +39,15 @@
 	}
 
 	.testlog .log-info .type {
-		background: blue;
+		background: #2E64FE;
 		color:#fff;
 	}
+
+	.testlog .log-info .message {
+		background: #5858FA;
+		color:#fff;
+	}
+
 
 	.testlog .log-error .type {
 		background: red;
