@@ -1,11 +1,11 @@
---declaration 
---mapRoot ../../blend-source 
---module commonjs 
---sourceMap 
---removeComments 
+--declaration
+--mapRoot ../../blend-source
+--module commonjs
+--sourceMap
+--removeComments
 --out testing/build/js/blend-testing.js
 
 src/testing/TestRunner.ts
-testing/tests/test1.ts
 testing/src/TestApp.ts
+testing/tests/test1.ts
 
