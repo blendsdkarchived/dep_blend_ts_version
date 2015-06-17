@@ -21,6 +21,7 @@ module Blend {
 			totalPass:number = 0;
 			totalFail:number = 0;
 			totalTests:number = 0;
+			defaultDelayAmount:number = 100;
 
 			constructor() {
 				var me  = this;
@@ -30,6 +31,19 @@ module Blend {
 				me.testLog.setAttribute('class','testlog');
 				me.testLog.appendChild(me.totals);
 			}
+
+			delay(fn:Function, amount?:number) {
+				var me = this,
+					curTitle = document.title;
+				amount = amount || me.defaultDelayAmount;
+
+				document.title = `${amount} delay for ${me.currentTest.name}`;
+				setTimeout(function(){
+					fn();
+					document.title = curTitle;
+				}, amount);
+			}
+
 
 			isOk(actuall:any, message?:string) {
 				var me = this,
