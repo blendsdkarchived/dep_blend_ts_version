@@ -32,9 +32,59 @@ module Blend {
 				me.testLog.appendChild(me.totals);
 			}
 
+			equal(actual:any, expected:any, message?:string) {
+				var me = this,
+					type = 'IS EQUAL?';
+				var check = function (a:any, b:any):boolean {
+					if (me.get_obj_type(a) === me.get_obj_type(b)) {
+						if (me.is_array(a)) {
+							if (a.length === b.length) {
+								for (var i = 0; i !== a.length; i++) {
+									if (!check(a[i], b[i])) {
+										return false;
+									}
+								}
+								return true;
+							} else {
+								return false;
+							}
+						} else if (me.is_object(a)) {
+							var akeys = Object.keys(a),
+							bkeys = Object.keys(a);
+							if (akeys.length === bkeys.length) {
+								for (var k in a) {
+									if (!check(a[k], b[k])) {
+										return false;
+									}
+								}
+								return true;
+							} else {
+								return false;
+							}
+
+						} else if (me.is_function(a)) {
+							return a.length === b.length;
+						} else if (me.is_regexp(a)) {
+							throw new Error("Don't know how to compare RegExps!");
+						} else {
+							return a === b;
+						}
+					} else {
+						return false;
+					}
+				};
+
+				if (check(actual, expected)) {
+					me.pass(type,message);
+				} else {
+					me.fail.apply(me, [type,actual,expected,message]);
+				}
+			}
+
+
 			delay(fn:Function, amount?:number) {
 				var me = this,
-					curTitle = document.title;
+				curTitle = document.title;
 				amount = amount || me.defaultDelayAmount;
 
 				document.title = `${amount} delay for ${me.currentTest.name}`;
@@ -47,7 +97,7 @@ module Blend {
 
 			isOk(actuall:any, message?:string) {
 				var me = this,
-					type = 'IS OK?';
+				type = 'IS OK?';
 				if (actuall !== null && actuall !== undefined) {
 					me.pass(type,message);
 				} else {
@@ -67,7 +117,7 @@ module Blend {
 
 			isTrue(actuall:boolean, message?:string) {
 				var me = this,
-					type = 'IS TRUE?';
+				type = 'IS TRUE?';
 				if (actuall === true) {
 					me.pass(type,message);
 				} else {
@@ -77,7 +127,7 @@ module Blend {
 
 			isFalse(actuall:boolean, message?:string) {
 				var me = this,
-					type ='IS FALSE?';
+				type ='IS FALSE?';
 				if (actuall === false) {
 					me.pass(type,message);
 				} else {
@@ -99,7 +149,7 @@ module Blend {
 
 			logPass(...args:Array<any>) {
 				var me = this,
-					el = document.createElement('div');
+				el = document.createElement('div');
 				el.setAttribute('class','log-message log-pass');
 				el.innerHTML = '<span class="type">PASS</span><span class="message">' + args.join(' ') + '</span>';
 				me.testLog.appendChild(el);
@@ -107,7 +157,7 @@ module Blend {
 
 			logFail(...args:Array<any>) {
 				var me = this,
-					el = document.createElement('div');
+				el = document.createElement('div');
 				el.setAttribute('class','log-message log-fail');
 				el.innerHTML = '<span class="type">FAILED</span><span class="message">' + args.join(' ') + '</span>';
 				me.testLog.appendChild(el);
@@ -116,7 +166,7 @@ module Blend {
 
 			logError(...args:Array<any>) {
 				var me = this,
-					el = document.createElement('div');
+				el = document.createElement('div');
 				el.setAttribute('class','log-message log-error');
 				el.innerHTML = '<span class="type">ERROR</span><span class="message">' + args.join(' ') + '</span>';
 				me.testLog.appendChild(el);
@@ -124,7 +174,7 @@ module Blend {
 
 			logWarn(...args:Array<any>) {
 				var me = this,
-					el = document.createElement('div');
+				el = document.createElement('div');
 				el.setAttribute('class','log-message log-warn');
 				el.innerHTML = '<span class="type">WARN</span><span class="message">' + args.join(' ') + '</span>';
 				me.testLog.appendChild(el);
@@ -132,7 +182,7 @@ module Blend {
 
 			logInfo(...args:Array<any>) {
 				var me = this,
-					el = document.createElement('div');
+				el = document.createElement('div');
 				el.setAttribute('class','log-message log-info');
 				el.innerHTML = '<span class="type">INFO</span><span class="message">' + args.join(' ') + '</span>';
 				me.testLog.appendChild(el);
@@ -199,6 +249,61 @@ module Blend {
 				el.innerHTML = `<span class="total">TOTAL: ${me.totalTests}</span><span class="pass">${pass}</span><span class="fail">${fail}</span>`;
 				return el;
 			}
+
+			is_array(value:any):boolean {
+				return Object.prototype.toString.apply(value) === '[object Array]';
+			};
+
+
+			is_function(value:any):boolean {
+				return typeof (value) === 'function';
+			};
+
+			is_string(value:any):boolean {
+				return typeof value === 'string';
+			};
+
+			is_null(value:any):boolean {
+				return value === null || value === undefined;
+			};
+
+			is_object(value:any):boolean {
+				var me = this;
+				return (typeof (value) === "object" &&
+					!me.is_array(value) &&
+					!me.is_function(value) &&
+					!me.is_null(value) &&
+					!me.is_string(value)
+					);
+			};
+
+			is_number(value:any):boolean {
+				// Original source: JQuery
+				return value - parseFloat(value) >= 0;
+			};
+
+			is_regexp(value:any):boolean {
+				return (value instanceof RegExp);
+			};
+
+			get_obj_type(obj:any):string {
+				var me = this;
+				if (me.is_string(obj)) {
+					return 'string';
+				} else if (me.is_array(obj)) {
+					return 'array';
+				} else if (me.is_number(obj)) {
+					return 'number';
+				} else if (me.is_object(obj)) {
+					return 'object';
+				} else if (me.is_function(obj)) {
+					return 'function';
+				} else if (me.is_null(obj)) {
+					return 'null';
+				} else if (me.is_regexp(obj)) {
+					return 'regexp';
+				}
+			};
 
 			run() {
 				var me = this;
