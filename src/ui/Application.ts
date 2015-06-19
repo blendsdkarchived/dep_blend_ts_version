@@ -66,7 +66,7 @@ module Blend {
 				var me = this;
 				me.fireEvent('ready');
 			}
-			
+
 			notifyResize(evt) {
 				var me = this;
 				me.fireEvent('resize', evt);
@@ -96,4 +96,4 @@ module Blend {
 			}
 		}
 	}
-} 
+}

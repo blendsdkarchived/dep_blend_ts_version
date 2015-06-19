@@ -4,11 +4,11 @@
 ///<reference path="../../src/utils/Dom.ts"/>
 
 TestRunner.defineTest('Core', 'Dom', function(t: Blend.testing.TestRunnerSingleton) {
-	
+
 	t.delay(function(){
 		var me = this;
 		var child:HTMLElement;
-		var el:HTMLElement		
+		var el:HTMLElement
 		Blend.Dom.createElement({
 			text:'element',
 			children: [
@@ -27,5 +27,5 @@ TestRunner.defineTest('Core', 'Dom', function(t: Blend.testing.TestRunnerSinglet
 			t.done();
 		},me);
 	})
-	
+
 });

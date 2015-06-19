@@ -4,9 +4,9 @@ module Blend {
 	export module layout {
 
 		export module utils {
-			
+
 			/**
-			 * Removed the positioning styles and 
+			 * Removed the positioning styles and
 			 * sets the data-layout to fitted
 			 */
 			export function fitUtil(element: HTMLElement) {

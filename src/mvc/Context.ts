@@ -3,11 +3,11 @@
 module Blend {
 
 	export module mvc {
-		
+
 		export interface IControllerDictionary {
 			[name:string]:Blend.mvc.Controller
 		}
-		
+
 		export interface IModelDictionary {
 			[name:string]:Blend.mvc.Model
 		}

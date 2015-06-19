@@ -18,4 +18,3 @@ src/mvc/Context.ts
 src/utils/Dom.ts
 src/ui/View.ts
 src/ui/Application.ts
-

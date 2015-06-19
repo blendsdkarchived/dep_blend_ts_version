@@ -5,7 +5,7 @@
 
 TestRunner.defineTest('Core', 'Environment', function(t: Blend.testing.TestRunnerSingleton) {
 	t.isOk(Blend.Environment);
-	
+
 	//ready
 	var ready = false;
 	Blend.Environment.reset();
@@ -13,8 +13,8 @@ TestRunner.defineTest('Core', 'Environment', function(t: Blend.testing.TestRunne
 		ready = true;
 	});
 	Blend.Environment.kickStart();
-	
-	t.delay(function(){		
+
+	t.delay(function(){
 		t.isTrue(ready,'ready call');
 		t.done();
 	},1000);
