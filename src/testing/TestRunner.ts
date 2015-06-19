@@ -1,4 +1,4 @@
-module Blend {
+module Blend {	
 	export module testing {
 
 		export interface TestConfig {
@@ -103,7 +103,7 @@ module Blend {
 				} else {
 					me.fail.apply(me, [type,actuall, 'not null/undefined', message]);
 				}
-			};
+			}
 
 			isNotOk(actuall:any, message?:string) {
 				var me = this,
@@ -113,7 +113,7 @@ module Blend {
 				} else {
 					me.fail.apply(me, [type,actuall, 'null/undefined', message]);
 				}
-			};
+			}
 
 			isTrue(actuall:boolean, message?:string) {
 				var me = this,
@@ -195,7 +195,7 @@ module Blend {
 				}
 				me.nextTextIndex++;
 				me.runNextTest();
-			};
+			}
 
 			pass(test:string,message?:string) {
 				var me = this;
@@ -204,7 +204,7 @@ module Blend {
 				me.logPass(test + '  ' + (message || 'Test ' + me.currentTest.testn)) ;
 				me.currentTest.testn++;
 				me.totalTests++;
-			};
+			}
 
 			fail(test:string,actual:any, expected:any, message?:string) {
 				var me = this;
@@ -246,26 +246,38 @@ module Blend {
 				el.setAttribute('class','totals');
 				var pass = 'PASS: '  + me.totalPass;
 				var fail = 'FAILED: ' + me.totalFail;
-				el.innerHTML = `<span class="total">TOTAL: ${me.totalTests}</span><span class="pass">${pass}</span><span class="fail">${fail}</span>`;
+
+				var totalTestsSpan = `<span class="total">TOTAL: ${me.totalTests}</span>`
+				var totalFailSpan;
+				var totalPassSpan; 
+
+				if(me.totalFail !== 0) {
+					totalFailSpan = `<span class="fail" style="width:40%">${fail}</span>`;
+					totalPassSpan = `<span class="pass" style="width:40%">${pass}</span>`;
+				} else {
+					totalFailSpan = '';
+					totalPassSpan = `<span class="pass" style="width:80%">${pass}</span>`;
+				}
+				el.innerHTML = `${totalTestsSpan}${totalFailSpan}${totalPassSpan}`;
 				return el;
 			}
 
 			is_array(value:any):boolean {
 				return Object.prototype.toString.apply(value) === '[object Array]';
-			};
+			}
 
 
 			is_function(value:any):boolean {
 				return typeof (value) === 'function';
-			};
+			}
 
 			is_string(value:any):boolean {
 				return typeof value === 'string';
-			};
+			}
 
 			is_null(value:any):boolean {
 				return value === null || value === undefined;
-			};
+			}
 
 			is_object(value:any):boolean {
 				var me = this;
@@ -275,16 +287,16 @@ module Blend {
 					!me.is_null(value) &&
 					!me.is_string(value)
 					);
-			};
+			}
 
 			is_number(value:any):boolean {
 				// Original source: JQuery
 				return value - parseFloat(value) >= 0;
-			};
+			}
 
 			is_regexp(value:any):boolean {
 				return (value instanceof RegExp);
-			};
+			}
 
 			get_obj_type(obj:any):string {
 				var me = this;
@@ -303,7 +315,7 @@ module Blend {
 				} else if (me.is_regexp(obj)) {
 					return 'regexp';
 				}
-			};
+			}
 
 			run() {
 				var me = this;
@@ -319,7 +331,7 @@ module Blend {
 							me.logWarn("No tests not run!");
 						}
 					}
-				};
+				}
 
 				if (document.readyState === "complete") {
 					setTimeout(doCallback, 5);
@@ -329,11 +341,11 @@ module Blend {
 				}
 			}
 
-			addEventListener(el: EventTarget, eventName: string, eventHandler: EventListenerOrEventListenerObject ): void {
+			addEventListener(el: EventTarget, eventName: string, eventHandler: EventListener ): void {
 				el.addEventListener(eventName, eventHandler, false);
 			}
 
-			removeEventListener(el: EventTarget, eventName: string, eventHandler: EventListenerOrEventListenerObject): void {
+			removeEventListener(el: EventTarget, eventName: string, eventHandler: EventListener): void {
 				el.removeEventListener(eventName, eventHandler, false);
 			}
 
