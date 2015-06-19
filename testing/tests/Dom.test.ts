@@ -5,27 +5,27 @@
 
 TestRunner.defineTest('Core', 'Dom', function(t: Blend.testing.TestRunnerSingleton) {
 
-	t.delay(function(){
-		var me = this;
-		var child:HTMLElement;
-		var el:HTMLElement
-		Blend.Dom.createElement({
-			text:'element',
-			children: [
-				{
-					tag:'span'
-				},
-				{
-					tag:'a',
-					oid:'link'
-				}
-			]
-		},function(el:HTMLElement,oid:string){
-			t.isTrue(oid === 'link');
-			console.log(el);
-			t.isTrue(Blend.isInstanceOf(el,HTMLAnchorElement));
-			t.done();
-		},me);
-	})
+    t.delay(function(){
+        var me = this;
+        var child:HTMLElement;
+        var el:HTMLElement
+        Blend.Dom.createElement({
+            text:'element',
+            children: [
+                {
+                    tag:'span'
+                },
+                {
+                    tag:'a',
+                    oid:'link'
+                }
+            ]
+        },function(el:HTMLElement,oid:string){
+            t.isTrue(oid === 'link');
+            console.log(el);
+            t.isTrue(Blend.isInstanceOf(el,HTMLAnchorElement));
+            t.done();
+        },me);
+    })
 
 });

@@ -1,26 +1,26 @@
 ///<reference path="../Blend.ts"/>
 ///<reference path="../utils/Dom.ts"/>
 module Blend {
-	export module layout {
+    export module layout {
 
-		export module utils {
+        export module utils {
 
-			/**
-			 * Removed the positioning styles and
-			 * sets the data-layout to fitted
-			 */
-			export function centerUtil(element: HTMLElement) {
-				Blend.Dom.style(element, {
-					display: null,
-					position: null,
-					top: null,
-					left: null,
-					margin: null
-				});
-				element.setAttribute('data-layout','center');
-			}
+            /**
+             * Removed the positioning styles and
+             * sets the data-layout to fitted
+             */
+            export function centerUtil(element: HTMLElement) {
+                Blend.Dom.style(element, {
+                    display: null,
+                    position: null,
+                    top: null,
+                    left: null,
+                    margin: null
+                });
+                element.setAttribute('data-layout','center');
+            }
 
-		}
+        }
 
-	}
+    }
 }
