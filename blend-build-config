@@ -1,15 +1,18 @@
---declaration 
---mapRoot ../../blend-source 
---module commonjs 
---sourceMap 
---removeComments 
---out ./build/js/blend.js 
+--declaration
+--mapRoot ../../blend-source
+--module commonjs
+--sourceMap
+--removeComments
+--out ./build/js/blend.js
 
-src/Blend.ts 
-src/mvc/Model.ts 
-src/mvc/BindingClient.ts 
-src/mvc/View.ts 
-src/mvc/Controller.ts 
-src/mvc/Application.ts 
+src/Blend.ts
+src/Environment.ts
+src/mvc/Model.ts
+src/mvc/BindingClient.ts
+src/mvc/View.ts
+src/mvc/Controller.ts
+src/mvc/Application.ts
 src/mvc/Context.ts
+src/utils/Dom.ts
+src/ui/View.ts
 
