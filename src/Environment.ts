@@ -21,7 +21,11 @@ module Blend {
 
         constructor() {
             var me = this;
-            me.kickStart();
+        }
+        
+        reset() {
+            var me = this;
+            me.readyCallbacks = [];
         }
 
         ready(callback: Function, scope?: any) {
