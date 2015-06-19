@@ -23,6 +23,19 @@
  */
 module Blend {
 
+    var CSS_PREFIX = 'b-';
+
+    export function cssPrefix(className:string|Array<string>):string {
+            var r = [];
+            if(!Blend.isArray(className)) {
+                className = <Array<string>>[className];
+            }
+            Blend.forEach(className, function (itm) {
+                r.push(CSS_PREFIX + itm);
+            });
+            return r.join(' ');
+        };
+
     export function ucFirst(value: string) {
         return value.charAt(0).toUpperCase() + value.slice(1);
     }
