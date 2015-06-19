@@ -1,5 +1,5 @@
 --declaration
---mapRoot ../../blend-source
+--mapRoot blend-source
 --module commonjs
 --sourceMap
 --removeComments
@@ -7,6 +7,8 @@
 
 src/Blend.ts
 src/Environment.ts
+src/layout/FitUtil.ts
+src/layout/CenterUtil.ts
 src/mvc/Model.ts
 src/mvc/BindingClient.ts
 src/mvc/View.ts
@@ -15,4 +17,5 @@ src/mvc/Application.ts
 src/mvc/Context.ts
 src/utils/Dom.ts
 src/ui/View.ts
+src/ui/Application.ts
 
