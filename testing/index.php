@@ -96,9 +96,10 @@
 
 	.totals .fail {
 		background-color: red;
+		color:#fff;
 	}
 
-	.totals .pass {
+	.totals .pass , .totals .pass {
 		color:#fff;
 	}
 
@@ -107,12 +108,6 @@
 		background-color: #FFFF66;
 		width:20%;
 	}
-
-	.totals .fail , .totals .pass {
-		width:40%;
-		color:#fff;
-	}
-
 
 
 </style>

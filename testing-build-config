@@ -7,5 +7,6 @@
 
 src/testing/TestRunner.ts
 testing/src/TestApp.ts
-testing/tests/test1.ts
+testing/tests/Blend.test.ts
+testing/tests/Environment.test.ts
 
