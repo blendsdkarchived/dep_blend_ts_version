@@ -5,60 +5,60 @@ module Blend {
 	export module mvc {
 
 		export interface IBindingCallback {
-			[field:string]:Array<Function>
+			[field: string]: Array<Function>
 		}
 
 		export interface IBindingData {
-			[field:string]:any
+			[field: string]: any
 		}
 
 		export interface IModelFieldConfig {
-			name:string;
-			bindTo?:Array<string>;
-			value?:() => any,
-			formatter?:(value:any) => any
+			name: string;
+			bindTo?: Array<string>;
+			value?: () => any;
+			formatter?: (value: any) => any;
 		}
 
 		export interface IModelConfig {
-			modelId:string;
-			fields:Array<string|IModelFieldConfig>;
+			modelId: string;
+			fields: Array<string|IModelFieldConfig>;
 		}
 
 		export class Model extends Blend.BaseClass implements IModelConfig {
 
-			modelId:string;
-			fields:Array<string|IModelFieldConfig>|any;
-			fieldValues:IBindingData;
-			bindingCallbacks:IBindingCallback;
+			modelId: string;
+			fields: Array<string|IModelFieldConfig>|any;
+			fieldValues: IBindingData;
+			bindingCallbacks: IBindingCallback;
 
-			constructor(config:IModelConfig) {
+			constructor(config: IModelConfig) {
 				super(config);
-				if(!this.fieldValues) this.fieldValues = {};
-				if(!this.bindingCallbacks) this.bindingCallbacks = {};
+				if (!this.fieldValues) this.fieldValues = {};
+				if (!this.bindingCallbacks) this.bindingCallbacks = {};
 				this.createFields();
-				Blend.mvc.Context.registerModel(this.modelId,this);
+				Blend.mvc.Context.registerModel(this.modelId, this);
 			}
 
 			createFields() {
 				var me = this,
 					fields,
-					field:IModelFieldConfig;
-				me.prepareFields(me.fields).forEach(function(item){
+					field: IModelFieldConfig;
+				me.prepareFields(me.fields).forEach(function(item) {
 					me.createField(item);
 				});
 			}
 
-			prepareFields(fields:Array<IModelFieldConfig|string>)  {
+			prepareFields(fields: Array<IModelFieldConfig|string>) {
 				var me = this,
-					result:Array<IModelFieldConfig> = [],
-					field:IModelFieldConfig;
-				fields.forEach(function(item){
-					if(Blend.isString(item)) {
+					result: Array<IModelFieldConfig> = [],
+					field: IModelFieldConfig;
+				fields.forEach(function(item) {
+					if (Blend.isString(item)) {
 						field = {
-							name:<string>item,
-							bindTo:null,
-							formatter:null,
-							value:function() {
+							name: <string>item,
+							bindTo: null,
+							formatter: null,
+							value: function() {
 								return me.fieldValues[<string>item];
 							}
 						}
@@ -72,7 +72,7 @@ module Blend {
 				return result;
 			}
 
-			createField(field:IModelFieldConfig) {
+			createField(field: IModelFieldConfig) {
 				var me = this,
 					oField,
 					getterName,
@@ -82,53 +82,53 @@ module Blend {
 				me.fieldValues[field.name] = me.fieldValues[field.name] || null;
 
 				oField = {
-					formatter:field.formatter ?  field.formatter :  me.defaultFormatter,
-					bindTo:field.bindTo || [],
-					value:field.value || null
+					formatter: field.formatter ? field.formatter : me.defaultFormatter,
+					bindTo: field.bindTo || [],
+					value: field.value || null
 				}
 
-				if(isComplex === true && !field.value) {
+				if (isComplex === true && !field.value) {
 					throw new Error(`Complex field ${me.modelId}.${field.name} must have a value() function!`);
 				}
 
 				getterName = me.getGetterName(field.name);
-				me[getterName] = function(raw:boolean=false) {
-					if(raw === true && oField.formatter) {
-						return oField.formatter.apply(me,[oField.value.apply(me)]);
+				me[getterName] = function(raw: boolean = false) {
+					if (raw === true && oField.formatter) {
+						return oField.formatter.apply(me, [oField.value.apply(me)]);
 					} else {
-						return oField.value.apply(me,[]);
+						return oField.value.apply(me, []);
 					}
 				}
 
 
 				setterName = me.getSetterName(field.name);
 
-				if(!me.isComplexField(field)) {
-					me[setterName] = function(value:any) {
+				if (!me.isComplexField(field)) {
+					me[setterName] = function(value: any) {
 						me.fieldValues[field.name] = value;
-						me.publishBinding(field.name,me[getterName].apply(me,[true]));
+						me.publishBinding(field.name, me[getterName].apply(me, [true]));
 					}
 				} else {
-					me[setterName] = function(value:any) {
+					me[setterName] = function(value: any) {
 						me.fieldValues[field.name] = value;
 					}
-					var createCallback = function(fname,gname) {
+					var createCallback = function(fname, gname) {
 						return function() {
-							me.publishBinding(fname,me[gname].apply(me,[true]));
+							me.publishBinding(fname, me[gname].apply(me, [true]));
 						}
 					}
-					field.bindTo.forEach(function(bfield){
-						me.bind(bfield,createCallback(field.name,getterName))
+					field.bindTo.forEach(function(bfield) {
+						me.bind(bfield, createCallback(field.name, getterName))
 					});
 				}
 
 				me.fields[field.name] = field;
 			}
 
-			bind(field,viewSetter:Function) {
+			bind(field, viewSetter: Function) {
 				var me = this;
-				if(me.checkField(field)) {
-					if(!this.bindingCallbacks[field]) {
+				if (me.checkField(field)) {
+					if (!this.bindingCallbacks[field]) {
 						this.bindingCallbacks[field] = [viewSetter];
 					} else {
 						me.bindingCallbacks[field].push(viewSetter);
@@ -137,20 +137,20 @@ module Blend {
 			}
 
 
-			checkField(field:string) {
-				if(!this.fields[field]) {
+			checkField(field: string) {
+				if (!this.fields[field]) {
 					throw new Error(`${this.modelId} does not have a field named ${field}`);
 				} else {
 					return true;
 				}
 			}
 
-			isComplexField(field:IModelFieldConfig) {
+			isComplexField(field: IModelFieldConfig) {
 				return (field.bindTo && field.bindTo.length > 0) ? true : false;
 			}
 
 			getGetterName(name) {
-				return 'get'+ Blend.ucFirst(name);
+				return 'get' + Blend.ucFirst(name);
 			}
 
 			getSetterName(name) {
@@ -161,22 +161,22 @@ module Blend {
 				return value;
 			}
 
-			setData(data:IBindingData) {
+			setData(data: IBindingData) {
 				var me = this,
 					setterName;
-				for(var field in data) {
-					if(me.fields[field]) {
+				for (var field in data) {
+					if (me.fields[field]) {
 						setterName = me.getSetterName(field);
-						me[setterName].apply(me,[data[field]]);
+						me[setterName].apply(me, [data[field]]);
 					}
 				}
 			}
 
-			publishBinding(fieldName,value) {
+			publishBinding(fieldName, value) {
 				var me = this;
-				if(me.fields[fieldName] && me.bindingCallbacks[fieldName]) {
-					me.bindingCallbacks[fieldName].forEach(function(setter){
-						setter.apply(me,[value||null]);
+				if (me.fields[fieldName] && me.bindingCallbacks[fieldName]) {
+					me.bindingCallbacks[fieldName].forEach(function(setter) {
+						setter.apply(me, [value || null]);
 					});
 				}
 			}

@@ -5,12 +5,12 @@ module Blend {
 
 	export module mvc {
 
-		export interface IViewConfig {
+		export interface IViewConfig extends Blend.mvc.IBindingClientConfig {
 			reference?:string;
 			controllers?:Array<string>;
 		}
 
-		export class View extends Blend.mvc.BindingClient implements IViewConfig, Blend.mvc.IBindingClientConfig {
+		export class View extends Blend.mvc.BindingClient implements IViewConfig {
 
 			parent:View;
 			reference:string;

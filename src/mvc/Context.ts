@@ -6,30 +6,30 @@ module Blend {
 
 		export class ContextSingleton {
 
-			controllers:any;
-			models:any;
+			controllers: any;
+			models: any;
 
 			constructor() {
 				this.controllers = {};
 				this.models = {};
 			}
 
-			getController(name:string) : Controller {
+			getController(name: string): Controller {
 				return this.controllers[name] || null;
 			}
 
-			getModel(name:string) : Model {
+			getModel(name: string): Model {
 				return this.models[name] || null;
 			}
 
-			registerModel(name:string,model:Model) {
-				if(!this.models[name]) {
+			registerModel(name: string, model: Model) {
+				if (!this.models[name]) {
 					this.models[name] = model;
 				}
 			}
 
-			registerController(name:string,controller:Controller) {
-				if(!this.controllers[name]) {
+			registerController(name: string, controller: Controller) {
+				if (!this.controllers[name]) {
 					this.controllers[name] = controller;
 				}
 			}
