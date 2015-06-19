@@ -3,16 +3,19 @@
 module Blend {
 
 	export module mvc {
+		
+		export interface IControllerDictionary {
+			[name:string]:Blend.mvc.Controller
+		}
+		
+		export interface IModelDictionary {
+			[name:string]:Blend.mvc.Model
+		}
 
 		export class ContextSingleton {
 
-			controllers: any;
-			models: any;
-
-			constructor() {
-				this.controllers = {};
-				this.models = {};
-			}
+			controllers:IControllerDictionary = {};
+			models:IModelDictionary = {};
 
 			getController(name: string): Controller {
 				return this.controllers[name] || null;
