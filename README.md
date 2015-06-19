@@ -1,6 +1,7 @@
 # BlendJS SDK
 
-BlendJS SDK is a TypeScript Application Framework for building mobile and web application.
+BlendJS SDK is an Application Framework for developing Mobile and Web applications
+using TypeScript
 
 ## UPDATE
 
