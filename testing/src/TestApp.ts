@@ -1,5 +1,5 @@
 var TestRunner = new Blend.testing.TestRunnerSingleton();
 Blend.Environment.ready(function() {
-	TestRunner.run();
+    TestRunner.run();
 });
 Blend.Environment.kickStart();

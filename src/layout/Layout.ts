@@ -32,6 +32,7 @@ module Blend {
             }
         }
 
+        /*
         // internal database of registered layouts
         var layoutRegistry = {};
 
@@ -50,5 +51,17 @@ module Blend {
         registerLayout('default', function(config: ILayoutConfig, view: Blend.ui.View) {
             return new Blend.layout.Layout(config, view);
         });
+        */
+
+        Blend.registerClassWithAlias('layout.default',Blend.layout.Layout);
+
+        export function createLayout(config: ILayoutConfig, view: Blend.ui.View): Layout {
+            if(config && config.alias) {
+                return <Layout>Blend.createObjectWithAlias('layout.'+ config.alias,config,view);
+            } else {
+                return null;
+            }
+        }
+
     }
 }
