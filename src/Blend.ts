@@ -24,17 +24,50 @@
 module Blend {
 
     var CSS_PREFIX = 'b-';
+    var registry = {};
 
-    export function cssPrefix(className:string|Array<string>):string {
-            var r = [];
-            if(!Blend.isArray(className)) {
-                className = <Array<string>>[className];
+    export interface IClassWithAliasConfig {
+        ctype:string;
+        [name:string]:any;
+    }
+
+    export function registerClassWithAlias(alias: string, clazz: Function) {
+        if (!registry[alias]) {
+            var creator = function(c: Function) {
+                return function() {
+                    var o = Object.create(c.prototype)
+                    c.apply(o, arguments);
+                    return o;
+                }
             }
-            Blend.forEach(className, function (itm) {
-                r.push(CSS_PREFIX + itm);
-            });
-            return r.join(' ');
-        };
+            registry[alias] = creator(clazz);
+        } else {
+            throw new Error(`A Class with alias ${alias} is already registered!`);
+        }
+    }
+
+    export function getAlias(config: any) {
+        return config ? (config['alias'] || config['ctype'] || null ) : null;
+    }
+
+    export function createObjectWithAlias(alias: string, ...args: any[]) {
+        if (registry[alias]) {
+            return registry[alias].apply(this, args);
+        } else {
+            throw new Error(`No Class with alias ${alias} is registered!`);
+        }
+    }
+
+    export function cssPrefix(className: string|Array<string>): string {
+        var r = [];
+        if (!Blend.isArray(className)) {
+            className = <Array<string>>[className];
+        }
+        Blend.forEach(className, function(itm) {
+            r.push(CSS_PREFIX + itm);
+        });
+        return r.join(' ');
+    };
 
     export function ucFirst(value: string) {
         return value.charAt(0).toUpperCase() + value.slice(1);
@@ -123,20 +156,5 @@ module Blend {
             }
         }
         return obj;
-    }
-
-    export class BaseClass {
-
-        constructor(config: any) {
-            this.setConfig(config);
-        }
-
-        setConfig(config: any) {
-            for (var key in config) {
-                if (config[key]) {
-                    this[key] = config[key];
-                }
-            }
-        }
     }
 }

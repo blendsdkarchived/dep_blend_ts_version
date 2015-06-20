@@ -3,11 +3,16 @@
 ///<reference path="../mvc/Context.ts"/>
 ///<reference path="../Environment.ts"/>
 ///<reference path="../utils/Dom.ts"/>
+///<reference path="../layout/FitUtil.ts"/>
 
 module Blend {
     export module ui {
+
         export interface IApplicationConfig extends IViewConfig {
-            mainView: Blend.ui.View;
+            /**
+             * The main view for this application
+             */
+            mainView: (Blend.ui.View|IClassWithAliasConfig);
         }
 
         export class Application extends Blend.ui.View implements IApplicationConfig {
@@ -19,8 +24,22 @@ module Blend {
             constructor(config?: IApplicationConfig) {
                 var me = this;
                 me.bindToAllControllers();
+                config.layoutConfig = null;
                 config.reference = "application";
                 super(config);
+                (<Blend.ui.View>me.mainView).parent = me;
+            }
+
+            parseConfigValue(key: string, value: any) {
+                if (key === 'mainView') {
+                    if (Blend.isInstanceOf(value, Blend.ui.View)) {
+                        return value;
+                    } else {
+                        return Blend.createObjectWithAlias(Blend.getAlias(value), value);
+                    }
+                } else {
+                    return value;
+                }
             }
 
             protected asyncRun() {
@@ -33,6 +52,16 @@ module Blend {
                 me.notifyReady();
             }
 
+            layoutView() {
+                var me = this;
+                if (me.mainView) {
+                    me.mainView.performLayout.apply(me.mainView, arguments);
+                }
+            }
+
+            /**
+             * Bind the Application view to all available controllers
+             */
             bindToAllControllers(): void {
                 var me = this,
                     ctrlNames = [];
@@ -72,21 +101,24 @@ module Blend {
                 me.fireEvent('resize', evt);
             }
 
+            /**
+             * Render the application HTMLElement fitted inside the document body
+             * element and the MainView fitted inside the application's element
+             */
             render(): HTMLElement {
                 var me = this,
-                    isResizing = false;;
-                return Blend.Dom.createElement({
-                    cls: [Blend.cssPrefix('application')],
-                    extra: {
-                        'data-layout':'center',
-                        id:'b1'
-                    },
-                    style: {
-                        width:200,
-                        height:200,
-                        'background-color':'red'
-                    }
-                });
+                    isResizing = false,
+                    el = Blend.Dom.createElement({
+                        cls: [Blend.cssPrefix('application')],
+                        extra: {
+                            'data-layout': 'fitted'
+                        }
+                    });
+                if (me.mainView) {
+                    el.appendChild(me.mainView.getElement());
+                    Blend.layout.utils.fitUtil(me.mainView.getElement());
+                }
+                return el;
             }
 
             run() {
