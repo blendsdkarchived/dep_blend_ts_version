@@ -20,3 +20,4 @@ src/utils/Dom.ts
 src/ui/View.ts
 src/ui/Container.ts
 src/ui/Application.ts
+src/ui/Rectangle.ts
