@@ -1,11 +1,11 @@
 ///<reference path="Blend.ts"/>
-module Blend {	
+module Blend {
     /**
      * The base class for most BlendJS components. This class accepts a dictionary
-     * as its constructor parameter. For each key/value pare in in the doctionary 
+     * as its constructor parameter. For each key/value pare in in the doctionary
      * the parseConfigValue value is called before the value is assigned to the class.
      * Additionaly if the class contains a setter function for a given key (setXYZ), then
-     * the setter function is used to assign the value. 
+     * the setter function is used to assign the value.
      */
     export class BaseClass {
 
@@ -27,7 +27,7 @@ module Blend {
                 }
             }
         }
-        
+
         /**
          * Parses a given configuration value before it is assigned to the vurrent class
          */
