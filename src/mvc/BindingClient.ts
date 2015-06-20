@@ -1,4 +1,7 @@
+///<reference path="../Blend.ts"/>
+///<reference path="../BaseClass.ts"/>
 module Blend {
+
     export module mvc {
 
         export interface IBinding {
