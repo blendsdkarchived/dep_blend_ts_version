@@ -26,7 +26,7 @@ module Blend {
 
 			unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/;
 			unitTypeRe: RegExp = /(em$|\%$)/;
-			UNIT:string= 'px';
+			UNIT: string = 'px';
 
 
 			getDocument(): HTMLElement {
@@ -77,7 +77,7 @@ module Blend {
 					});
 					return null;
 				} else {
-					return window.getComputedStyle(el,null);
+					return window.getComputedStyle(el, null);
 				}
 			}
 
@@ -122,9 +122,15 @@ module Blend {
 									el.setAttribute(k, v);
 								});
 								cfg = null;
-							} else if(cfg === 'style') {
+							} else if (cfg === 'style') {
 								cfg = null;
-								me.style(el,<IStyleConfig>val);
+								me.style(el, <IStyleConfig>val);
+							} else if (cfg == 'unselectable') {
+								if (val === true) {
+									val = 'on';
+								} else {
+									cfg = null;
+								}
 							}
 							if (cfg) {
 								el.setAttribute(cfg, val);
