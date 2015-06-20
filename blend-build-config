@@ -6,6 +6,7 @@
 --out ./build/js/blend.js
 
 src/Blend.ts
+src/BaseClass.ts
 src/Environment.ts
 src/layout/FitUtil.ts
 src/layout/CenterUtil.ts
@@ -17,4 +18,5 @@ src/mvc/Application.ts
 src/mvc/Context.ts
 src/utils/Dom.ts
 src/ui/View.ts
+src/ui/Container.ts
 src/ui/Application.ts
