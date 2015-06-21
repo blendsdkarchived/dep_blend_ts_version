@@ -1,0 +1,18 @@
+[data-scroll=none] {
+    overflow: hidden;
+}
+
+[data-scroll=vertical] {
+    overflow-x: hidden;
+    overflow-y: auto
+}
+
+[data-scroll=horizontal] {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+[data-scroll=auto] {
+    overflow-x: auto;
+    overflow-y: auto;
+}

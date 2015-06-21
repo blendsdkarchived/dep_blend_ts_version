@@ -3,6 +3,7 @@
 @import "compass/css3";
 @import "compass/css3/user-interface";
 @import "_layout.scss";
+@import "_scroll.scss";
 
 $prefix:  '.b';
 
@@ -23,3 +24,4 @@ body {
 [unselectable=on] {
     @include user-select(none);
 }
+
