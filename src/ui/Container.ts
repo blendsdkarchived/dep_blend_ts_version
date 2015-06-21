@@ -7,31 +7,34 @@ module Blend {
     export module ui {
 
         export interface IContainerConfig extends Blend.ui.IViewConfig {
-            children?:Array<Blend.ui.View|Blend.ui.IViewConfig>;
+            children?: Array<Blend.ui.View|Blend.ui.IViewConfig>;
         }
 
         export class Container extends Blend.ui.View implements IContainerConfig {
 
-            children:Array<Blend.ui.View|Blend.ui.IViewConfig>;
-            bodyElement:HTMLElement;
+            children: Array<Blend.ui.View|Blend.ui.IViewConfig>;
+            bodyElement: HTMLElement;
+            bodyContentElement: HTMLElement;
+            bodyPadding: number;
 
-            constructor(config?:IContainerConfig) {
+
+            constructor(config?: IContainerConfig) {
                 var me = this;
                 super(config);
             }
 
-            parseConfigValue(key:string,value:any) {
+            parseConfigValue(key: string, value: any) {
                 var me = this;
-                if(key === 'children') {
+                if (key === 'children') {
                     var list = <Array<Blend.ui.View|Blend.ui.IViewConfig>>value,
                         result = [];
-                    Blend.forEach(list,function(item){
-                        if(Blend.isInstanceOf(item,Blend.ui.View)) {
+                    Blend.forEach(list, function(item) {
+                        if (Blend.isInstanceOf(item, Blend.ui.View)) {
                             (<Blend.ui.View>item).parent = me;
                             result.push(item);
                         } else {
                             item.parent = me;
-                            var view = <Blend.ui.View>Blend.createObjectWithAlias(Blend.getAlias(item),item);
+                            var view = <Blend.ui.View>Blend.createObjectWithAlias(Blend.getAlias(item), item);
                             result.push(view);
                         }
                     });
@@ -42,43 +45,51 @@ module Blend {
             }
 
             layoutInnerElements() {
-                var me =  this;
+                var me = this;
                 Blend.layout.utils.fitUtil(me.bodyElement);
             }
 
             layoutView() {
                 var me = this;
                 me.layoutInnerElements();
-                super.layoutView.apply(me,arguments);
+                super.layoutView.apply(me, arguments);
             }
 
-            renderBodyElement() {
+            renderBodyElement(): any {
+                var me = this;
                 return {
-                    oid:'bodyElement',
-                    cls:[Blend.cssPrefix('bodyel')],
-                    extra: {
-                        'data-scroll':'none'
-                    }
+                    oid: 'bodyElement',
+                    cls:[Blend.cssPrefix('body')],
+                    style: {
+                        padding: me.bodyPadding
+                    },
+                    children: [
+                        {
+                            cls:[Blend.cssPrefix('body-inner')],
+                            oid: 'bodyContentElement',
+                            'data-layout': 'fitted'
+                        }
+                    ]
                 }
             }
 
             render() {
                 var me = this,
-                el = me.createElement({
-                    cls:[Blend.cssPrefix('cntnr')],
-                    children:[
-                        me.renderBodyElement()
-                    ]
-                },function(el:HTMLElement,oid:string){
-                    me[oid] = el;
-                },me);
-                Blend.forEach(me.children,function(view:Blend.ui.View){
-                    me.bodyElement.appendChild(view.getElement());
+                    el = me.createElement({
+                        cls: [Blend.cssPrefix('cntnr')],
+                        children: [
+                            me.renderBodyElement()
+                        ]
+                    }, function(el: HTMLElement, oid: string) {
+                        me[oid] = el;
+                    }, me);
+                Blend.forEach(me.children, function(view: Blend.ui.View) {
+                    me.bodyContentElement.appendChild(view.getElement());
                 });
                 return el;
             }
         }
 
-        Blend.registerClassWithAlias('ui.container',Container);
+        Blend.registerClassWithAlias('ui.container', Container);
     }
 }
