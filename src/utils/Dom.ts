@@ -16,6 +16,7 @@ module Blend {
             text?: string;
             children?: Array<ICreateElement|HTMLElement>,
             extra?: any;
+            style?:IStyleConfig;
         }
 
         export interface IStyleConfig {
@@ -27,15 +28,6 @@ module Blend {
             unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/;
             unitTypeRe: RegExp = /(em$|\%$)/;
             UNIT: string = 'px';
-
-
-            getDocument(): HTMLElement {
-                if (document) {
-                    return document.documentElement;
-                } else {
-                    throw new Error('No document object available!');
-                }
-            }
 
             clearElement(el: HTMLElement) {
                 var me = this;
