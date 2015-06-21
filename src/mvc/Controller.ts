@@ -23,8 +23,6 @@ module Blend {
                     handlers.forEach(function(handler) {
                         handler.apply(me, [view].concat(args));
                     });
-                } else {
-                    throw Error(`No event handlers found for event pathn ${eventPath}!`);
                 }
             }
 
