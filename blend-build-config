@@ -10,6 +10,7 @@ src/BaseClass.ts
 src/Environment.ts
 src/layout/FitUtil.ts
 src/layout/CenterUtil.ts
+src/layout/container/Layout.ts
 src/mvc/Model.ts
 src/mvc/BindingClient.ts
 src/mvc/View.ts

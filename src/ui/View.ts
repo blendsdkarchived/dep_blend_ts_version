@@ -18,6 +18,7 @@ module Blend {
 
             protected el: HTMLElement;
             protected rendered: boolean = false;
+            protected defaultLayout: string;
             layout: Blend.layout.Layout;
             private _canLayout: boolean = true;
             private _sizeSig: string;
@@ -25,8 +26,7 @@ module Blend {
             constructor(config?: IViewConfig) {
                 super(config);
                 var me = this,
-                    lc = (config && config.layoutConfig) ? config.layoutConfig : { alias: 'default' };
-
+                    lc = (config && config.layoutConfig) ? config.layoutConfig : { alias: me.defaultLayout || 'default' };
                 me.layout = Blend.layout.createLayout(lc, me);
             }
 
