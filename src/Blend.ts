@@ -27,8 +27,38 @@ module Blend {
     var registry = {};
 
     export interface IClassWithAliasConfig {
-        ctype:string;
-        [name:string]:any;
+        ctype: string;
+        [name: string]: any;
+    }
+
+    export function apply(target: any, source: any, overwrite: boolean = false, mergeArrays: boolean = false) {
+        var key;
+        overwrite = overwrite || false;
+        mergeArrays = mergeArrays || false;
+        if (target && source) {
+            for (key in source) {
+                if (key) {
+                    if (target[key] && Blend.isObject(target[key])) {
+                        if (overwrite) {
+                            target[key] = source[key];
+                        } else {
+                            Blend.apply(target[key], source[key]);
+                        }
+                    } else if (target[key] && Blend.isArray(target[key]) && mergeArrays === true) {
+                        target[key] = target[key].concat(Blend.wrapInArray(source[key]));
+                    } else if (target[key] && overwrite) {
+                        target[key] = source[key];
+                    } else if (Blend.isNullOrUndef(target[key])) {
+                        target[key] = source[key];
+                    }
+                }
+            }
+        }
+        return target;
+    }
+
+    export function wrapInArray(obj: any): Array<any> {
+        return Blend.isArray(obj) ? obj : Blend.isNullOrUndef(obj) ? [] : [obj];
     }
 
     export function registerClassWithAlias(alias: string, clazz: Function) {
@@ -47,7 +77,7 @@ module Blend {
     }
 
     export function getAlias(config: any) {
-        return config ? (config['alias'] || config['ctype'] || null ) : null;
+        return config ? (config['alias'] || config['ctype'] || null) : null;
     }
 
     export function createObjectWithAlias(alias: string, ...args: any[]) {
