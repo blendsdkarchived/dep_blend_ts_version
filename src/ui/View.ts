@@ -1,15 +1,20 @@
 ///<reference path="../mvc/View.ts"/>
+///<reference path="../utils/Dom.ts"/>
 ///<reference path="../layout/Layout.ts"/>
+
 module Blend {
     export module ui {
 
         export interface IViewConfig extends Blend.mvc.IViewConfig {
-            layoutConfig?: Blend.layout.ILayoutConfig
+            layoutConfig?: Blend.layout.ILayoutConfig;
+            style?: Blend.utils.IStyleConfig;
         }
 
         export class View extends Blend.mvc.View implements IViewConfig {
 
-            parent:Blend.ui.View;
+            parent: Blend.ui.View;
+            style: Blend.utils.IStyleConfig;
+            cls: string|Array<string>;
 
             protected el: HTMLElement;
             protected rendered: boolean = false;
@@ -75,6 +80,21 @@ module Blend {
                     me.el = me.layout.render();
                 }
                 return me.el;
+            }
+
+            prepareElement(elConfig: Blend.utils.ICreateElement) {
+                var me = this,
+                    data = {
+                        style: me.style || {},
+                        cls: me.cls || []
+                    };
+                Blend.apply(elConfig, data, false, true);
+                return elConfig;
+            }
+
+            createElement(config: Blend.utils.ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
+                var me = this;
+                return Blend.Dom.createElement(me.prepareElement(config), elCallback, me);
             }
 
             render(): HTMLElement {

@@ -28,9 +28,19 @@ module Blend {
                 return color;
             }
 
+            notifyClick() {
+                var me = this;
+                me.fireEvent('click',Blend.Dom.style(me.el));
+            }
+
             render() {
                 var me = this;
-                return Blend.Dom.createElement({
+                return me.createElement({
+                    listeners: {
+                        click: function(evt: Event) {
+                            me.notifyClick();
+                        }
+                    },
                     style: {
                         width: me.width,
                         height: me.height,
