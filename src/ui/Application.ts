@@ -31,10 +31,12 @@ module Blend {
             }
 
             parseConfigValue(key: string, value: any) {
+                var me = this;
                 if (key === 'mainView') {
                     if (Blend.isInstanceOf(value, Blend.ui.View)) {
                         return value;
                     } else {
+                        value.parent = me;
                         return Blend.createObjectWithAlias(Blend.getAlias(value), value);
                     }
                 } else {

@@ -30,8 +30,8 @@ module Blend {
                             (<Blend.ui.View>item).parent = me;
                             result.push(item);
                         } else {
+                            item.parent = me;
                             var view = <Blend.ui.View>Blend.createObjectWithAlias(Blend.getAlias(item),item);
-                            view.parent = me;
                             result.push(view);
                         }
                     });
@@ -55,13 +55,16 @@ module Blend {
             renderBodyElement() {
                 return {
                     oid:'bodyElement',
-                    cls:[Blend.cssPrefix('bodyel')]
+                    cls:[Blend.cssPrefix('bodyel')],
+                    extra: {
+                        'data-scroll':'none'
+                    }
                 }
             }
 
             render() {
                 var me = this,
-                el = Blend.Dom.createElement({
+                el = me.createElement({
                     cls:[Blend.cssPrefix('cntnr')],
                     children:[
                         me.renderBodyElement()
