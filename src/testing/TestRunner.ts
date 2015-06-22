@@ -50,7 +50,7 @@ module Blend {
                             }
                         } else if (me.is_object(a)) {
                             var akeys = Object.keys(a),
-                            bkeys = Object.keys(a);
+                            bkeys = Object.keys(b);
                             if (akeys.length === bkeys.length) {
                                 for (var k in a) {
                                     if (!check(a[k], b[k])) {

@@ -26,6 +26,10 @@ module Blend {
     var CSS_PREFIX = 'b-';
     var registry = {};
 
+    export interface IDictionary {
+        [name: string]: any;
+    }
+
     export interface IClassWithAliasConfig {
         ctype: string;
         [name: string]: any;
