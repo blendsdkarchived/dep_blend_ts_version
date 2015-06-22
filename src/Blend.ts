@@ -92,7 +92,7 @@ module Blend {
         }
     }
 
-    export function cssPrefix(className: string|Array<string>): string {
+    export function cssPrefix(className: string|Array<string>, resurnArray: boolean = false): string|string[] {
         var r = [];
         if (!Blend.isArray(className)) {
             className = <Array<string>>[className];
@@ -100,7 +100,11 @@ module Blend {
         Blend.forEach(className, function(itm) {
             r.push(CSS_PREFIX + itm);
         });
-        return r.join(' ');
+        if (resurnArray === true) {
+            return r;
+        } else {
+            return r.join(' ');
+        }
     };
 
     export function ucFirst(value: string) {
