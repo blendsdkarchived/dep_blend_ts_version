@@ -2,6 +2,18 @@
 ///<reference path="../utils/Dom.ts"/>
 ///<reference path="../layout/Layout.ts"/>
 
+/**
+ * Layout process
+ * Caller:
+ *      [1] Call View => performLayout
+ *      [2] performLayout => View:layoutView
+ *      [3] View:Layout => performLayout
+ *      [4] View:Layout:performLayout => View:doneLayout
+ *
+ *      Use View:layoutView to layout View's inner elements if needed.
+ *          ideally this should be done by the "component" layout
+ */
+
 module Blend {
     export module ui {
 
@@ -97,7 +109,7 @@ module Blend {
                 return Blend.Dom.createElement(me.prepareElement(config), elCallback, me);
             }
 
-            render(): HTMLElement {
+            render(extraConfig?: Blend.utils.ICreateElement): HTMLElement {
                 throw new Error('Not Implemented Yet!');
             }
         }

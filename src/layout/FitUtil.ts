@@ -19,7 +19,7 @@ module Blend {
                     left: null,
                     margin: null
                 });
-                element.setAttribute('data-layout','fitted');
+                Blend.Dom.cssClass(element, <string>Blend.cssPrefix('fitted'));
             }
 
         }

@@ -30,26 +30,26 @@ module Blend {
 
             notifyClick() {
                 var me = this;
-                me.fireEvent('click',Blend.Dom.style(me.el));
+                me.fireEvent('click', Blend.Dom.style(me.el));
             }
 
-            render() {
-                var me = this;
-                return me.createElement({
-                    listeners: {
-                        click: function(evt: Event) {
-                            me.notifyClick();
+            render(layoutConfig?: Blend.utils.ICreateElement) {
+                var me = this,
+                    spec = Blend.apply(layoutConfig || {}, {
+                        listeners: {
+                            click: function(evt: Event) {
+                                me.notifyClick();
+                            }
+                        },
+                        style: {
+                            width: me.width,
+                            height: me.height,
+                            'background-color': me.color || (me.color = me.getRandomColor()),
+                            top: me.top,
+                            left: me.left
                         }
-                    },
-                    style: {
-                        width: me.width,
-                        height: me.height,
-                        'background-color': me.color || (me.color = me.getRandomColor()),
-                        position: 'relative',
-                        top: me.top,
-                        left: me.left
-                    }
-                })
+                    });
+                return me.createElement(spec)
             }
         }
 

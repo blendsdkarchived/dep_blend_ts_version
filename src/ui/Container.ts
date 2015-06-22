@@ -10,7 +10,13 @@ module Blend {
             children?: Array<Blend.ui.View|Blend.ui.IViewConfig>;
         }
 
-        export class Container extends Blend.ui.View implements IContainerConfig {
+        export interface IContainer {
+            bodyElement: HTMLElement;
+            bodyContentElement: HTMLElement;
+            children: Array<Blend.ui.View|Blend.ui.IViewConfig>;
+        }
+
+        export class Container extends Blend.ui.View implements IContainerConfig, IContainer {
 
             children: Array<Blend.ui.View|Blend.ui.IViewConfig>;
             bodyElement: HTMLElement;
@@ -20,6 +26,7 @@ module Blend {
 
             constructor(config?: IContainerConfig) {
                 var me = this;
+                me.defaultLayout = 'container';
                 super(config);
             }
 
@@ -59,33 +66,30 @@ module Blend {
                 var me = this;
                 return {
                     oid: 'bodyElement',
-                    cls:[Blend.cssPrefix('body')],
+                    cls: [Blend.cssPrefix('body')],
                     style: {
                         padding: me.bodyPadding
                     },
                     children: [
                         {
-                            cls:[Blend.cssPrefix('body-inner')],
+                            cls: Blend.cssPrefix(['body-inner','fitted']),
                             oid: 'bodyContentElement',
-                            'data-layout': 'fitted'
                         }
                     ]
                 }
             }
 
-            render() {
+            render(layoutConfig?: Blend.utils.ICreateElement) {
                 var me = this,
-                    el = me.createElement({
-                        cls: [Blend.cssPrefix('cntnr')],
+                    spec = Blend.apply(layoutConfig || {}, {
+                        cls: Blend.cssPrefix('cntnr', true),
                         children: [
                             me.renderBodyElement()
                         ]
-                    }, function(el: HTMLElement, oid: string) {
+                    },true,true),
+                    el = me.createElement(spec, function(el: HTMLElement, oid: string) {
                         me[oid] = el;
                     }, me);
-                Blend.forEach(me.children, function(view: Blend.ui.View) {
-                    me.bodyContentElement.appendChild(view.getElement());
-                });
                 return el;
             }
         }

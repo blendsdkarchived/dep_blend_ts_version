@@ -111,10 +111,7 @@ module Blend {
                 var me = this,
                     isResizing = false,
                     el = Blend.Dom.createElement({
-                        cls: [Blend.cssPrefix('application')],
-                        extra: {
-                            'data-layout': 'fitted'
-                        }
+                        cls: <string[]>Blend.cssPrefix(['application','fitted'],true)
                     });
                 if (me.mainView) {
                     el.appendChild(me.mainView.getElement());

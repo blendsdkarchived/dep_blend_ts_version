@@ -1,11 +1,11 @@
+$prefix:  '.b';
+
 @import "compass";
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/css3/user-interface";
 @import "_layout.scss";
 @import "_scroll.scss";
-
-$prefix:  '.b';
 
 html, * , *:before, *:after{
     @include box-sizing(border-box);

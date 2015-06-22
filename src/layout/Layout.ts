@@ -17,19 +17,28 @@ module Blend {
         export class Layout extends Blend.BaseClass {
 
             view: Blend.ui.View;
+            cssKeyName:string;
 
             constructor(config: ILayoutConfig, view: Blend.ui.View) {
+                var me = this;
                 super(config);
-                this.view = view;
+                me.view = view;
             }
 
             performLayout() {
+                var me = this;
                 this.view.doneLayout();
             }
 
             render(): HTMLElement {
-                return this.view.render.apply(this.view, arguments);
+                var me = this,
+                    spec = {};
+                    if(me.cssKeyName) {
+                        spec['cls'] = Blend.cssPrefix(me.cssKeyName,true);
+                    }
+                return this.view.render.apply(this.view, [spec]);
             }
+
         }
 
         Blend.registerClassWithAlias('layout.default',Blend.layout.Layout);
