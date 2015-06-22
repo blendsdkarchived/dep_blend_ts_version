@@ -16,7 +16,7 @@ module Blend {
             text?: string;
             children?: Array<ICreateElement|HTMLElement>,
             extra?: any;
-            style?:IStyleConfig;
+            style?: IStyleConfig;
         }
 
         export interface IStyleConfig {
@@ -44,6 +44,42 @@ module Blend {
 
             removeEventListener(el: EventTarget, eventName: string, eventHandler: EventListener): void {
                 el.removeEventListener(eventName, eventHandler, false);
+            }
+
+            cssClass(el: HTMLElement, cls?: string|IDictionary): IDictionary {
+                var me = this;
+                if (cls) {
+                    if(Blend.isString(cls)) {
+                        var a= <string>cls;
+                        cls = {}; cls[a] = true;
+                    }
+                    var cur = me.cssClass(el),
+                        re =[],s;
+                    cur = Blend.apply(cur,cls,true);
+                    Blend.forEach(cur,function(v,k){
+                        if(v===true) {
+                            re.push(k);
+                        }
+                    });
+                    s = re.join(' ');
+                    if(s != '') {
+                        el.setAttribute('class',s);
+                    }
+                    return cur;
+                } else {
+                    var value = el.getAttribute('class');
+                    if (value && value !== '') {
+                        var r: IDictionary = {};
+                        Blend.forEach(value.split(' '), function(cls) {
+                            if (cls !== '') {
+                                r[cls] = true;
+                            }
+                        });
+                        return r;
+                    } else {
+                        return {};
+                    }
+                }
             }
 
             style(el: HTMLElement, styles?: IStyleConfig): CSSStyleDeclaration {
