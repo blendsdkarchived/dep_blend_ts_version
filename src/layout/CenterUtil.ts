@@ -2,15 +2,13 @@
 ///<reference path="../utils/Dom.ts"/>
 module Blend {
     export module layout {
-
         export module utils {
-
             /**
              * Removed the positioning styles and
              * sets the data-layout to fitted
              */
             export function centerUtil(element: HTMLElement) {
-                Blend.Dom.style(element, {
+                Blend.Dom.setStyle(element, {
                     display: null,
                     position: null,
                     top: null,

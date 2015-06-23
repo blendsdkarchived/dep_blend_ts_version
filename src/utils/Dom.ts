@@ -26,7 +26,8 @@ module Blend {
         export class DomSingleton {
 
             unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/;
-            unitTypeRe: RegExp = /(em$|\%$)/;
+            unitTypeRe: RegExp = /(em$|\%$|auto)/;
+            pixelRe = /px$/;
             UNIT: string = 'px';
 
             clearElement(el: HTMLElement) {
@@ -49,21 +50,21 @@ module Blend {
             cssClass(el: HTMLElement, cls?: string|IDictionary): IDictionary {
                 var me = this;
                 if (cls) {
-                    if(Blend.isString(cls)) {
-                        var a= <string>cls;
+                    if (Blend.isString(cls)) {
+                        var a = <string>cls;
                         cls = {}; cls[a] = true;
                     }
                     var cur = me.cssClass(el),
-                        re =[],s;
-                    cur = Blend.apply(cur,cls,true);
-                    Blend.forEach(cur,function(v,k){
-                        if(v===true) {
+                        re = [], s;
+                    cur = Blend.apply(cur, cls, true);
+                    Blend.forEach(cur, function(v, k) {
+                        if (v === true) {
                             re.push(k);
                         }
                     });
                     s = re.join(' ');
-                    if(s != '') {
-                        el.setAttribute('class',s);
+                    if (s != '') {
+                        el.setAttribute('class', s);
                     }
                     return cur;
                 } else {
@@ -82,7 +83,24 @@ module Blend {
                 }
             }
 
-            style(el: HTMLElement, styles?: IStyleConfig): CSSStyleDeclaration {
+            /**
+             * Returns a dictionary object with style information
+             */
+            getStyle(el: HTMLElement, styles: string[]): IStyleConfig {
+                var me = this;
+                if (el) {
+                    var cs = window.getComputedStyle(el, null),
+                        r: IStyleConfig = {};
+                    Blend.forEach(styles, function(key) {
+                        r[key] = me.fromUnit(cs.getPropertyValue(key));
+                    });
+                    return r;
+                } else {
+                    return null;
+                }
+            }
+
+            setStyle(el: HTMLElement, styles: IStyleConfig) {
                 var me = this,
                     setter = function(el, k, v) {
                         if (v === null) {
@@ -98,15 +116,26 @@ module Blend {
 
                 if (styles) {
                     Blend.forEach(styles, function(v, k) {
-                        if (v !== null && me.unitPropertyRe.test(k) && !me.unitTypeRe.test(v)) {
-                            v = v + me.UNIT;
-                        }
-                        setter(el, k, v);
+                        setter(el, k, me.toUnit(k, v));
                     });
                     return null;
-                } else {
-                    return window.getComputedStyle(el, null);
                 }
+            }
+
+            fromUnit(value: any): any {
+                var me = this;
+                if (value !== null && me.pixelRe.test(value)) {
+                    value = parseFloat(value.replace(me.UNIT, ''));
+                }
+                return value;
+            }
+
+            toUnit(key: string, value: any) {
+                var me = this;
+                if (value !== null && me.unitPropertyRe.test(key) && !me.unitTypeRe.test(value)) {
+                    value = value + me.UNIT;
+                }
+                return value;
             }
 
             createElement(config: ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
@@ -152,7 +181,7 @@ module Blend {
                                 cfg = null;
                             } else if (cfg === 'style') {
                                 cfg = null;
-                                me.style(el, <IStyleConfig>val);
+                                me.setStyle(el, <IStyleConfig>val);
                             } else if (cfg == 'unselectable') {
                                 if (val === true) {
                                     val = 'on';

@@ -51,5 +51,8 @@ TestRunner.defineTest('DOM', 'cssClass', function(t: Blend.testing.TestRunnerSin
     cls = Blend.Dom.cssClass(el);
     t.equal({ 'd': true }, cls, 'remove non existant cls');
 
+
+    t.equal(10,Blend.Dom.fromUnit('10px'),'fromUnit px')
+
     t.done();
 });

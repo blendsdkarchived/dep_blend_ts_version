@@ -30,7 +30,7 @@ module Blend {
 
             notifyClick() {
                 var me = this;
-                me.fireEvent('click', Blend.Dom.style(me.el));
+                me.fireEvent('click', me.getBounds());
             }
 
             render(layoutConfig?: Blend.utils.ICreateElement) {

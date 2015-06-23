@@ -10,7 +10,7 @@ module Blend {
              * sets the data-layout to fitted
              */
             export function fitUtil(element: HTMLElement) {
-                Blend.Dom.style(element, {
+                Blend.Dom.setStyle(element, {
                     width: null,
                     height: null,
                     display: null,

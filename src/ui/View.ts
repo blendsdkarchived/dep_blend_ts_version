@@ -12,6 +12,8 @@
  *
  *      Use View:layoutView to layout View's inner elements if needed.
  *          ideally this should be done by the "component" layout
+ *
+ *      Incase of a container use the layoutInnerElements
  */
 
 module Blend {
@@ -20,6 +22,13 @@ module Blend {
         export interface IViewConfig extends Blend.mvc.IViewConfig {
             layoutConfig?: Blend.layout.ILayoutConfig;
             style?: Blend.utils.IStyleConfig;
+        }
+
+        export interface IViewBounds {
+            top?: number;
+            left?: number;
+            width?: number|string;
+            height?: number|string;
         }
 
         export class View extends Blend.mvc.View implements IViewConfig {
@@ -34,13 +43,56 @@ module Blend {
             layout: Blend.layout.Layout;
             private _canLayout: boolean = true;
             private _sizeSig: string;
+            protected layoutTriggers:Array<string>;
 
             constructor(config?: IViewConfig) {
                 super(config);
                 var me = this,
                     lc = (config && config.layoutConfig) ? config.layoutConfig : { alias: me.defaultLayout || 'default' };
                 me.layout = Blend.layout.createLayout(lc, me);
+                me.layoutTriggers = me.layoutTriggers || [
+                    'boundsChanged'
+                ];
             }
+
+            fireEvent(eventName: string, ...args: any[]) {
+                /**
+                 * Override of the fireEvent function to trigger
+                 * performLayout on registered events.
+                 */
+                var me = this;
+                if(me.layoutTriggers.indexOf(eventName) !== -1) {
+                    me.performLayout();
+                }
+                super.fireEvent.apply(me,arguments);
+            }
+
+            setStyle(styles: Blend.utils.IStyleConfig, el?: HTMLElement) {
+                var me = this;
+                el = el || me.getElement();
+                Blend.Dom.setStyle(el, styles);
+            }
+
+            /* SIZE AND POSITION */
+
+            getBounds(el?: HTMLElement): IViewBounds {
+                var me = this;
+                el = el || me.getElement();
+                return Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
+            }
+
+            setBounds(bounds: IViewBounds) {
+                var me = this;
+                me.setStyle(<Blend.utils.IStyleConfig>bounds);
+                me.notifyBoundsChanged();
+            }
+
+            notifyBoundsChanged() {
+                var me = this;
+                me.fireEvent('boundsChanged');
+            }
+
+            /* LAYOUT */
 
             canLayout() {
                 return this._canLayout;
@@ -67,6 +119,7 @@ module Blend {
                 if (me.canLayout()) {
                     me._canLayout = false;
                     if (me.shouldLayout()) {
+                        console.log('layout');
                         me.layoutView.apply(me, arguments);
                     }
                     me._canLayout = true;
@@ -80,10 +133,11 @@ module Blend {
 
             private getSizeSig(): string {
                 var me = this,
-                    cs = <CSSStyleDeclaration>Blend.Dom.style(me.el);
-                return [cs.top, cs.left, cs.widows, cs.height, cs.padding, cs.margin].join('');
+                    cs = <IViewBounds>me.getBounds();
+                return [cs.top, cs.left, cs.height, cs.width, cs.height].join('');
             }
 
+            /* RENDER */
 
             getElement(): HTMLElement {
                 var me = this;

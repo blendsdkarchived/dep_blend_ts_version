@@ -26,7 +26,6 @@ module Blend {
                 render() {
                     var me = this;
                     var el: HTMLElement = super.render.apply(me,arguments);
-                    console.log(arguments);
                     Blend.forEach(me.view.children, function(item: Blend.ui.View) {
                         var el: HTMLElement = item.getElement();
                             Blend.Dom.cssClass(el, <string>Blend.cssPrefix('layout-item'));
