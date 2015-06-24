@@ -1,7 +1,7 @@
 ///<reference path="../Blend.ts"/>
 ///<reference path="../BaseClass.ts"/>
 module Blend.mvc {
-    
+
     export interface IBinding {
         [field: string]: string;
     }

@@ -207,4 +207,3 @@ module Blend.dom {
 module Blend {
     export var Dom = new Blend.dom.DomSingleton();
 }
-    

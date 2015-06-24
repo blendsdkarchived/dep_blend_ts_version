@@ -30,6 +30,6 @@ module Blend.layout.container {
             return el;
         }
 
-    }   
+    }
 }
 Blend.registerClassWithAlias('layout.container', Blend.layout.container.Layout);
