@@ -17,7 +17,7 @@ module Blend {
                 for (var key in config) {
                     if (config[key]) {
                         setterFnName = 'set' + Blend.ucFirst(key);
-                        value = this.parseConfigValue(key, config[key]);
+                        value = me.parseConfigValue(key, config[key]);
                         if (me[setterFnName]) {
                             me[setterFnName].apply(me, [value]);
                         } else {

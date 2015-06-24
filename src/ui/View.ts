@@ -16,12 +16,11 @@
  *      Incase of a container use the layoutInnerElements
  */
 
-module Blend {
-    export module ui {
+module Blend.ui {
 
         export interface IViewConfig extends Blend.mvc.IViewConfig {
             layoutConfig?: Blend.layout.ILayoutConfig;
-            style?: Blend.utils.IStyleConfig;
+            style?: Blend.dom.IStyleConfig;
         }
 
         export interface IViewBounds {
@@ -34,16 +33,17 @@ module Blend {
         export class View extends Blend.mvc.View implements IViewConfig {
 
             parent: Blend.ui.View;
-            style: Blend.utils.IStyleConfig;
+            style: Blend.dom.IStyleConfig;
             cls: string|Array<string>;
 
             protected el: HTMLElement;
-            protected rendered: boolean = false;
+            protected _rendered: boolean = false;
             protected defaultLayout: string;
             layout: Blend.layout.Layout;
             private _canLayout: boolean = true;
             private _sizeSig: string;
-            protected layoutTriggers:Array<string>;
+            protected layoutTriggers: Array<string>;
+            isVisible: boolean;
 
             constructor(config?: IViewConfig) {
                 super(config);
@@ -61,13 +61,16 @@ module Blend {
                  * performLayout on registered events.
                  */
                 var me = this;
-                if(me.layoutTriggers.indexOf(eventName) !== -1) {
-                    me.performLayout();
+                if (me._rendered === true) {
+                    // only fire and event when the component is rendered and ready
+                    if (me.layoutTriggers.indexOf(eventName) !== -1) {
+                        me.performLayout();
+                    }
+                    super.fireEvent.apply(me, arguments);
                 }
-                super.fireEvent.apply(me,arguments);
             }
 
-            setStyle(styles: Blend.utils.IStyleConfig, el?: HTMLElement) {
+            setStyle(styles: Blend.dom.IStyleConfig, el?: HTMLElement) {
                 var me = this;
                 el = el || me.getElement();
                 Blend.Dom.setStyle(el, styles);
@@ -83,19 +86,19 @@ module Blend {
 
             setBounds(bounds: IViewBounds) {
                 var me = this;
-                me.setStyle(<Blend.utils.IStyleConfig>bounds);
+                me.setStyle(<Blend.dom.IStyleConfig>bounds);
                 me.notifyBoundsChanged();
             }
 
             notifyBoundsChanged() {
                 var me = this;
-                me.fireEvent('boundsChanged');
+                me.fireEvent('boundsChanged',me.getBounds());
             }
 
             /* LAYOUT */
 
             canLayout() {
-                return this._canLayout;
+                return this._canLayout && this._rendered;
             }
 
             suspendLayout() {
@@ -141,14 +144,14 @@ module Blend {
 
             getElement(): HTMLElement {
                 var me = this;
-                if (!me.rendered) {
-                    me.rendered = true;
+                if (!me._rendered) {
                     me.el = me.layout.render();
+                    me._rendered = true;
                 }
                 return me.el;
             }
 
-            prepareElement(elConfig: Blend.utils.ICreateElement) {
+            prepareElement(elConfig: Blend.dom.ICreateElement) {
                 var me = this,
                     data = {
                         style: me.style || {},
@@ -158,15 +161,13 @@ module Blend {
                 return elConfig;
             }
 
-            createElement(config: Blend.utils.ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
+            createElement(config: Blend.dom.ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
                 var me = this;
                 return Blend.Dom.createElement(me.prepareElement(config), elCallback, me);
             }
 
-            render(extraConfig?: Blend.utils.ICreateElement): HTMLElement {
+            render(extraConfig?: Blend.dom.ICreateElement): HTMLElement {
                 throw new Error('Not Implemented Yet!');
             }
         }
-
     }
-}
