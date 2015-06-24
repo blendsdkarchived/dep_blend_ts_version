@@ -35,6 +35,15 @@ module Blend {
         [name: string]: any;
     }
 
+    export function getEnumValue(objEnum: any, value: any,defaultValue?:any) {
+        var dic: Blend.IDictionary = objEnum;
+        if(Blend.isNumeric(value)) {
+            return dic[parseInt(value)] || Blend.getEnumValue(objEnum,defaultValue);
+        } else {
+            return dic[value] || Blend.getEnumValue(objEnum,defaultValue);
+        }
+    }
+
     export function apply(target: any, source: any, overwrite: boolean = false, mergeArrays: boolean = false) {
         var key;
         overwrite = overwrite || false;
@@ -109,6 +118,11 @@ module Blend {
 
     export function ucFirst(value: string) {
         return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    export function isNumeric(value: any): boolean {
+        // Original source: JQuery
+        return value - parseFloat(value) >= 0;
     }
 
     export function isArray(value: any) {
