@@ -29,7 +29,7 @@ module Blend.layout.container.box {
                 me.nextLeft = 0;
             }
             r = me.nextLeft;
-            me.nextLeft += ilctx.width;
+            me.nextLeft += <number>ilctx.width;
             ilctx.left = r;
         }
 
@@ -39,7 +39,7 @@ module Blend.layout.container.box {
                 me.nextLeft = ((me.layoutContext.bounds.width / 2) - (me.requiredSpace / 2));
             }
             r = me.nextLeft;
-            me.nextLeft += ilctx.width;
+            me.nextLeft += <number>ilctx.width;
             ilctx.left = r;
         }
 
@@ -49,7 +49,7 @@ module Blend.layout.container.box {
                 me.nextLeft = (me.layoutContext.bounds.width - (me.requiredSpace));
             }
             r = me.nextLeft;
-            me.nextLeft += ilctx.width;
+            me.nextLeft += <number>ilctx.width;
             ilctx.left = r;
         }
 

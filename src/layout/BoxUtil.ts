@@ -31,7 +31,7 @@ module Blend {
         itemIndex: number;
         top: number;
         left: number;
-        width: number;
+        width: number|string;
         height: number|string;
         css: Array<string>;
     }
