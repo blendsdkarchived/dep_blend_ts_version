@@ -16,6 +16,7 @@ module Blend.ui {
         height: number = 100;
         top: number = null;
         left: number = null;
+        layoutCount = 0;
 
         getRandomColor(): string {
             var letters = '0123456789ABCDEF'.split('');
@@ -24,6 +25,17 @@ module Blend.ui {
                 color += letters[Math.floor(Math.random() * 16)];
             }
             return color;
+        }
+
+        shouldLayout() {
+            var me = this;
+            if (super.shouldLayout()) {
+                me.el.innerHTML = "#Layouts:" + me.layoutCount;
+                me.layoutCount++;
+                return true;
+            } else {
+                return false;
+            }
         }
 
         notifyClick() {

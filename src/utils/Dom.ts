@@ -13,7 +13,7 @@ module Blend.dom {
         cls?: string|Array<string>;
         listeners?: ICreateElementListeners;
         text?: string;
-        children?: Array<ICreateElement|HTMLElement>,
+        children?: Array<ICreateElement|HTMLElement>;
         extra?: any;
         style?: IStyleConfig;
     }

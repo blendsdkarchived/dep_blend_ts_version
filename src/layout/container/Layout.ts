@@ -15,7 +15,9 @@ module Blend.layout.container {
         performLayout() {
             var me = this;
             Blend.forEach((<Blend.ui.Container>me.view).children, function(view: Blend.ui.View) {
+                view.placeInALayoutContext(true);
                 view.performLayout();
+                view.placeInALayoutContext(false);
             });
             super.performLayout();
         }

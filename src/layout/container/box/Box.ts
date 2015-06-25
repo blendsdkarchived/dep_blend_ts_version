@@ -23,6 +23,7 @@ module Blend.layout.container.box {
 
         itemContext: Array<IBoxItemContext>
         layoutContext: IBoxLayoutContext;
+        viewsInLayout:Array<Blend.ui.View>;
 
         constructor(config: IBoxLayoutConfig, view: Blend.ui.View) {
             var me = this;
@@ -42,7 +43,20 @@ module Blend.layout.container.box {
             me.itemContext = me.createItemLayoutContext();
             me.layoutContext = me.createLayoutContext();
             me.handleLayout(me.itemContext, me.layoutContext);
-            super.performLayout.apply(me, arguments);
+            Blend.forEach(me.itemContext,function(ctx,idx){
+                setTimeout(function(){
+                    var view = me.viewsInLayout[idx];
+                    /**
+                     * This will trigger the view's navite performLayout instead
+                     * of view's parent's performLayout which is the default behaviour
+                     * when a views is asked to  do layout.
+                     */
+                    view.placeInALayoutContext(true);
+                    view.setBounds(ctx);
+                    view.placeInALayoutContext(false);
+                },5);
+            })
+            me.view.doneLayout();
         }
 
         createLayoutContext(): IBoxLayoutContext {
@@ -53,12 +67,7 @@ module Blend.layout.container.box {
                 itemMargin: me.defaultItemMargin,
                 direction: me.direction,
                 bounds: <IBoxLayoutBounds>me.view.getBounds(),
-                scroll: false, //me.view.scroll,
-                handler: function(ctx, idx) {
-                    var views = me.getViewVisibleChildren(),
-                        view = <Blend.ui.View>views[idx];
-                    view.setBounds(ctx);
-                }
+                scroll: false
             };
         }
 
@@ -70,7 +79,8 @@ module Blend.layout.container.box {
         createItemLayoutContext(): Array<IBoxItemContext> {
             var me = this,
                 list: Array<IBoxItemContext> = [];
-            Blend.forEach(me.getViewVisibleChildren(), function(view: Blend.ui.View) {
+                me.viewsInLayout = me.getViewVisibleChildren();
+            Blend.forEach(me.viewsInLayout, function(view: Blend.ui.View) {
                 var ctx: any = {},
                     flex = view.getAttribute('flex');
                 Blend.apply(ctx, view.getBounds());

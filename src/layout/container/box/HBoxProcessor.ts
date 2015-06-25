@@ -23,7 +23,6 @@ module Blend.layout.container.box {
             ilctx.top = me.layoutContext.bounds.height - <number>ilctx.height;
         }
 
-
         pack_start(ilctx: IBoxItemContext) {
             var me = this, r;
             if (me.nextLeft === -1) {
@@ -60,6 +59,5 @@ module Blend.layout.container.box {
             me.nextLeft = -1;
             me.flexedProperty = 'width';
         }
-
     }
 }

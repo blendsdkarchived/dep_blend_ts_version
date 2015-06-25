@@ -75,8 +75,7 @@ module Blend.layout.container.box {
             for (var i in ilctx) {
                 ctx = ilctx[i];
                 alignFn.apply(me, [ctx]);
-                packFn.apply(me, [ctx])
-                lctx.handler(ctx, i);
+                packFn.apply(me, [ctx]);
             }
         }
     }
