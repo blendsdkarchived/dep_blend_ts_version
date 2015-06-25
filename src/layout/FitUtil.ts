@@ -1,10 +1,6 @@
 ///<reference path="../Blend.ts"/>
 ///<reference path="../utils/Dom.ts"/>
 module Blend.layout.utils {
-    /**
-     * Removed the positioning styles and
-     * sets the data-layout to fitted
-     */
     export function fitUtil(element: HTMLElement) {
         Blend.Dom.setStyle(element, {
             width: null,

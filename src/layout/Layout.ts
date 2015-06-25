@@ -8,8 +8,7 @@ module Blend.layout {
         [alias: string]: (config: ILayoutConfig, view: Blend.ui.View) => Layout;
     }
 
-    export interface ILayoutConfig {
-        alias: string;
+    export interface ILayoutConfig extends Blend.IClassWithAliasConfig {
     }
 
     export class Layout extends Blend.BaseClass {
@@ -42,8 +41,8 @@ module Blend.layout {
     Blend.registerClassWithAlias('layout.default', Blend.layout.Layout);
 
     export function createLayout(config: ILayoutConfig, view: Blend.ui.View): Layout {
-        if (config && config.alias) {
-            return <Layout>Blend.createObjectWithAlias('layout.' + config.alias, config, view);
+        if (config && config.ctype) {
+            return <Layout>Blend.createObjectWithAlias('layout.' + config.ctype, config, view);
         } else {
             return null;
         }

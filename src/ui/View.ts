@@ -48,7 +48,7 @@ module Blend.ui {
             constructor(config?: IViewConfig) {
                 super(config);
                 var me = this,
-                    lc = (config && config.layoutConfig) ? config.layoutConfig : { alias: me.defaultLayout || 'default' };
+                    lc = (config && config.layoutConfig) ? config.layoutConfig :<Blend.layout.ILayoutConfig>{ ctype: me.defaultLayout || 'default' };
                 me.layout = Blend.layout.createLayout(lc, me);
                 me.layoutTriggers = me.layoutTriggers || [
                     'boundsChanged'
@@ -122,7 +122,6 @@ module Blend.ui {
                 if (me.canLayout()) {
                     me._canLayout = false;
                     if (me.shouldLayout()) {
-                        console.log('layout');
                         me.layoutView.apply(me, arguments);
                     }
                     me._canLayout = true;
@@ -131,13 +130,13 @@ module Blend.ui {
 
             shouldLayout(): boolean {
                 var me = this, cur = me.getSizeSig();
-                return (me._sizeSig !== cur);;
+                return (me._sizeSig !== cur);
             }
 
-            private getSizeSig(): string {
+            getSizeSig(): string {
                 var me = this,
                     cs = <IViewBounds>me.getBounds();
-                return [cs.top, cs.left, cs.height, cs.width, cs.height].join('');
+                return [cs.top, cs.left, cs.height, cs.width, cs.height].join('-');
             }
 
             /* RENDER */

@@ -12,6 +12,8 @@ src/layout/FitUtil.ts
 src/layout/CenterUtil.ts
 src/layout/container/Layout.ts
 src/layout/container/box/Box.ts
+src/layout/container/box/Horizontal.ts
+src/layout/container/box/Vertical.ts
 src/mvc/Model.ts
 src/mvc/BindingClient.ts
 src/mvc/View.ts

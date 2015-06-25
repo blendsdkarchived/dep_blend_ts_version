@@ -1,10 +1,7 @@
 ///<reference path="../Blend.ts"/>
 ///<reference path="../utils/Dom.ts"/>
 module Blend.layout.utils {
-    /**
-     * Removed the positioning styles and
-     * sets the data-layout to fitted
-     */
+
     export function centerUtil(element: HTMLElement) {
         Blend.Dom.setStyle(element, {
             display: null,
@@ -13,7 +10,7 @@ module Blend.layout.utils {
             left: null,
             margin: null
         });
-        element.setAttribute('data-layout', 'center');
+        Blend.Dom.cssClass(element, <string>Blend.cssPrefix('center'));
     }
 
 }

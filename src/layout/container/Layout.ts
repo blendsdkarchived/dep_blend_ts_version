@@ -1,6 +1,7 @@
 /// <reference path="../Layout.ts" />
 /// <reference path="../../ui/Container.ts" />
 module Blend.layout.container {
+
     export class Layout extends Blend.layout.Layout {
 
         view: Blend.ui.Container;
@@ -8,7 +9,7 @@ module Blend.layout.container {
         constructor(config: ILayoutConfig, view: Blend.ui.View) {
             var me = this;
             super(config, view);
-            me.cssKeyName = 'container-layout'
+            me.cssKeyName = 'container-layout';
         }
 
         performLayout() {
@@ -28,6 +29,12 @@ module Blend.layout.container {
                 me.view.bodyContentElement.appendChild(el);
             });
             return el;
+        }
+
+        getViewVisibleChildren():Array<Blend.ui.View> {
+            var me = this;
+            //throw Error('Not Implemented!');
+            return <Array<Blend.ui.View>>me.view.children;
         }
 
     }

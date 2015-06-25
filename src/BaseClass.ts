@@ -28,6 +28,21 @@ module Blend {
             }
         }
 
+        setAttribute(name: string, value) {
+            var me = this;
+            me[name] = value;
+        }
+
+        getAttribute(name: string) {
+            var me = this;
+            return me[name] || null;
+        }
+
+        applyAttributeIf(name: string, handler: (value: any) => void) {
+            var me = this;
+            handler.apply(me, [me.getAttribute(name)])
+        }
+
         /**
          * Parses a given configuration value before it is assigned to the vurrent class
          */
