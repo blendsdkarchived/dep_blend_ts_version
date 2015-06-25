@@ -33,7 +33,7 @@ module Blend {
         left: number;
         width: number;
         height: number|string;
-        css:Array<string>;
+        css: Array<string>;
     }
 
     export interface IBoxLayoutContext {
@@ -66,26 +66,13 @@ module Blend {
 
 module Blend.layout.utils {
 
-    /**
-     * hboxUtil and vboxUtil use internal processors to layouts elements
-     * based on their layout context. We instantiate these objects only
-     * when we really need them.
-     */
-
-    export var _hboxProcessor: Blend.layout.container.box.HBoxProcessor;
-    export var _vboxProcessor: Blend.layout.container.box.VBoxProcessor;
-
     export function hboxUtil(ilctx: Array<IBoxItemContext>, lctx: IBoxLayoutContext) {
-        if (!Blend.layout.utils._hboxProcessor) {
-            Blend.layout.utils._hboxProcessor = new Blend.layout.container.box.HBoxProcessor();
-        }
-         Blend.layout.utils._hboxProcessor.proccess(ilctx,lctx);
+        var processor = new Blend.layout.container.box.HBoxProcessor();
+        processor.proccess(ilctx, lctx);
     }
 
     export function vboxUtil(ilctx: Array<IBoxItemContext>, lctx: IBoxLayoutContext) {
-        if (!Blend.layout.utils._vboxProcessor) {
-            Blend.layout.utils._vboxProcessor = new Blend.layout.container.box.VBoxProcessor();
-        }
-        Blend.layout.utils._vboxProcessor.proccess(ilctx,lctx);
+        var processor = new Blend.layout.container.box.VBoxProcessor();
+        processor.proccess(ilctx, lctx);
     }
 }
