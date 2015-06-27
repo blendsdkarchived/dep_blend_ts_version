@@ -1,0 +1,28 @@
+{
+  "name": "blendsdk",
+  "version": "1.0.0",
+  "description": "BlendSDK Web Application Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blendsdk/blendsdk.git"
+  },
+  "keywords": [
+    "blendsdk",
+    "TypeScript"
+  ],
+  "author": "Gevik Babakhani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blendsdk/blendsdk/issues"
+  },
+  "homepage": "https://github.com/blendsdk/blendsdk#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-typescript": "*"
+  }
+}
