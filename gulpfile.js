@@ -44,6 +44,7 @@ gulp.task('tests', function () {
   
   return merge([
     tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('build/tests/js')),
+    gulp.src('build/typings/*').pipe(gulp.dest('tests/typings')),
     gulp.src('build/js/blend.js').pipe(gulp.dest('build/tests/js')),
     gulp.src('build/css/default/default.css').pipe(gulp.dest('build/tests/css/default/')),
     gulp.src('tests/index.php').pipe(gulp.dest('build/tests/')),
