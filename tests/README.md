@@ -1,8 +1,9 @@
-#BlendSDK TestFramework
+# BlendSDK TestFramework
 
-To add a new test, you can create a new file by the following naming convention in the 
+To add a new tests, you can create a new file by the following naming convention in the 
 test folder: MyTests.test.ts:
 
+## Example
 ```TypeScript
 /// <reference path="../TestFramework.ts" />
 TestRunner.defineTest('My Tests', function(t: Blend.testing.TestRunner) {
