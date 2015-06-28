@@ -7,6 +7,7 @@ var print = require('gulp-print');
 var fs = require('fs');
 var rm = require('gulp-rm')
 var plumber = require('gulp-plumber');
+var sourcemaps = require('gulp-sourcemaps');
 
 function getFolders(dir) {
   return fs.readdirSync(dir)
@@ -18,37 +19,36 @@ function getFolders(dir) {
 
 gulp.task('blend', function () {
   var tsResult = gulp.src('src/**/*.ts')
+    .pipe(sourcemaps.init({ loadMaps: false }))
     .pipe(ts({
     declarationFiles: true,
     noImplicitAny: true,
     out: 'blend.js'
   }));
   return merge([
-
     tsResult.dts.pipe(gulp.dest('build/typings')),
-    tsResult.js.pipe(gulp.dest('build/js')),
-
-    tsResult.dts.pipe(gulp.dest('tests/typings')),
-    tsResult.js.pipe(gulp.dest('build/tests/js'))
+    tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('build/js'))
   ]);
 });
 
 
 gulp.task('tests', function () {
   var tsResult = gulp.src('tests/**/*.ts')
+    .pipe(sourcemaps.init({ loadMaps: false }))
     .pipe(ts({
     declarationFiles: true,
     noImplicitAny: true,
+    sortOutput: true,
     out: 'blend-tests.js'
   }));
   
-  //copy index.php
-  gulp.src('tests/index.php')
-    .pipe(
-    gulp.dest('build/tests/')
-    );
-
-  return tsResult.js.pipe(gulp.dest('build/tests/js'));
+  return merge([
+    tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('build/tests/js')),
+    gulp.src('build/js/blend.js').pipe(gulp.dest('build/tests/js')),
+    gulp.src('build/css/default/default.css').pipe(gulp.dest('build/tests/css/default/')),
+    gulp.src('tests/index.php').pipe(gulp.dest('build/tests/')),
+    gulp.src('tests/favicon.ico').pipe(gulp.dest('build/tests/'))
+  ]);
 });
 
 
@@ -88,4 +88,4 @@ gulp.task('clean', function () {
   ]);
 });
 
-gulp.task('default', ['clean', 'blend', 'tests', 'themes']);
+gulp.task('default', ['blend', 'themes', 'tests']);
