@@ -27,6 +27,7 @@
     "gulp-print": "*",
     "gulp-rm": "^1.0.0",
     "gulp-typescript": "*",
+    "gulp-sourcemaps": "*",
     "merge-stream": "*"
   }
 }
