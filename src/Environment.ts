@@ -21,7 +21,7 @@ module Blend {
     export class EnvironmentSingleton {
 
         private readyCallbacks: Array<IReadCallback>;
-        kickStarted: boolean = false;
+        private kickStarted: boolean = false;
         isIE: boolean;
         ieVersion: number;
 
