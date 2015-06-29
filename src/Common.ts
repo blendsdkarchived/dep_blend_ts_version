@@ -40,3 +40,17 @@ interface ICreateElement {
 interface IComponentConfig extends IDictionary {
     ctype?:string
 }
+
+/**
+ * Interface for implementing a controller dictionary
+ */
+interface IControllerDictionary {
+        [name: string]: Blend.mvc.Controller
+    }
+
+/**
+ * Interface for implementing a model dictionary
+ */
+interface IModelDictionary {
+        [name: string]: Blend.mvc.Model
+}
