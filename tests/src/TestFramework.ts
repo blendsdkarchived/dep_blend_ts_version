@@ -129,7 +129,7 @@ module Blend.testing {
         done() {
             var me = this;
             if (me.currentTest.pass === 0 && me.currentTest.fail === 0) {
-                me.logWarn('Nothing was tested!!!');
+                me.logWarn(`Nothing was tested in [${me.currentTest.name}]!`);
             }
             me.nextTextIndex++;
             me.runNextTest();
