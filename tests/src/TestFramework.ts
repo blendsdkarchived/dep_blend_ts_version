@@ -229,14 +229,18 @@ module Blend.testing {
             return `<div class="row ${cls}">${content.join('') }</div>`;
         }
 
+        private htmlEntities(str: string) {
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
         private logFail(testtype: string, actual: any, expected: any, message?: string) {
             var me = this;
             me.log.push(
                 me.row('fail', [
                     me.span('type pct10', testtype),
                     me.span('message pct10', message),
-                    me.span('got pct40', `got: [${JSON.stringify(actual) }]`),
-                    me.span('expected pct40', `expected: [${JSON.stringify(expected) }]`)
+                    me.span('got pct40', `got: [${me.htmlEntities(JSON.stringify(actual)) }]`),
+                    me.span('expected pct40', `expected: [${me.htmlEntities(JSON.stringify(expected)) }]`)
                 ])
                 );
         }
