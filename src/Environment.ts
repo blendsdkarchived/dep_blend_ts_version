@@ -15,8 +15,8 @@ module Blend {
     /**
      * This class provides functionality to get a Blend application kickstarted
      * It also checks for browser support and handles the ready(...) callbacks.
-     * 
-     * This class is availble from Blend.Environment as singleton. 
+     *
+     * This class is availble from Blend.Environment as singleton.
      */
     export class EnvironmentSingleton {
 

@@ -129,7 +129,7 @@ module Blend.dom {
         }
 
         /**
-         * Given the value it converts px value to a number, otherwise it returns the original 
+         * Given the value it converts px value to a number, otherwise it returns the original
          * value.
          */
         fromUnit(value: any): any {
@@ -153,7 +153,7 @@ module Blend.dom {
 
         /**
          * Utility to create a HTMLElement based on ICreateElement specification.
-         * This utility also can assign event listeners, styles, css classes, and 
+         * This utility also can assign event listeners, styles, css classes, and
          * create child elements.
          */
         createElement(config: ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {

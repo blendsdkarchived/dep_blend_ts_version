@@ -81,14 +81,14 @@ module Blend {
      * key/value in an object.
      * @returns {string} ctype or null of nothing found.
      */
-    export function getAlias(config: any) {
+    export function getAlias(config: IComponentConfig) {
         return config ? (config['alias'] || config['ctype'] || null) : null;
     }
 
     /**
      * Creates an object based on an alias
      */
-    export function createObjectWithAlias(objectConfig: IDictionary) {
+    export function createObjectWithAlias(objectConfig: IComponentConfig) {
         var alias = Blend.getAlias(objectConfig);
         if (registry[alias]) {
             return registry[alias].apply(this, objectConfig);

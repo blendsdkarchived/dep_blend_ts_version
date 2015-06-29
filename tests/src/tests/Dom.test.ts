@@ -6,25 +6,25 @@ TestRunner.defineTest('Dom', function(t: Blend.testing.TestRunner) {
 
     t.equal(Blend.Dom.cssClass(el), {}, 'no cls classes');
     ///////////////////////////////////
-    
+
     document.body.innerHTML = '<div class="c1">test</div>';
     el = <HTMLElement>document.body.children[0];
     t.equal(Blend.Dom.cssClass(el), { c1: true }, 'read existing cls');
     /////////////////////////////////////////////////////
-    
+
     Blend.Dom.cssClass(el, { c1: false, cx: true });
     t.equal(Blend.Dom.cssClass(el), { cx: true }, 'c1 removed cx added');
     /////////////////////////////////////////////////////
-    
+
     Blend.Dom.cssClass(el, 'cy');
     t.equal(Blend.Dom.cssClass(el), { cx: true, cy: true }, 'cy added');
     ////////////////////////////////////////////////////
-    
+
     var e1 = Blend.Dom.createElement({});
     document.body.appendChild(e1);
     t.equal(e1.outerHTML, '<div></div>');
     ///////////////////////////////////////////////////
-    
+
     var e2 = Blend.Dom.createElement({
         style: {
             'background-color': 'red'
@@ -33,7 +33,7 @@ TestRunner.defineTest('Dom', function(t: Blend.testing.TestRunner) {
     document.body.appendChild(e2);
     t.isTrue(e2.outerHTML.indexOf('background-color') !== -1, 'style set');
     //////////////////////////////////////////////////
-    
+
     var e3 = Blend.Dom.createElement({
         cls: ['c1']
     });
@@ -50,7 +50,7 @@ TestRunner.defineTest('Dom', function(t: Blend.testing.TestRunner) {
     document.body.appendChild(e4);
     t.equal(e4.outerHTML, '<div><span></span></div>', 'child added');
     /////////////////////////////////////////////////
-    
+
     var e5 = Blend.Dom.createElement({
         unselectable: true
     });

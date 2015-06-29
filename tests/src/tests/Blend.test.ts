@@ -63,10 +63,10 @@ TestRunner.defineTest('Blend', function(t: Blend.testing.TestRunner) {
     }, 'class does is not registered');
     /////////////////////////////
 
-    var a1 = {
+    var a1:IComponentConfig = {
         ctype: 'abc'
     }
-    var a2 = {};
+    var a2:IComponentConfig = {};
 
     t.equal(Blend.getAlias(a1), 'abc', 'alias abc');
     t.notEqual(Blend.getAlias({}), 'no alias found');
