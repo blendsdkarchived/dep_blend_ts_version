@@ -1,5 +1,6 @@
 /// <reference path="../Blend.ts" />
 /// <reference path="View.ts" />
+/// <reference path="Context.ts" />
 
 interface ControllerEventHandler {
     (view: Blend.mvc.View, ...args: any[]): void;
@@ -8,7 +9,8 @@ interface ControllerEventHandler {
 module Blend.mvc {
 
     /**
-     * Base class for a Controller
+     * Base class for a Controller. When creating a new controller, it must have an unique id
+     * that is going to be registered in the MV content.
      */
     export class Controller {
 
@@ -17,8 +19,9 @@ module Blend.mvc {
 
         protected id:string;
 
-        constructor() {
+        constructor(uniqueId:string) {
             var me = this;
+            me.id = uniqueId;
             if(!Blend.isNullOrUndef(me.id)) {
                 Blend.mvc.Context.registerController(me.id, me);
             } else {

@@ -3,12 +3,6 @@
 
 
 class MyController extends Blend.mvc.Controller {
-
-    constructor()
-    {
-        this.id = 'test';
-        super();
-    }
 }
 
 TestRunner.defineTest('MVC', function(t: Blend.testing.TestRunner) {
@@ -17,7 +11,7 @@ TestRunner.defineTest('MVC', function(t: Blend.testing.TestRunner) {
 });
 
 TestRunner.defineTest('Controller', function(t: Blend.testing.TestRunner) {
-    var c = new MyController();
+    var c = new MyController('my.controller');
     t.isOk(c, 'controller is ok');
     t.isOk(Blend.mvc.Context.getController('my.controller'), 'controller is in context');
     t.done();
