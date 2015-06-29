@@ -29,28 +29,27 @@ gulp.task('blend', function () {
   }));
   return merge([
     tsResult.dts.pipe(gulp.dest('build/typings')),
+    tsResult.dts.pipe(gulp.dest('tests/typings')),
     tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('build/js'))
   ]);
 });
 
 
 gulp.task('tests', function () {
-  var tsResult = gulp.src('tests/**/*.ts')
+  var tsResult = gulp.src('tests/src/**/*.ts')
     .pipe(sourcemaps.init({ loadMaps: false }))
     .pipe(ts({
     declarationFiles: true,
     noImplicitAny: true,
-    sortOutput: true,
     out: 'blend-tests.js'
   }));
-  
+
   return merge([
-    tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('build/tests/js')),
-    gulp.src('build/typings/*').pipe(gulp.dest('tests/typings')),
     gulp.src('build/js/blend.js').pipe(gulp.dest('build/tests/js')),
     gulp.src('build/css/default/default.css').pipe(gulp.dest('build/tests/css/default/')),
     gulp.src('tests/index.php').pipe(gulp.dest('build/tests/')),
-    gulp.src('tests/favicon.ico').pipe(gulp.dest('build/tests/'))
+    gulp.src('tests/favicon.ico').pipe(gulp.dest('build/tests/')),
+    tsResult.js.pipe(sourcemaps.write({debug:true})).pipe(gulp.dest('build/tests/js'))
   ]);
 });
 
@@ -91,15 +90,15 @@ gulp.task('clean', function () {
   ]);
 });
 
-gulp.task('dist',function(){
-   gulp.src('build/js/blend.js')
-   .pipe(uglify({
-     mangle:false
-   }))
-   .pipe(rename({
-     extname: '.min.js'
-   }))
-   .pipe(gulp.dest('dist/js'));
+gulp.task('dist', function () {
+  gulp.src('build/js/blend.js')
+    .pipe(uglify({
+    mangle: false
+  }))
+    .pipe(rename({
+    extname: '.min.js'
+  }))
+    .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('default', ['blend', 'themes', 'tests','dist']);
+gulp.task('default', ['blend', 'themes', 'tests', 'dist']);
