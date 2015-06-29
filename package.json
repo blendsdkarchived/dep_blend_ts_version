@@ -25,9 +25,11 @@
     "gulp-compass": "^2.1.0",
     "gulp-plumber": "^1.0.1",
     "gulp-print": "*",
+    "gulp-rename": "^1.2.2",
     "gulp-rm": "^1.0.0",
-    "gulp-typescript": "*",
     "gulp-sourcemaps": "*",
+    "gulp-typescript": "*",
+    "gulp-uglify": "^1.2.0",
     "merge-stream": "*"
   }
 }

@@ -8,6 +8,8 @@ var fs = require('fs');
 var rm = require('gulp-rm')
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 function getFolders(dir) {
   return fs.readdirSync(dir)
@@ -89,4 +91,15 @@ gulp.task('clean', function () {
   ]);
 });
 
-gulp.task('default', ['blend', 'themes', 'tests']);
+gulp.task('dist',function(){
+   gulp.src('build/js/blend.js')
+   .pipe(uglify({
+     mangle:false
+   }))
+   .pipe(rename({
+     extname: '.min.js'
+   }))
+   .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('default', ['blend', 'themes', 'tests','dist']);
