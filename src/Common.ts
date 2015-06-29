@@ -33,3 +33,10 @@ interface ICreateElement {
     extra?: any;
     style?: IStyleConfig;
 }
+
+/**
+ * Interface for assigning configuration paremeters to a Blend class
+ */
+interface IComponentConfig extends IDictionary {
+    ctype?:string
+}
