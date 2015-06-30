@@ -1,4 +1,4 @@
-/// <reference path="../Common.ts" />
+/// <reference path="../CommonInterfaces.ts" />
 /// <reference path="Controller.ts" />
 /// <reference path="Model.ts" />
 

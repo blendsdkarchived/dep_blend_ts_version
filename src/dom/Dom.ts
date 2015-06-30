@@ -1,4 +1,4 @@
-///<reference path="../Common.ts"/>
+///<reference path="../CommonInterfaces.ts"/>
 ///<reference path="../Blend.ts"/>
 ///<reference path="../Environment.ts"/>
 module Blend.dom {

@@ -6,6 +6,14 @@ interface IDictionary {
 }
 
 /**
+ * Interface for implementing a dictionary that can only contain
+ * strings for values
+ */
+interface IStringDictionary {
+    [name: string]: string;
+}
+
+/**
  * Interface for describing styles
  */
 interface IStyleConfig {
@@ -38,19 +46,19 @@ interface ICreateElement {
  * Interface for assigning configuration paremeters to a Blend class
  */
 interface IComponentConfig extends IDictionary {
-    ctype?:string
+    ctype?: string
 }
 
 /**
  * Interface for implementing a controller dictionary
  */
 interface IControllerDictionary {
-        [name: string]: Blend.mvc.Controller
-    }
+    [name: string]: Blend.mvc.Controller
+}
 
 /**
  * Interface for implementing a model dictionary
  */
 interface IModelDictionary {
-        [name: string]: Blend.mvc.Model
+    [name: string]: Blend.mvc.Model
 }
