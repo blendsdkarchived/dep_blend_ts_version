@@ -3,7 +3,6 @@
 /// <reference path="../CommonInterfaces.ts" />
 /// <reference path="../ComponentInterfaces.ts" />
 
-
 module Blend.mvc {
 
     /**
