@@ -208,6 +208,7 @@ module Blend.testing {
             var me = this;
             me.currentTest.pass++;
             me.totalPass++;
+            me.logPass(test, message || 'Test #' + me.currentTest.testn);
             me.currentTest.testn++;
             me.totalTests++;
         }
@@ -231,6 +232,13 @@ module Blend.testing {
 
         private htmlEntities(str: string) {
             return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        private logPass(testtype: string, message?: string) {
+            var me = this;
+            if (console && console.log) {
+                console.log('PASSED', me.currentTest.name, testtype, 'Total passed: ', me.totalPass, 'Total failed:', me.totalFail);
+            }
         }
 
         private logFail(testtype: string, actual: any, expected: any, message?: string) {
@@ -307,6 +315,9 @@ module Blend.testing {
 
         public run() {
             var me = this;
+            if (console && console.clear) {
+                console.clear();
+            }
             var doCallback = function() {
                 if (!me.testStarted) {
                     me.removeEventListener(document, 'DOMContentLoaded', doCallback);
