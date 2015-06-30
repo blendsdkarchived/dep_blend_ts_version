@@ -1,7 +1,6 @@
 /// <reference path="CommonInterfaces.ts" />
 /// <reference path="Blend.ts" />
 
-
 module Blend {
     /**
      * Base class for Components.
@@ -16,11 +15,17 @@ module Blend {
             me[name] = value;
         }
 
+        /**
+         * Check if this Component implements a function
+         */
         hasFunction(fname: string) {
             var me: any = this;
             return !Blend.isNullOrUndef(me[fname]) && Blend.isFunction(me[fname]);
         }
 
+        /**
+         * Dynamically run a function within this Component
+         */
         applyFunction(name: string, args: Array<any>|IArguments): any {
             var me: any = this,
                 fn: Function = <Function>me[name];
