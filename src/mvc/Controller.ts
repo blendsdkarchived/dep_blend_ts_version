@@ -9,23 +9,20 @@ interface ControllerEventHandler {
 module Blend.mvc {
 
     /**
-     * Base class for a Controller. When creating a new controller, it must have an unique id
-     * that is going to be registered in the MV content.
+     * Base class for a Controller. When creating a new controller, if you
+     * provide a globalId to the constructor the the Controller is going
+     * to be registers in the global Blend.mvc.Context and it can be used
+     * from Views that are not in the same View hierarchy.
      */
     export class Controller {
 
         private references: IDictionary = {};
         private handlers: IDictionary = {};
 
-        protected id:string;
-
-        constructor(uniqueId:string) {
+        constructor(globalId?:string) {
             var me = this;
-            me.id = uniqueId;
-            if(!Blend.isNullOrUndef(me.id)) {
-                Blend.mvc.Context.registerController(me.id, me);
-            } else {
-                throw new Error('A controller needs to have a unique ID. Did you forget to set the [id] property?')
+            if(!Blend.isNullOrUndef(globalId)) {
+                Blend.mvc.Context.registerController(globalId, me);
             }
         }
 
@@ -47,10 +44,11 @@ module Blend.mvc {
          * Registers an event handler within this controller
          */
         protected on(eventPath: string, handler: ControllerEventHandler): void {
-            if (!this.handlers[eventPath]) {
-                this.handlers[eventPath] = [handler];
+            var me = this;
+            if (!me.handlers[eventPath]) {
+                me.handlers[eventPath] = [handler];
             } else {
-                this.handlers[eventPath].push(handler);
+                me.handlers[eventPath].push(handler);
             }
         }
 
@@ -58,7 +56,7 @@ module Blend.mvc {
          * @internal
          * Registers a View's reference within this controller
          */
-        registerView(view: View): void {
+        bindView(view: View): void {
             var refId = view.getReference();
             if (!this.references[refId]) {
                 this.references[refId] = [view];

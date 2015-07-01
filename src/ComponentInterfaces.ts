@@ -1,7 +1,11 @@
 /// <reference path="CommonInterfaces.ts" />
+/// <reference path="mvc/Controller.ts" />
+
 
 interface IViewConfig extends IDictionary {
     bindings?: IStringDictionary;
+    reference?:string;
+    controllers?:Array<string|Blend.mvc.Controller>
 }
 
 /**

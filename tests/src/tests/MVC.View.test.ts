@@ -31,4 +31,33 @@ TestRunner.defineTest('View', function(t: Blend.testing.TestRunner) {
     }, 'no model')
 
     t.done();
+
+    //////////////////////////////////////////
+
+});
+
+TestRunner.defineTest('ViewControllerChain', function(t: Blend.testing.TestRunner) {
+
+    var view1 = new TestView({
+        reference: 'view1'
+    });
+
+    t.not_throws_exception(function() {
+        view1.tFireEvent('test');
+    }, 'event fired, has reference but no parent');
+    //////////////////////////////////////////////
+
+    var view2 = new TestView({
+        reference:'view',
+        controllers:[
+            new PrivateController()
+        ]
+    });
+
+    view2.tFireEvent('test1','arg1');
+
+    t.delay(function(){
+       t.equal(view2.getAttribute('test1'),'arg1','event fired and controller handeled');
+       t.done();
+    });
 });

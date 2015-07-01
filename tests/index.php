@@ -19,7 +19,7 @@
 
     .log .row {
         width:100%;
-        height:28px;
+        min-height:28px;
         line-height:28px;
         border-bottom:1px solid black;
         padding-left:10px;
