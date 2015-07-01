@@ -54,6 +54,17 @@ module Blend.testing {
             }
         }
 
+        not_throws_exception(actual: Function, message?: string) {
+            var me = this,
+                type = "Not throws any exception";
+            try {
+                actual();
+                me.pass(type, message);
+            } catch (e) {
+                me.fail(type, 'no exception', e, message);
+            }
+        }
+
         /**
          * Executes the given function with delay
          */
@@ -133,6 +144,17 @@ module Blend.testing {
             }
             me.nextTextIndex++;
             me.runNextTest();
+        }
+
+        /**
+         * The same as done() only with some delay to let the asynchronous tasks
+         * like fireevent to finish
+         */
+        delayedDone(seconds?:number) {
+            var me = this;
+            me.delay(function(){
+                me.done();
+            },seconds)
         }
 
         /**
