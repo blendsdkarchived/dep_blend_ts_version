@@ -16,6 +16,14 @@ module Blend {
         }
 
         /**
+         * Retrives the value of a dynamic attribute within this Component
+         */
+        getAttribute(name:string) {
+            var me:any = this;
+            return me[name] || null;
+        }
+
+        /**
          * Check if this Component implements a function
          */
         hasFunction(fname: string) {
