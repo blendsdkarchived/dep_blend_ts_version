@@ -340,6 +340,11 @@ module Blend.testing {
             if (console && console.clear) {
                 console.clear();
             }
+
+            window.onerror = function(errorMsg, url, lineNumber) {
+                me.logWarn(`${errorMsg} [${url}] [Line: ${lineNumber}]`);
+            }
+
             var doCallback = function() {
                 if (!me.testStarted) {
                     me.removeEventListener(document, 'DOMContentLoaded', doCallback);
