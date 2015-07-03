@@ -6,17 +6,17 @@
 module Blend.mvc {
 
     /**
-     * @internal
-     * Interface for defining a binding callback
-     */
+    * @internal
+    * Interface for defining a binding callback
+    */
     interface IBindingCallback {
         [field: string]: Array<Function>
     }
 
     /**
-     * @internal
-     * Interface to register a field structure witihin a Model
-     */
+    * @internal
+    * Interface to register a field structure witihin a Model
+    */
     interface IFieldRegistryItem {
         getValue: Function;
         formatValue: Function;
@@ -24,38 +24,55 @@ module Blend.mvc {
     }
 
     /**
-     * @internal
-     * Interface to host IFieldRegistryItem items
-     */
+    * @internal
+    * Interface to host IFieldRegistryItem items
+    */
     interface IFieldRegistry {
         [name: string]: IFieldRegistryItem
     }
 
     /**
-     * Base class for Model. You can create a model either by deriving from this class
-     * or create a Model instance and pass an Blend.mvc.IModelConfig to the constructor
-     */
+    * Base class for Model. You can create a model either by deriving from this class
+    * or create a Model instance and pass an Blend.mvc.IModelConfig to the constructor
+    */
     export class Model extends Component {
 
         protected id: string;
+        protected initialConfig:IModelConfig;
+
+
         private fieldValues: IDictionary;
         private fields: IFieldRegistry;
         private bindingCallbacks: IBindingCallback;
 
         constructor(config?: IModelConfig) {
             var me = this;
-            super();
-            config = me.initConfig(config);
-            me.id = config.id;
+
+            super(config);
+
             me.fieldValues = {};
             me.fields = {};
             me.bindingCallbacks = {};
-            me.defineFields(config.fields);
+
+            me.id = me.initialConfig.id;
+            me.defineFields(me.initialConfig.fields);
         }
 
         /**
-         * Defines a list of fields within this model
-         */
+        * Initializes the provided config assigned to the constructor
+        */
+        protected initConfig(config: IModelConfig): IModelConfig {
+            var defaultConfig:IModelConfig = {
+                id:null,
+                fields:null
+            }
+            return Blend.apply(defaultConfig,super.initConfig(config),true,false);
+        }
+
+
+        /**
+        * Defines a list of fields within this model
+        */
         protected defineFields(fields: Array<IModelFieldConfig|string>) {
             var me = this;
             Blend.forEach(fields, function(fieldConfig: IModelFieldConfig|string) {
@@ -64,8 +81,8 @@ module Blend.mvc {
         }
 
         /**
-         * Defines a field within this Model
-         */
+        * Defines a field within this Model
+        */
         protected defineField(fieldConfig: IModelFieldConfig|string) {
             var me = this,
                 config: IModelFieldConfig;
@@ -85,9 +102,9 @@ module Blend.mvc {
         }
 
         /**
-         * Prepares and creates a field within this model by dynamically building getters
-         * ans setters
-         */
+        * Prepares and creates a field within this model by dynamically building getters
+        * ans setters
+        */
         private createField(fieldConfig: IModelFieldConfig) {
             var me = this,
                 oField: IFieldRegistryItem,
@@ -111,7 +128,7 @@ module Blend.mvc {
                 } else {
                     var createGetValue = function(name: string): Function {
                         return function() {
-                           return me.fieldValues[name]
+                            return me.fieldValues[name]
                         }
                     };
                     oField.getValue = createGetValue(fieldName);
@@ -155,8 +172,8 @@ module Blend.mvc {
         }
 
         /**
-         * Publishes a value to the bound properties
-         */
+        * Publishes a value to the bound properties
+        */
         private publishBinding(fieldName: string, value: any) {
             var me = this;
             if (me.fields[fieldName] && me.bindingCallbacks[fieldName]) {
@@ -167,8 +184,8 @@ module Blend.mvc {
         }
 
         /**
-         * Bind a setter callback function to a field within this Model
-         */
+        * Bind a setter callback function to a field within this Model
+        */
         bind(field: string, propertySetter: Function) {
             var me = this;
             if (me.checkField(field)) {
@@ -181,8 +198,8 @@ module Blend.mvc {
         }
 
         /**
-         * Check if a given field exists within this Model
-         */
+        * Check if a given field exists within this Model
+        */
         private checkField(field: string) {
             if (!this.fields[field]) {
                 throw new Error(`${this.id} does not have a field named ${field}`);
@@ -192,20 +209,9 @@ module Blend.mvc {
         }
 
         /**
-         * Initializes the provided config assigned to the constructor
-         */
-        protected initConfig(config: IModelConfig): IModelConfig {
-            if (config) {
-                config.id = config.id || null;
-                config.fields = config.fields || null;
-            }
-            return config;
-        }
-
-        /**
-         * Sets the values of the fields in this Model. This action triggers
-         * all the handlers for bound View setters
-         */
+        * Sets the values of the fields in this Model. This action triggers
+        * all the handlers for bound View setters
+        */
         setData(data: IDictionary) {
             var me = this,
                 setterName: string;
@@ -218,29 +224,29 @@ module Blend.mvc {
         }
 
         /**
-         * Checks if this field is a complex/composite field
-         */
+        * Checks if this field is a complex/composite field
+        */
         private isComplexField(field: IModelFieldConfig) {
             return (field.bindTo && field.bindTo.length > 0) ? true : false;
         }
 
         /**
-         * Creates a getter function name
-         */
+        * Creates a getter function name
+        */
         private getGetterName(name: string) {
             return 'get' + Blend.ucFirst(name);
         }
 
         /**
-         * Creates a setter function name
-         */
+        * Creates a setter function name
+        */
         private getSetterName(name: string) {
             return 'set' + Blend.ucFirst(name);
         }
 
         /**
-         * The default value formatter for this Model
-         */
+        * The default value formatter for this Model
+        */
         protected defaultFormatter(value: any) {
             return value;
         }

@@ -26,6 +26,14 @@ module Blend.testing {
             me.log = [];
         }
 
+        clearBody() {
+            document.body.innerHTML = '';
+        }
+
+        addToBody(el:HTMLElement) {
+            document.body.appendChild(el);
+        }
+
         /**
          * Defines a test case
          */
@@ -374,7 +382,7 @@ module Blend.testing {
                 me.span('passed pct33', `Passed: ${me.totalPass}`)
             ]));
             result = result.concat(me.log);
-            document.body.innerHTML = `<div class='log'>${result.join(' ') }</div>`;
+            document.body.innerHTML = document.body.innerHTML +  `<div class='log'>${result.join(' ') }</div>`;
         }
 
         private runNextTest() {

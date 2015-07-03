@@ -7,6 +7,17 @@ module Blend {
      */
     export class Component {
 
+        protected initialConfig:IDictionary;
+
+        constructor(config?:any) {
+            var me = this;
+            me.initialConfig = me.initConfig(config);
+        }
+
+        protected initConfig(config:IDictionary) {
+            return config || {};
+        }
+
         /**
          * Sets a dynamic attribute to this Component
          */

@@ -1,11 +1,15 @@
 /// <reference path="CommonInterfaces.ts" />
 /// <reference path="mvc/Controller.ts" />
+/// <reference path="ui/View.ts" />
 
-
-interface IViewConfig extends IDictionary {
-    bindings?: IStringDictionary;
-    reference?:string;
-    controllers?:Array<string|Blend.mvc.Controller>
+/**
+ * Interface for defining a layoutConfig of a Blend.ui.View
+ */
+interface ILayoutConfig extends IComponentConfig {
+    /**
+     * @internal
+     */
+    view?: Blend.ui.View
 }
 
 /**
@@ -21,7 +25,37 @@ interface IModelFieldConfig {
 /**
  * Interface for defining a Model configuration
  */
-interface IModelConfig {
+interface IModelConfig extends IDictionary {
     id: string;
     fields: Array<string|IModelFieldConfig>;
+}
+
+/**
+ * Interface for defining a View configuration
+ */
+interface IViewConfig extends IDictionary {
+
+    //MVC
+
+    bindings?: IStringDictionary;
+    reference?: string;
+    controllers?: Array<string|Blend.mvc.Controller>;
+
+    //UI
+
+    layout?: ILayoutConfig;
+    visible?: boolean;
+
+}
+
+/**
+ * Interface for defining View bounds and visibility
+ * @internal
+ */
+interface IViewBounds {
+    top?: number;
+    left?: number;
+    width?: number|string;
+    height?: number|string;
+    visible?: boolean;
 }

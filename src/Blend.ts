@@ -21,7 +21,7 @@ module Blend {
      * Copies keys and values from one object to another
      * @param {any} target
      * @param {any} source
-     * @param {overwrite} overwrite a child objects or arrays
+     * @param {boolean} overwrite the child objects or arrays
      * @param {mergeArrays} will merge arrays instead of overwriting them
      */
     export function apply(target: any, source: any, overwrite: boolean = false, mergeArrays: boolean = false): any {
@@ -91,7 +91,7 @@ module Blend {
     export function createObjectWithAlias(objectConfig: IComponentConfig) {
         var alias = Blend.getAlias(objectConfig);
         if (registry[alias]) {
-            return registry[alias].apply(this, objectConfig);
+            return registry[alias].apply(this, [objectConfig]);
         } else {
             throw new Error(`No Class with alias ${alias} is registered!`);
         }

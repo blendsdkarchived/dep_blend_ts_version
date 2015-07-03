@@ -9,21 +9,23 @@ module Blend.mvc {
 
         protected reference: string;
         protected parent: View;
+        protected initialConfig:IViewConfig;
+
+
         private bindings: IStringDictionary;
         private mvcReady: boolean;
         private controllers: Array<string|Controller>;
         private _controlerId: number;
 
         constructor(config?: IViewConfig) {
-            var me = this;
-            super();
+            var me = this
+            super(config);
             me.mvcReady = false;
-            config = me.initConfig(config)
             // copy or merge the controller list form config or pre existing list of me.controllers
             me.controllers = [];
-            me.reference = config.reference;
-            me.addControllers([].concat(me.controllers, config.controllers));
-            me.processBindings(config.bindings);
+            me.reference = me.initialConfig.reference
+            me.addControllers([].concat(me.controllers, me.initialConfig.controllers));
+            me.processBindings(me.initialConfig.bindings);
         }
 
         /**
@@ -31,11 +33,12 @@ module Blend.mvc {
          * before using it in the View.
          */
         protected initConfig(config: IViewConfig): IViewConfig {
-            config = config || {};
-            config.reference = config.reference || null;
-            config.bindings = config.bindings || {}
-            config.controllers = config.controllers || [];
-            return config;
+            var defaultConfig: IViewConfig = {
+                reference: null,
+                bindings: {},
+                controllers: []
+            }
+            return Blend.apply(defaultConfig,super.initConfig(config),true,false);
         }
 
         /**
