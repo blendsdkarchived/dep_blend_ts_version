@@ -45,7 +45,7 @@ interface IViewConfig extends IDictionary {
 
     layout?: ILayoutConfig;
     visible?: boolean;
-
+    cssClass?: string|IDictionary;
 }
 
 /**

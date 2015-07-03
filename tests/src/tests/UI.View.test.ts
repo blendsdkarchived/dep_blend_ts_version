@@ -44,16 +44,16 @@ TestRunner.defineTest('View Render & Layout', function(t: Blend.testing.TestRunn
     var view = new UITestView();
 
     view.performLayout();
-    t.equal(view.layoutCount,0,'no render nor layout');
+    t.equal(view.layoutCount, 0, 'no render nor layout');
 
     t.clearBody();
     t.addToBody(view.getElement());
 
-   t.delay(function(){
-       view.performLayout();
-       t.equal(view.layoutCount,1,'first layout');
-       t.done();
-   });
+    t.delay(function() {
+        view.performLayout();
+        t.equal(view.layoutCount, 1, 'first layout');
+        t.done();
+    });
 });
 
 TestRunner.defineTest('View Visibility', function(t: Blend.testing.TestRunner) {
@@ -62,19 +62,31 @@ TestRunner.defineTest('View Visibility', function(t: Blend.testing.TestRunner) {
     t.clearBody();
     t.addToBody(view.getElement());
 
-   t.delay(function(){
+    t.delay(function() {
 
-       view.performLayout();
+        view.performLayout();
 
-       view.setVisible(false);
-       t.isFalse(view.isVisible(),'view hidden');
+        view.setVisible(false);
+        t.isFalse(view.isVisible(), 'view hidden');
 
-       view.setVisible(true);
-       t.isTrue(view.isVisible(),'view visible');
+        view.setVisible(true);
+        t.isTrue(view.isVisible(), 'view visible');
 
-       t.equal(view.layoutCount,1,'layout');
+        t.equal(view.layoutCount, 1, 'layout');
 
-       t.done();
+        t.done();
 
-   });
+    });
+});
+
+
+TestRunner.defineTest('View cssClass', function(t: Blend.testing.TestRunner) {
+    var view = new UITestView();
+    t.clearBody(view.getElement());
+    t.delay(function() {
+        view.setCssClass('test1');
+        var c:IDictionary = view.getCssClass();
+        t.isOk(c['test1'],'css class set');
+        t.done();
+    });
 });

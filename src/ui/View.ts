@@ -17,6 +17,7 @@ module Blend.ui {
 
         //UI
         visible: boolean;
+        cssClass: IDictionary;
 
         protected el: HTMLElement;
         protected layoutTriggers: Array<string>;
@@ -30,6 +31,7 @@ module Blend.ui {
             me.layoutEnabled = true;
             me.layout = Blend.createLayout(me.initialConfig.layout, me);
             me.layoutTriggers = [
+                'redo-layout',
                 'boundsChanged',
                 'visibilityChanged'
             ];
@@ -42,10 +44,31 @@ module Blend.ui {
                 layout: {
                     ctype: 'default'
                 },
-                visible: true
+                visible: true,
+                cssClass: null
             };
 
             return Blend.apply(defaultConfig, super.initConfig(config), true, false);
+        }
+
+        // CSS class
+
+        /**
+         * Sets the CSS class names of this View
+         */
+        setCssClass(value: string|IDictionary) {
+            var me = this;
+            Blend.Dom.cssClass(me.el, value);
+            me.cssClass = Blend.Dom.cssClass(me.el);
+            me.redoLayout();
+        }
+
+        /**
+         * Retrives a IDictionary object containing keys of
+         * css class names set to true
+         */
+        getCssClass() {
+            return Blend.Dom.cssClass(this.el);
         }
 
         // Visibility
@@ -59,7 +82,7 @@ module Blend.ui {
             me.setStyle({
                 display: visible ? null : 'none'
             });
-            me.notifyVisibilityChanged()
+            me.notifyVisibilityChanged();
         }
 
         /**
@@ -106,7 +129,6 @@ module Blend.ui {
             var me = this;
             me.fireEvent('boundsChanged', me.getBounds());
         }
-
 
         // LAYOUT
 
@@ -227,6 +249,15 @@ module Blend.ui {
 
         // INTERNAL EVENTS
 
+        /**
+         * Internal notification to initiate a layout cycle. This method
+         * is used when the View has to replayout but no external event
+         * should be fired
+         */
+        protected redoLayout() {
+            this.fireEvent('redo-layoyt');
+        }
+
         protected fireEvent(eventName: string, ...args: any[]) {
             /**
              * Override of the fireEvent function to trigger
@@ -235,7 +266,9 @@ module Blend.ui {
             var me = this;
             if (me.isViewRendered === true && me.canFireEvents()) {
                 me.handleLayoutTriggers(eventName);
-                super.fireEvent.apply(me, arguments);
+                if (eventName !== 'redo-layout') {
+                    super.fireEvent.apply(me, arguments);
+                }
             }
         }
 
@@ -272,6 +305,7 @@ module Blend.ui {
         protected finalizeRender() {
             var me = this;
             me.setVisible(me.initialConfig.visible);
+            me.setCssClass(me.initialConfig.cssClass);
         }
 
         /**
