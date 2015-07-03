@@ -46,6 +46,13 @@ interface IViewConfig extends IDictionary {
     layout?: ILayoutConfig;
     visible?: boolean;
     cssClass?: string|IDictionary;
+
+    // SIZE
+    width?: number|string;
+    height?: number|string;
+    top?: number;
+    left?: number;
+
 }
 
 /**

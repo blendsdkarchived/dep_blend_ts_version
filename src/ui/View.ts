@@ -40,10 +40,14 @@ module Blend.ui {
 
         protected initConfig(config: IViewConfig) {
 
-            var defaultConfig: IViewBounds = {
+            var defaultConfig: IViewConfig = {
                 layout: {
                     ctype: 'default'
                 },
+                width: null,
+                height: null,
+                top: null,
+                left: null,
                 visible: true,
                 cssClass: null
             };
@@ -127,7 +131,9 @@ module Blend.ui {
          */
         notifyBoundsChanged() {
             var me = this;
-            me.fireEvent('boundsChanged', me.getBounds());
+            if (me.isViewRendered) {
+                me.fireEvent('boundsChanged', me.getBounds());
+            }
         }
 
         // LAYOUT
@@ -306,6 +312,12 @@ module Blend.ui {
             var me = this;
             me.setVisible(me.initialConfig.visible);
             me.setCssClass(me.initialConfig.cssClass);
+            me.setBounds({
+                width: me.initialConfig.width,
+                height: me.initialConfig.height,
+                top: me.initialConfig.top,
+                left: me.initialConfig.left,
+            });
         }
 
         /**

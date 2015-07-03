@@ -85,8 +85,24 @@ TestRunner.defineTest('View cssClass', function(t: Blend.testing.TestRunner) {
     t.clearBody(view.getElement());
     t.delay(function() {
         view.setCssClass('test1');
-        var c:IDictionary = view.getCssClass();
-        t.isOk(c['test1'],'css class set');
+        var c: IDictionary = view.getCssClass();
+        t.isOk(c['test1'], 'css class set');
+        t.done();
+    });
+});
+
+
+TestRunner.defineTest('View initial bounds', function(t: Blend.testing.TestRunner) {
+    var view = new Blend.ui.Rectangle({
+        width: 120,
+        height: 120,
+        top: 0,
+        left: 30,
+    });
+    t.clearBody(view.getElement());
+    t.delay(function() {
+        t.equal(view.getBounds().left, 30,'rectangle bounds read');
+        t.isFalse(Blend.isNullOrUndef(view.getColor()),'rectangle has color');
         t.done();
     });
 });
