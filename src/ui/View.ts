@@ -82,13 +82,31 @@ module Blend.ui {
         // SIZE AND POSITIONING
 
         /**
-         * Retuns the bounds of this based on the IViewBounds interface 
+         * Returns the bounds of this View based on the IViewBounds interface
          */
         getBounds(el?: HTMLElement): IViewBounds {
             var me = this;
             el = el || me.getElement();
             return Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
         }
+
+        /**
+         * Sets the bounds of this View based on the IViewBounds interface
+         */
+        setBounds(bounds: IViewBounds) {
+            var me = this;
+            me.setStyle(<IStyleConfig>bounds);
+            me.notifyBoundsChanged();
+        }
+
+        /**
+         * Sends boundsChanged notification
+         */
+        notifyBoundsChanged() {
+            var me = this;
+            me.fireEvent('boundsChanged', me.getBounds());
+        }
+
 
         // LAYOUT
 
