@@ -26,11 +26,20 @@ module Blend.testing {
             me.log = [];
         }
 
-        clearBody() {
-            document.body.innerHTML = '';
+        clearBody(el?: string|HTMLElement) {
+            var me = this;
+            if (el) {
+                if (me.is_string(el)) {
+                    document.body.innerHTML = <string>el;
+                } else {
+                    document.body.appendChild(<HTMLElement>el)
+                }
+            } else {
+                document.body.innerHTML = '';
+            }
         }
 
-        addToBody(el:HTMLElement) {
+        addToBody(el: HTMLElement) {
             document.body.appendChild(el);
         }
 
@@ -158,11 +167,11 @@ module Blend.testing {
          * The same as done() only with some delay to let the asynchronous tasks
          * like fireevent to finish
          */
-        delayedDone(seconds?:number) {
+        delayedDone(seconds?: number) {
             var me = this;
-            me.delay(function(){
+            me.delay(function() {
                 me.done();
-            },seconds)
+            }, seconds)
         }
 
         /**
@@ -267,7 +276,7 @@ module Blend.testing {
         private logPass(testtype: string, message?: string) {
             var me = this;
             if (console && console.log) {
-                console.log('PASSED', me.currentTest.name, testtype, 'Total passed: ', me.totalPass, 'Total failed:', me.totalFail);
+                console.log(me.currentTest.name, 'PASSED', testtype, 'Total passed: ', me.totalPass, 'Total failed:', me.totalFail);
             }
         }
 
@@ -382,7 +391,7 @@ module Blend.testing {
                 me.span('passed pct33', `Passed: ${me.totalPass}`)
             ]));
             result = result.concat(me.log);
-            document.body.innerHTML = document.body.innerHTML +  `<div class='log'>${result.join(' ') }</div>`;
+            document.body.innerHTML = document.body.innerHTML + `<div class='log'>${result.join(' ') }</div>`;
         }
 
         private runNextTest() {
