@@ -12,6 +12,10 @@ interface ILayoutConfig extends IComponentConfig {
     view?: Blend.ui.View
 }
 
+interface IContainerLayoutConfig extends ILayoutConfig {
+
+}
+
 /**
  * Interface for defining fields of a Model
  */
@@ -31,9 +35,21 @@ interface IModelConfig extends IDictionary {
 }
 
 /**
+ * Interface for defining View bounds and visibility
+ * @internal
+ */
+interface IViewBounds {
+    top?: number;
+    left?: number;
+    width?: number|string;
+    height?: number|string;
+    visible?: boolean;
+}
+
+/**
  * Interface for defining a View configuration
  */
-interface IViewConfig extends IDictionary {
+interface IViewConfig extends IComponentConfig {
 
     //MVC
 
@@ -48,21 +64,21 @@ interface IViewConfig extends IDictionary {
     cssClass?: string|IDictionary;
 
     // SIZE
+
     width?: number|string;
     height?: number|string;
     top?: number;
     left?: number;
+
+    // AS CONTAINER CHILD
+    itemId?:string;
+
 
 }
 
-/**
- * Interface for defining View bounds and visibility
- * @internal
- */
-interface IViewBounds {
-    top?: number;
-    left?: number;
-    width?: number|string;
-    height?: number|string;
-    visible?: boolean;
+interface IContainerViewConfig extends IViewConfig {
+
+    children?:Array<Blend.ui.View|IComponentConfig|string>;
+    boddyPadding?:number;
+
 }

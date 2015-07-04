@@ -28,14 +28,13 @@ module Blend.testing {
 
         clearBody(el?: string|HTMLElement) {
             var me = this;
+            document.body.innerHTML = '';
             if (el) {
                 if (me.is_string(el)) {
                     document.body.innerHTML = <string>el;
                 } else {
                     document.body.appendChild(<HTMLElement>el)
                 }
-            } else {
-                document.body.innerHTML = '';
             }
         }
 

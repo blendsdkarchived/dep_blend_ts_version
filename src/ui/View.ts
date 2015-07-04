@@ -8,12 +8,15 @@ module Blend.ui {
 
     export class View extends Blend.mvc.View {
 
+
+
         private layout: Blend.layout.Layout;
         private isViewRendered: boolean;
         private eventsEnabled: boolean;
         private layoutEnabled: boolean;
         private sizeHash: string;
         private isInALayoutContext: boolean;
+        private itemId: string;
 
         //UI
         visible: boolean;
@@ -22,6 +25,12 @@ module Blend.ui {
         protected el: HTMLElement;
         protected layoutTriggers: Array<string>;
 
+        destroyElement() {
+            var me = this;
+            me.el.parentNode.removeChild(me.el);
+            me.el = null;
+        }
+
         constructor(config?: IViewConfig) {
             var me = this;
             super(config);
@@ -29,16 +38,21 @@ module Blend.ui {
             me.isInALayoutContext = false;
             me.eventsEnabled = true;
             me.layoutEnabled = true;
-            me.layout = Blend.createLayout(me.initialConfig.layout, me);
+            me.layout = me.createLayout();
             me.layoutTriggers = [
                 'redo-layout',
                 'boundsChanged',
                 'visibilityChanged'
             ];
             me.visible = me.initialConfig.visible;
+            me.itemId = me.initialConfig.itemId;
         }
 
-        protected initConfig(config: IViewConfig) {
+        getItemId(): string {
+            return this.itemId;
+        }
+
+        protected initConfig(config?: IViewConfig) {
 
             var defaultConfig: IViewConfig = {
                 layout: {
@@ -49,11 +63,21 @@ module Blend.ui {
                 top: null,
                 left: null,
                 visible: true,
-                cssClass: null
+                cssClass: null,
+                itemId: null
             };
 
-            return Blend.apply(defaultConfig, super.initConfig(config), true, false);
+            return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
         }
+
+        /**
+         * Creates an instance of Blend.layout.Layout for this View
+         */
+        protected createLayout(): Blend.layout.Layout {
+            var me = this;
+            return Blend.createLayout(me.initialConfig.layout, me);
+        }
+
 
         // CSS class
 

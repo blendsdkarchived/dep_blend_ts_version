@@ -21,3 +21,9 @@ class UITestView extends Blend.ui.View {
     }
 
 }
+
+class UITestContainerView extends Blend.ui.ContainerView {
+
+
+
+}

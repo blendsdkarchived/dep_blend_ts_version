@@ -14,7 +14,7 @@ module Blend {
             me.initialConfig = me.initConfig(config);
         }
 
-        protected initConfig(config:IDictionary) {
+        protected initConfig(config:IDictionary = {}) {
             return config || {};
         }
 

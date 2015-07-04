@@ -32,7 +32,7 @@ module Blend.mvc {
          * Initialises the provided config from the constructor
          * before using it in the View.
          */
-        protected initConfig(config: IViewConfig): IViewConfig {
+        protected initConfig(config?: IViewConfig): IViewConfig {
             var defaultConfig: IViewConfig = {
                 reference: null,
                 bindings: {},

@@ -61,12 +61,12 @@ module Blend.mvc {
         /**
         * Initializes the provided config assigned to the constructor
         */
-        protected initConfig(config: IModelConfig): IModelConfig {
+        protected initConfig(config?: IModelConfig): IModelConfig {
             var defaultConfig:IModelConfig = {
                 id:null,
                 fields:null
             }
-            return Blend.apply(defaultConfig,super.initConfig(config),true,false);
+            return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
         }
 
 

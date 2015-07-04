@@ -92,7 +92,7 @@ TestRunner.defineTest('View cssClass', function(t: Blend.testing.TestRunner) {
 });
 
 
-TestRunner.defineTest('View initial bounds', function(t: Blend.testing.TestRunner) {
+TestRunner.defineTest('View initial bounds and property', function(t: Blend.testing.TestRunner) {
     var view = new Blend.ui.Rectangle({
         width: 120,
         height: 120,
