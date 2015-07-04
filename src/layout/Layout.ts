@@ -13,7 +13,7 @@ module Blend.layout {
 
         protected view: Blend.ui.View;
         protected cssClassName: string;
-        protected initialConfig:ILayoutConfig;
+        protected initialConfig: ILayoutConfig;
 
         constructor(config: ILayoutConfig) {
             var me = this;
@@ -28,12 +28,25 @@ module Blend.layout {
         }
 
         render(): HTMLElement {
+            /**
+             * We don't need to re-render the container if it has already been rendered
+             */
             var me = this,
-                spec:IDictionary = {};
-            if (me.cssClassName) {
-                spec['cls'] = <string[]>Blend.cssPrefix(me.cssClassName+'-layout', true);
+                spec: IDictionary = {};
+            if (me.isViewRendered()) {
+                return me.view.getElement();
+            } else {
+                if (me.cssClassName) {
+                    spec['cls'] = <string[]>Blend.cssPrefix(me.cssClassName + '-layout', true);
+                }
+                return me.view.render.apply(me.view, [spec]);
             }
-            return this.view.render.apply(this.view, [spec]);
+        }
+
+        protected isViewRendered(view?: Blend.ui.View): boolean {
+            var me = this;
+            view = view || me.view;
+            return view.getAttribute('isViewRendered');
         }
 
     }
