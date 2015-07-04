@@ -99,3 +99,26 @@ TestRunner.defineTest('Container rendred', function(t: Blend.testing.TestRunner)
     });
 
 });
+
+
+TestRunner.defineTest('Container destroy', function(t: Blend.testing.TestRunner) {
+
+    var cntr = new UITestContainerView({
+        children: [
+            'ui.rect',
+            'ui.rect',
+            'ui.rect'
+        ]
+    });
+
+    t.clearBody(cntr.getElement());
+
+    t.delay(function(){
+
+        cntr.destroy();
+        t.equal(document.body.children.length,0,'container destroyed');
+        //t.done();
+
+    });
+
+});

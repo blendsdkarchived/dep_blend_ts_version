@@ -25,10 +25,21 @@ module Blend.ui {
         protected el: HTMLElement;
         protected layoutTriggers: Array<string>;
 
-        destroyElement() {
+        /**
+         * Destroys this View by setting the properties to null,
+         * deleting them and removing its HTMLElement
+         */
+        destroy() {
             var me = this;
-            me.el.parentNode.removeChild(me.el);
-            me.el = null;
+            if (me.parent || me.el.parentNode) {
+                me.el.parentNode.removeChild(me.el);
+            } else {
+                me.el = null;
+            }
+            Blend.forEach(me, function(value: any, key: string) {
+                (<any>me)[key] = null;
+                delete ((<any>me)[key]);
+            });
         }
 
         constructor(config?: IViewConfig) {

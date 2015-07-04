@@ -29,6 +29,18 @@ module Blend.ui {
             me.resumeLayout(); me.enableEvents();
         }
 
+        /**
+         * Destroys this View by setting the properties to null,
+         * deleting them, destroying the child Views and removing its HTMLElement
+         */
+        destroy() {
+            var me = this;
+            Blend.forEach(me.children,function(view:View){
+                view.destroy();
+            });
+            super.destroy();
+        }
+
         protected createLayout(): Blend.layout.Layout {
             var me = this,
                 layout = Blend.createLayout(me.initialConfig.layout, me);
@@ -88,7 +100,7 @@ module Blend.ui {
                 };
                 view = Blend.createObjectWithAlias(config);
             }
-
+            view.setAttribute('parent',me);
             me.children.push(view);
             me.notifyChildAdded(view);
         }
