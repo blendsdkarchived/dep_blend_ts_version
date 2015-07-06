@@ -90,11 +90,11 @@ TestRunner.defineTest('Container rendred', function(t: Blend.testing.TestRunner)
 
     t.clearBody(cntr.getElement());
 
-    t.delay(function(){
+    t.delay(function() {
         var el = cntr.getElement();
-        t.equal(el.childNodes.length,1,'container=>body');
-        t.equal(el.childNodes[0].childNodes.length,1,'container=>body=>content');
-        t.equal(el.childNodes[0].childNodes[0].childNodes.length,3,'container=>body=>content=>3x rect');
+        t.equal(el.childNodes.length, 1, 'container=>body');
+        t.equal(el.childNodes[0].childNodes.length, 1, 'container=>body=>content');
+        t.equal(el.childNodes[0].childNodes[0].childNodes.length, 3, 'container=>body=>content=>3x rect');
         t.done();
     });
 
@@ -113,12 +113,57 @@ TestRunner.defineTest('Container destroy', function(t: Blend.testing.TestRunner)
 
     t.clearBody(cntr.getElement());
 
-    t.delay(function(){
+    t.delay(function() {
 
         cntr.destroy();
-        t.equal(document.body.children.length,0,'container destroyed');
-        //t.done();
+        t.equal(document.body.children.length, 0, 'container destroyed');
+        t.done();
 
+    });
+
+});
+
+
+TestRunner.defineTest('Container removeChild', function(t: Blend.testing.TestRunner) {
+
+    var cntr = new UITestContainerView({
+        children: [
+            'ui.rect',
+            'ui.rect',
+            'ui.rect'
+        ]
+    });
+
+    t.clearBody(cntr.getElement());
+
+    t.delay(function() {
+        var el = cntr.getElement();
+        cntr.removeChild(1);
+        t.equal(cntr.getChildren().length, 2, 'child removed');
+        t.equal(el.childNodes[0].childNodes[0].childNodes.length, 2, 'container=>body=>content=>2x rect remained');
+        t.done();
+    });
+
+});
+
+
+TestRunner.defineTest('Container addChild', function(t: Blend.testing.TestRunner) {
+
+    var cntr = new UITestContainerView({
+        children: [
+            'ui.rect',
+            'ui.rect'
+        ]
+    });
+
+    t.clearBody(cntr.getElement());
+    
+    cntr.addChild('ui.rect');
+
+    t.delay(function() {
+        var el = cntr.getElement();
+        t.equal(el.childNodes[0].childNodes[0].childNodes.length, 3, '1x child added after render');
+        t.done();
     });
 
 });
