@@ -31,7 +31,7 @@ module Blend {
          */
         getAttribute(name:string) {
             var me:any = this;
-            return me[name] || null;
+            return Blend.isNullOrUndef(me[name]) ? null : me[name];
         }
 
         /**
