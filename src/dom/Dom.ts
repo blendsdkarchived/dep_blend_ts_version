@@ -15,6 +15,17 @@ module Blend.dom {
         UNIT: string = 'px';
 
         /**
+         * Removes a HTMLElement from its parent's container
+         */
+        removeElement(el:HTMLElement) {
+            if(el && el.parentNode) {
+                return el.parentNode.removeChild(el);
+            } else {
+                return null;
+            }
+        }
+
+        /**
          * Removes the child elements of a given HTMLElement
          */
         clearElement(el: HTMLElement) {
