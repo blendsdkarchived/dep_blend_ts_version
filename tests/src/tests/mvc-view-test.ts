@@ -1,6 +1,6 @@
 /// <reference path="../../typings/blend.d.ts" />
 /// <reference path="../TestFramework.ts" />
-/// <reference path="MVC.common.ts" />
+/// <reference path="mvc-common.ts" />
 
 TestRunner.defineTest('View', function(t: Blend.testing.TestRunner) {
     var v = new Blend.mvc.View();

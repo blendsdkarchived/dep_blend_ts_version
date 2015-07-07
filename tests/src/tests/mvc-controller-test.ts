@@ -1,6 +1,6 @@
 /// <reference path="../../typings/blend.d.ts" />
 /// <reference path="../TestFramework.ts" />
-/// <reference path="MVC.common.ts" />
+/// <reference path="mvc-common.ts" />
 
 TestRunner.defineTest('Controller', function(t: Blend.testing.TestRunner) {
     var c = new MyController('my.controller');

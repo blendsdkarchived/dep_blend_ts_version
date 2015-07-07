@@ -1,6 +1,6 @@
 /// <reference path="../../typings/blend.d.ts" />
 /// <reference path="../TestFramework.ts" />
-/// <reference path="UIView.commons.ts" />
+/// <reference path="ui-view-commons.ts" />
 
 
 TestRunner.defineTest('LayoutUtil-Fit', function(t: Blend.testing.TestRunner) {

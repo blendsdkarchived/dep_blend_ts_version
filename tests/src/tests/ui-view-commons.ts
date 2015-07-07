@@ -3,7 +3,7 @@
 
 class UITestView extends Blend.ui.View {
 
-    layoutCount:number = 0;
+    layoutCount: number = 0;
 
     render(layoutConfig: ICreateElement = {}): HTMLElement {
         var me = this,
@@ -15,15 +15,18 @@ class UITestView extends Blend.ui.View {
 
 
     protected layoutView() {
-        var me= this;
+        var me = this;
         me.layoutCount++;
-        return super.layoutView.apply(me,arguments);
+        return super.layoutView.apply(me, arguments);
     }
 
 }
 
 class UITestContainerView extends Blend.ui.ContainerView {
 
-
+    getBodyContentElement(): HTMLElement {
+        var me = this;
+        return me.bodyContentElement;
+    }
 
 }
