@@ -61,9 +61,6 @@ module Blend.ui {
                 spec = {
                     id: me.rectId
                 }
-
-            var w:any = window;
-            w[me.rectId] = me;
             return me.createElement(Blend.apply(spec, layoutConfig));
         }
 
