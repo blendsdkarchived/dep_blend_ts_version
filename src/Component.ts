@@ -7,31 +7,31 @@ module Blend {
      */
     export class Component {
 
-        protected initialConfig:IDictionary;
+        protected initialConfig: IDictionary;
 
-        constructor(config?:any) {
+        constructor(config?: any) {
             var me = this;
             me.initialConfig = me.initConfig(config);
         }
 
-        protected initConfig(config:IDictionary = {}) {
+        protected initConfig(config: IDictionary = {}) {
             return config || {};
         }
 
         /**
          * Sets a dynamic attribute to this Component
          */
-        setAttribute(name:string,value:any) {
-            var me:any = this;
+        setAttribute(name: string, value: any) {
+            var me: any = this;
             me[name] = value;
         }
 
         /**
          * Retrives the value of a dynamic attribute within this Component
          */
-        getAttribute(name:string) {
-            var me:any = this;
-            return Blend.isNullOrUndef(me[name]) ? null : me[name];
+        getAttribute<T>(name: string): T {
+            var me: any = this;
+            return (Blend.isNullOrUndef(me[name]) ? null : me[name]);
         }
 
         /**
