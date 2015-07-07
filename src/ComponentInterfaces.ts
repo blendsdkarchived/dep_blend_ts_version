@@ -78,7 +78,7 @@ interface IViewConfig extends IComponentConfig {
 
 interface IContainerViewConfig extends IViewConfig {
 
-    children?:Array<Blend.ui.View|IComponentConfig|string>;
+    views?:Array<Blend.ui.View|IComponentConfig|string>;
     boddyPadding?:number;
 
 }
