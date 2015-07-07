@@ -46,7 +46,7 @@ module Blend.layout {
         protected isViewRendered(view?: Blend.ui.View): boolean {
             var me = this;
             view = view || me.view;
-            return view.getAttribute('isViewRendered');
+            return view.getAttribute<boolean>('isViewRendered');
         }
 
     }
