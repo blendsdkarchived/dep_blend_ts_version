@@ -32,9 +32,6 @@ TestRunner.defineTest('UI.View', function(t: Blend.testing.TestRunner) {
 
         var el = v.getElement();
         t.equal(el.getAttribute('class'), 'b-default-layout', 'default layout added');
-
-        console.log(v.getBounds());
-
         t.done();
     });
 

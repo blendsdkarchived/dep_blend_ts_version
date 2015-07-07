@@ -64,7 +64,6 @@ module Blend.ui {
             return me.createElement(Blend.apply(spec, layoutConfig));
         }
 
-
         finalizeRender() {
             var me = this;
             super.finalizeRender();
