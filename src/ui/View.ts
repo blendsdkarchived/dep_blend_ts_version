@@ -10,13 +10,15 @@ module Blend.ui {
 
 
 
-        private layout: Blend.layout.Layout;
+
         private isViewRendered: boolean;
         private eventsEnabled: boolean;
         private layoutEnabled: boolean;
         private sizeHash: string;
         private isInALayoutContext: boolean;
         private itemId: string;
+
+        protected layout: Blend.layout.Layout;
 
         //UI
         visible: boolean;
