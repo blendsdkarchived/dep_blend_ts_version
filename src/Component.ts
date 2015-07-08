@@ -27,6 +27,14 @@ module Blend {
         }
 
         /**
+         * Retrives a value from the initial config
+         */
+        getInitialConfig<T>(name: string): T {
+            var me: any = this;
+            return (Blend.isNullOrUndef(me.initialConfig[name]) ? null : me.initialConfig[name]);
+        }
+
+        /**
          * Retrives the value of a dynamic attribute within this Component
          */
         getAttribute<T>(name: string): T {
