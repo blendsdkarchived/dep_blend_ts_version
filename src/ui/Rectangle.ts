@@ -59,7 +59,10 @@ module Blend.ui {
         render(layoutConfig: ICreateElement = {}): HTMLElement {
             var me = this,
                 spec = {
-                    id: me.rectId
+                    id: me.rectId,
+                    style: {
+                        border: '1px dashed black'
+                    }
                 }
             return me.createElement(Blend.apply(spec, layoutConfig));
         }
