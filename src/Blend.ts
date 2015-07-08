@@ -5,15 +5,17 @@ module Blend {
     var CSS_PREFIX = 'b-';
     var registry: IDictionary = {};
 
+    export var LayoutUtil: Blend.layout.Util;
+
     /**
      * Returns enum value, either the value as number or its string representation
      */
-    export function getEnumValue(objEnum: any, value: any, defaultValue?: any): any {
+    export function getEnumValue<T>(objEnum: any, value: any, defaultValue?: any): T {
         var dic: IDictionary = objEnum;
         if (Blend.isNumeric(value)) {
-            return dic[parseInt(value)] || Blend.getEnumValue(objEnum, defaultValue);
+            return <T>(dic[parseInt(value)] || Blend.getEnumValue(objEnum, defaultValue));
         } else {
-            return dic[value] || Blend.getEnumValue(objEnum, defaultValue);
+            return <T>(dic[value] || Blend.getEnumValue(objEnum, defaultValue));
         }
     }
 
@@ -25,21 +27,26 @@ module Blend {
      * @param {mergeArrays} will merge arrays instead of overwriting them
      */
     export function apply(target: any, source: any, overwrite: boolean = false, mergeArrays: boolean = false): any {
-        var key: any;
+        var key: any,
+            targetKeys = Object.keys(target || {}),
+            targetHasKey = function(key: string): boolean {
+                return targetKeys.indexOf(key) !== -1
+            }
         overwrite = overwrite || false;
         mergeArrays = mergeArrays || false;
+
         if (target && source) {
             for (key in source) {
                 if (key) {
-                    if (target[key] && Blend.isObject(target[key])) {
+                    if (targetHasKey(key) && Blend.isObject(target[key])) {
                         if (overwrite) {
                             target[key] = source[key];
                         } else {
                             Blend.apply(target[key], source[key]);
                         }
-                    } else if (target[key] && Blend.isArray(target[key]) && mergeArrays === true) {
+                    } else if (targetHasKey(key) && Blend.isArray(target[key]) && mergeArrays === true) {
                         target[key] = target[key].concat(Blend.wrapInArray(source[key]));
-                    } else if (target[key] && overwrite) {
+                    } else if (targetHasKey(key) && overwrite) {
                         target[key] = source[key];
                     } else if (Blend.isNullOrUndef(target[key])) {
                         target[key] = source[key];
