@@ -9,7 +9,7 @@ module Blend.mvc {
 
         protected reference: string;
         protected parent: View;
-        protected initialConfig:IViewConfig;
+        protected initialConfig: IViewConfig;
 
 
         private bindings: IStringDictionary;
@@ -38,7 +38,7 @@ module Blend.mvc {
                 bindings: {},
                 controllers: []
             }
-            return Blend.apply(defaultConfig,super.initConfig(config),true,false);
+            return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
         }
 
         /**
