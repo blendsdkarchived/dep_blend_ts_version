@@ -19,6 +19,16 @@ module Blend {
         }
 
         /**
+         * Sets a list of dynamic attributes to this Component
+         */
+        setAttributes(attrs:IDictionary) {
+            var me = this;
+            Blend.forEach(attrs,function(value:any,key:string){
+                me.setAttribute(key,value);
+            });
+        }
+
+        /**
          * Sets a dynamic attribute to this Component
          */
         setAttribute(name: string, value: any) {
