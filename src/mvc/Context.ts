@@ -15,6 +15,13 @@ module Blend.mvc {
         private models: IModelDictionary = {};
 
         /**
+         * Returns the controller dictionary of this Context
+         */
+        getControllers():IControllerDictionary {
+            return this.controllers;
+        }
+
+        /**
          * Retrives a controller based on its name
          */
         getController(name: string): Controller {
