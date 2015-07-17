@@ -76,7 +76,6 @@ TestRunner.defineTest('View Visibility', function(t: Blend.testing.TestRunner) {
     });
 });
 
-
 TestRunner.defineTest('View cssClass', function(t: Blend.testing.TestRunner) {
     var view = new UITestView();
     t.clearBody(view.getElement());

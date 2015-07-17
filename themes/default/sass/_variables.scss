@@ -1,7 +1,14 @@
-/*
- * Base values
- */
+// Base values
 $default-background-color:  #fff;
 $default-text-color:  #000;
 $default-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $default-font-size: 1em;
+
+// Colors
+$base-color: #E0E0E0;
+
+// Scrollbars
+$scroll-track-color: darken($base-color,5%);
+$scroll-handle-color: darken($scroll-track-color,10%);
+$scroll-handle-hover-color:darken($scroll-track-color,20%);
+$scroll-handle-active-color:darken($scroll-track-color,40%);

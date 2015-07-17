@@ -1,18 +1,19 @@
-[data-scroll=none] {
-    overflow: hidden;
-}
+#{$prefix}-scrollbar {
+    display: inline-block;
+    position: absolute;
+    background-color: $scroll-track-color;
 
-[data-scroll=vertical] {
-    overflow-x: hidden;
-    overflow-y: auto
-}
+    #{$prefix}-scrollbar-handle {
+        display: inline-block;
+        position: absolute;
+        background-color: $scroll-handle-color;
 
-[data-scroll=horizontal] {
-    overflow-x: auto;
-    overflow-y: hidden;
-}
+        &:hover {
+            background-color: $scroll-handle-hover-color;
+        }
 
-[data-scroll=auto] {
-    overflow-x: auto;
-    overflow-y: auto;
+        &:active {
+            background-color: $scroll-handle-active-color;
+        }
+    }
 }

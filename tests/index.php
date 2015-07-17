@@ -1,10 +1,19 @@
+<?php
+    if(!empty($_GET['v'])) {
+        $version='/?v='.time();
+    } else {
+        $version='';
+    }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Blend Test</title>
-<link rel="stylesheet" href="css/default/default.css">
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<link rel="stylesheet" href="css/default/default.css<?php echo $version?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
@@ -64,8 +73,8 @@
 
 
 </style>
-<script src="js/blend.js"></script>
-<script src="js/blend-tests.js"></script>
+<script src="js/blend.js<?php echo $version?>"></script>
+<script src="js/blend-tests.js<?php echo $version?>"></script>
 </head>
 <body>
 </body>

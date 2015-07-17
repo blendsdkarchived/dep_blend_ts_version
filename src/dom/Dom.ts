@@ -10,15 +10,39 @@ module Blend.dom {
     export class DomSingleton {
 
         unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/;
-        unitTypeRe: RegExp = /(em$|\%$|auto)/;
+        unitTypeRe: RegExp = /(em$|\%$|auto|^calc)/;
         pixelRe = /px$/;
         UNIT: string = 'px';
+
+        getBodyElement(content?: DocumentFragment|HTMLElement, clear?: boolean): HTMLElement {
+            if (clear === true) {
+                document.body.innerHTML = '';
+            }
+            if (content) {
+                document.body.appendChild(content);
+            }
+            return document.body;
+        }
+
+        getScrollInfo(el: HTMLElement) {
+
+            if (el) {
+                var hoverflow: boolean = (el.scrollWidth > el.clientWidth) ? true : false,
+                    voverflow: boolean = (el.scrollHeight > el.clientHeight) ? true : false,
+                    scrollSize = Blend.Environment.getScrollbarSize()
+                console.log(scrollSize);
+                return {
+                }
+            } else {
+                return null;
+            }
+        }
 
         /**
          * Removes a HTMLElement from its parent's container
          */
-        removeElement(el:HTMLElement) {
-            if(el && el.parentNode) {
+        removeElement(el: HTMLElement) {
+            if (el && el.parentNode) {
                 return el.parentNode.removeChild(el);
             } else {
                 return null;
@@ -41,14 +65,14 @@ module Blend.dom {
          * Adds an EventListener to an EventTarget
          */
         addEventListener(el: EventTarget, eventName: string, eventHandler: EventListener): void {
-            Blend.Environment.addEventListener.apply(this,arguments);
+            Blend.Environment.addEventListener.apply(this, arguments);
         }
 
         /**
          * Removes an EventListener from an EventTarget
          */
         removeEventListener(el: EventTarget, eventName: string, eventHandler: EventListener): void {
-            Blend.Environment.removeEventListener.apply(this,arguments);
+            Blend.Environment.removeEventListener.apply(this, arguments);
         }
 
         /**
@@ -70,9 +94,9 @@ module Blend.dom {
                     (<IDictionary>cls)[a] = true;
                 }
                 var cur = me.cssClass(el),
-                    re:Array<string> = [], s:string;
+                    re: Array<string> = [], s: string;
                 cur = Blend.apply(cur, cls, true);
-                Blend.forEach(cur, function(v:boolean, k:string) {
+                Blend.forEach(cur, function(v: boolean, k: string) {
                     if (v === true) {
                         re.push(k);
                     }
@@ -86,7 +110,7 @@ module Blend.dom {
                 var value = el.getAttribute('class');
                 if (value && value !== '') {
                     var r: IDictionary = {};
-                    Blend.forEach(value.split(' '), function(cls:string) {
+                    Blend.forEach(value.split(' '), function(cls: string) {
                         if (cls !== '') {
                             r[cls] = true;
                         }
@@ -106,7 +130,7 @@ module Blend.dom {
             if (el) {
                 var cs = window.getComputedStyle(el, null),
                     r: IStyleConfig = {};
-                Blend.forEach(styles, function(key:string) {
+                Blend.forEach(styles, function(key: string) {
                     r[key] = me.fromUnit(cs.getPropertyValue(key));
                 });
                 return r;
@@ -120,7 +144,7 @@ module Blend.dom {
          */
         setStyle(el: HTMLElement, styles: IStyleConfig) {
             var me = this,
-                setter = function(el:HTMLElement, k:string, v:any) {
+                setter = function(el: HTMLElement, k: string, v: any) {
                     if (v === null) {
                         el.style.removeProperty(k);
                     } else {
@@ -133,7 +157,7 @@ module Blend.dom {
                 };
 
             if (styles) {
-                Blend.forEach(styles, function(v:any, k:string) {
+                Blend.forEach(styles, function(v: any, k: string) {
                     setter(el, k, me.toUnit(k, v));
                 });
             }

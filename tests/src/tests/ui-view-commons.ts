@@ -30,3 +30,18 @@ class UITestContainerView extends Blend.ui.ContainerView {
     }
 
 }
+
+class UITestUtils {
+    static createRects(counts: number, template: any = {}): Array<IComponentConfig> {
+        var result: Array<IComponentConfig> = [];
+        for (var a = 0; a != counts; a++) {
+            result.push(Blend.apply({
+                ctype: 'ui.rect',
+                xcolor: '#fff',
+                width: Math.floor(Math.random() * (500 - 100)) + 100,
+                height: Math.floor(Math.random() * (500 - 100)) + 100
+            }, template))
+        }
+        return result;
+    }
+}

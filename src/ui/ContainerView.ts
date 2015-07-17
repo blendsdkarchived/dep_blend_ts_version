@@ -2,6 +2,11 @@
 /// <reference path="../dom/Dom.ts"/>
 /// <reference path="../layout/Util.ts" />
 /// <reference path="../layout/container/Layout.ts" />
+/// <reference path="../layout/component/ContainerView.ts" />
+/// <reference path="widget/VerticalScrollbar.ts" />
+/// <reference path="widget/HorizontalScrollbar.ts" />
+
+
 
 
 module Blend.ui {
@@ -14,11 +19,18 @@ module Blend.ui {
         protected bodyContentElement: HTMLElement;
         protected bodyPadding: number;
         protected layout: Blend.layout.container.Layout;
+        protected allowScroll: eScroll;
+        protected hScrollbar:Blend.ui.widget.HorizontalScrollbar;
+        protected vScrollbar:Blend.ui.widget.VerticalScrollbar;
+
+        private innerLayout:Blend.layout.component.ContainerView;
 
         constructor(config?: IContainerViewConfig) {
             var me = this;
             super(config);
             me.views = [];
+            me.bodyPadding = me.initialConfig.bodyPadding;
+            me.allowScroll = me.initialConfig.allowScroll;
 
             me.layoutTriggers = me.layoutTriggers.concat([
                 'viewAdded',
@@ -37,7 +49,8 @@ module Blend.ui {
         protected initConfig(config?: IViewConfig) {
             var me = this,
                 defaultConfig: IContainerViewConfig = {
-                    boddyPadding: null,
+                    bodyPadding: null,
+                    allowScroll: eScroll.None,
                     views: [],
                     layout: {
                         ctype: 'container'
@@ -170,7 +183,25 @@ module Blend.ui {
          */
         protected layoutInnerElements() {
             var me = this;
+            if(!me.innerLayout) {
+                me.innerLayout = me.createInnerLayout()
+            }
             Blend.LayoutUtil.fitElement(me.bodyElement);
+            me.innerLayout.performLayout();
+        }
+
+        protected createInnerLayout() : Blend.layout.component.ContainerView {
+            var  me = this;
+            me.hScrollbar.setScrollElement(me.bodyContentElement);
+            me.vScrollbar.setScrollElement(me.bodyContentElement);
+            return new Blend.layout.component.ContainerView({
+                viewElement:me.el,
+                bodyElement:me.bodyElement,
+                bodyContentElement:me.bodyContentElement,
+                allowScroll:me.allowScroll,
+                hScrollbar:me.hScrollbar,
+                vScrollbar:me.vScrollbar
+            });
         }
 
         /**
@@ -188,6 +219,7 @@ module Blend.ui {
         render(layoutConfig?: ICreateElement) {
             var me: ContainerView = this,
                 spec = Blend.apply(layoutConfig || {}, {
+                    unselectable:true,
                     cls: Blend.cssPrefix('container', true),
                     children: [
                         me.renderBodyElement()
@@ -200,13 +232,21 @@ module Blend.ui {
         }
 
         /**
-         * Renders the body element and a boddy-inner element
+         * Renders the body element and a boddy-inner element.
          */
         protected renderBodyElement(): IDictionary {
+            /**
+             * The bodyElement is mainly used to enable a padding in the content
+             * The scollbars are set on th content element (body-inner)
+             */
             var me = this;
+            me.vScrollbar = new Blend.ui.widget.VerticalScrollbar();
+            me.hScrollbar = new Blend.ui.widget.HorizontalScrollbar();
+
             return <IDictionary>{
                 oid: 'bodyElement',
-                cls: [Blend.cssPrefix('body')],
+                unselectable:true,
+                cls: Blend.cssPrefix('body'),
                 style: {
                     padding: me.bodyPadding
                 },
@@ -214,9 +254,14 @@ module Blend.ui {
                     {
                         cls: Blend.cssPrefix(['body-inner', 'fitted']),
                         oid: 'bodyContentElement',
-                    }
+                        unselectable:true,
+                    },
+                    me.vScrollbar.getElement(),
+                    me.hScrollbar.getElement()
                 ]
             }
         }
     }
 }
+
+Blend.registerClassWithAlias('ui.container', Blend.ui.ContainerView);

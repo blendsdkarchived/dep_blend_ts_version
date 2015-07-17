@@ -8,9 +8,6 @@ module Blend.ui {
 
     export class View extends Blend.mvc.View {
 
-
-
-
         private isViewRendered: boolean;
         private eventsEnabled: boolean;
         private layoutEnabled: boolean;
