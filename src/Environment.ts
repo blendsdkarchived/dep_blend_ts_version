@@ -121,7 +121,6 @@ module Blend {
             el.removeEventListener(eventName, eventHandler, false);
         }
     }
-
     /**
      *  The Environment object available from Blend.Environment
      */
