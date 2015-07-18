@@ -67,5 +67,12 @@ TestRunner.defineTest('Dom', function(t: Blend.testing.TestRunner) {
     document.body.appendChild(e6);
     t.isTrue(e6.outerHTML.indexOf('data-test="true"') !== -1, 'extra attr set');
 
+    var e7:HTMLElement = Blend.Dom.createElement({});
+    document.body.appendChild(e7);
+    Blend.Dom.setStyle(e7,{
+        width:'calc(100% - 50px)'
+    });
+    t.equal(e7.style.getPropertyValue('width'),'calc(100% - 50px)','calc data set');
+
     t.done();
 });
