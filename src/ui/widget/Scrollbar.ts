@@ -12,24 +12,38 @@ module Blend.ui.widget {
         protected cssClass: string;
         protected scrollbarSize: number;
         protected trackSize: number;
+        protected scrollSize: number;
         protected hanldeSize: number;
         protected handleEl: HTMLElement;
         protected currentPosition: number;
         protected scrollElement: HTMLElement;
+        protected staticUnits: number;
 
         private initialized: boolean;
         private scrolling: boolean;
         private oldX: number;
         private oldY: number;
 
+
+        protected scrollToInternal(handlePosition: number, scrollPosition: number): void { }
+        protected layoutInternal(position: number): void { }
+        protected getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number { return 0; }
+        protected getMovement(oldX: number, oldY: number, curX: number, curY: number): number { return 0; }
+
+
         constructor() {
             var me = this;
             super();
-            me.scrollbarSize = 14;
+            me.scrollbarSize = 12;
             me.scrolling = false;
             me.initialized = false;
             me.currentPosition = 0;
             me.oldX = me.oldY = -1;
+            me.staticUnits = 0;
+        }
+
+        getCurrentPosition() {
+            return this.currentPosition;
         }
 
         setScrollElement(el: HTMLElement) {
@@ -50,11 +64,11 @@ module Blend.ui.widget {
 
         initEvents() {
             var me = this;
+            me.oldX = me.oldY = -1;
             if (!me.initialized) {
                 me.initialized = true;
 
                 me.handleEl.addEventListener('mousedown', function(e: MouseEvent) {
-                    var p = me.getRelativePosition(e);
                     var target: HTMLElement = <HTMLElement>(e.target || e.srcElement),
                         rect = target.getBoundingClientRect();
                     me.oldX = e.screenX;
@@ -82,54 +96,50 @@ module Blend.ui.widget {
                         } else {
                             me.currentPosition -= msize;
                         }
-                        if (me.currentPosition < 0) {
-                            me.currentPosition = 0;
-                        }
                         me.oldX = e.screenX;
                         me.oldY = e.screenY;
-                        me.scrollTo(me.checkScrollPosition());
+                        me.scrollHandleTo(me.currentPosition);
                     }
                 });
             }
         }
 
-        private getRelativePosition(e: MouseEvent): Array<number> {
-            var target: HTMLElement = <HTMLElement>(e.target || e.srcElement),
-                rect = target.getBoundingClientRect();
-            return [e.clientX - rect.left, e.clientY - rect.top];
-        }
-
-        private checkScrollPosition(): number {
+        scrollHandleTo(handlePosition: number) {
             var me = this,
-                p = me.currentPosition;
-            if (p < 0) {
-                p = 0;
-            } else if (p + me.hanldeSize > me.trackSize) {
-                p = me.trackSize - me.hanldeSize;
+                scrollPosition: number;
+
+            if (handlePosition < 0) {
+                handlePosition = 0;
+            } else if (handlePosition + me.hanldeSize > me.trackSize) {
+                handlePosition = me.trackSize - me.hanldeSize;
             }
-            return me.currentPosition = p;
-        }
-
-        public scrollTo(position: number) {
-
-        }
-
-        protected calcScrollPosition(): number {
-            return 0;
-        }
-
-        protected getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number {
-            return 0;
-        }
-
-
-        protected getMovement(oldX: number, oldY: number, curX: number, curY: number): number {
-            return 0;
+            if (me.staticUnits !== 0) {
+                scrollPosition = handlePosition * me.staticUnits;
+            } else {
+                scrollPosition = (handlePosition / me.trackSize) * me.scrollSize;
+            }
+            me.currentPosition = handlePosition;
+            me.scrollToInternal(handlePosition, scrollPosition);
         }
 
         layout(trackSize: number, scrollSize: number, position: number) {
-            var me = this;
+            var me = this,
+                handleSize = (trackSize / scrollSize) * trackSize;
+
+            me.scrollSize = scrollSize;
             me.initEvents();
+
+            if (handleSize < me.scrollbarSize) {
+                handleSize = me.scrollbarSize;
+                me.staticUnits = (1 / (trackSize - handleSize)) * scrollSize;
+            } else {
+                me.staticUnits = 0;
+            }
+
+            me.trackSize = trackSize;
+            me.hanldeSize = handleSize;
+
+            me.layoutInternal(position);
         }
 
         render(): HTMLElement {
@@ -139,7 +149,7 @@ module Blend.ui.widget {
                 unselectable: true,
                 children: [
                     {
-                        type:'a',
+                        tag: 'a',
                         oid: 'handleEl',
                         cls: Blend.cssPrefix(['scrollbar-handle']),
                         unselectable: true

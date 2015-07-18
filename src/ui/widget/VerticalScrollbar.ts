@@ -15,20 +15,19 @@ module Blend.ui.widget {
             me.cssClass = 'vscroll'
         }
 
-        public scrollTo(position: number) {
+        protected scrollToInternal(handlePosition:number,scrollPosition: number)  : void{
             var me = this;
             Blend.Dom.setStyle(me.handleEl, {
-                top: position
+                top: handlePosition
             });
-            me.scrollElement.scrollTop = (position / me.trackSize) * me.scrollElement.scrollHeight;
+            me.scrollElement.scrollTop = scrollPosition;
         }
 
-        getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number {
+        protected getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number {
             return Math.abs(curY - oldY);
         }
 
-
-        getMovement(oldX: number, oldY: number, curX: number, curY: number): number {
+        protected getMovement(oldX: number, oldY: number, curX: number, curY: number): number {
             if (curY >= oldY) {
                 return 1;
             } else {
@@ -36,11 +35,10 @@ module Blend.ui.widget {
             }
         }
 
-        layout(trackSize: number, scrollSize: number, position: number) {
+        layoutInternal(position: number) {
             var me = this;
-            me.initEvents();
             Blend.Dom.setStyle(me.el, {
-                height: me.trackSize = trackSize,
+                height: me.trackSize,
                 width: me.scrollbarSize,
                 top: 0,
                 left: position
@@ -48,12 +46,10 @@ module Blend.ui.widget {
 
             Blend.Dom.setStyle(me.handleEl, {
                 width: me.scrollbarSize,
-                height: me.hanldeSize = (trackSize / scrollSize) * trackSize,
+                height: me.hanldeSize,
                 top: 0,
                 left: 0
             });
-
         }
-
     }
 }

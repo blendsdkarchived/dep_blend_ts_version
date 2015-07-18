@@ -15,12 +15,12 @@ module Blend.ui.widget {
             me.cssClass = 'hscroll'
         }
 
-        public scrollTo(position: number) {
+        protected scrollToInternal(handlePosition: number, scrollPosition: number): void {
             var me = this;
             Blend.Dom.setStyle(me.handleEl, {
-                left: position
+                left: handlePosition
             });
-            me.scrollElement.scrollLeft = (position / me.trackSize) * me.scrollElement.scrollWidth;
+            me.scrollElement.scrollLeft = scrollPosition;
         }
 
         getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number {
@@ -36,24 +36,21 @@ module Blend.ui.widget {
             }
         }
 
-
-        layout(trackSize: number, scrollSize: number, position: number) {
+        layoutInternal(position: number) {
             var me = this;
-            me.initEvents();
             Blend.Dom.setStyle(me.el, {
                 height: me.scrollbarSize,
-                width: me.trackSize = trackSize,
+                width: me.trackSize,
                 top: position,
                 left: 0
             });
 
             Blend.Dom.setStyle(me.handleEl, {
-                width: me.hanldeSize = (trackSize / scrollSize) * trackSize,
+                width: me.hanldeSize,
                 height: me.scrollbarSize,
                 top: 0,
                 left: 0
             });
-
         }
     }
 }
