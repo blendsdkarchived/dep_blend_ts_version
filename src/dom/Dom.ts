@@ -24,20 +24,6 @@ module Blend.dom {
             return document.body;
         }
 
-        getScrollInfo(el: HTMLElement) {
-
-            if (el) {
-                var hoverflow: boolean = (el.scrollWidth > el.clientWidth) ? true : false,
-                    voverflow: boolean = (el.scrollHeight > el.clientHeight) ? true : false,
-                    scrollSize = Blend.Environment.getScrollbarSize()
-                console.log(scrollSize);
-                return {
-                }
-            } else {
-                return null;
-            }
-        }
-
         /**
          * Removes a HTMLElement from its parent's container
          */
