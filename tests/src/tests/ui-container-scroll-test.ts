@@ -29,12 +29,12 @@ TestRunner.defineTest('Container View Scroll Auto', function(t: Blend.testing.Te
         var vel: HTMLElement = cview.getAttribute<Blend.ui.widget.Widget>('vScrollbar').getElement();
 
         var b1 = Blend.Dom.getStyle(vel, ['top', 'left', 'width', 'height']);
-        t.equal(b1, { top: 0, left: 386, width: 14, height: 400 }, 'vscroller positioned correctly');
+        t.equal(b1, { top: 0, left: 388, width: 12, height: 400 }, 'vscroller positioned correctly');
 
 
         var hel: HTMLElement = cview.getAttribute<Blend.ui.widget.Widget>('hScrollbar').getElement();
         var b2 = Blend.Dom.getStyle(hel, ['top', 'left', 'width', 'height']);
-        t.equal(b2, { top: 386, left: 0, width: 400, height: 14 }, 'hscroller positioned correctly');
+        t.equal(b2, { top: 388, left: 0, width: 400, height: 12 }, 'hscroller positioned correctly');
 
         t.done();
     });
@@ -52,7 +52,7 @@ TestRunner.defineTest('Container View Scroll FixedVertical', function(t: Blend.t
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
         var b = Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
-        t.equal(b, { top: 0, left: 0, width: 386, height: 400 }, 'fixed vertical scroller is ok');
+        t.equal(b, { top: 0, left: 0, width: 388, height: 400 }, 'fixed vertical scroller is ok');
         t.done();
     });
 });
@@ -69,7 +69,7 @@ TestRunner.defineTest('Container View Scroll FixedHorizontal', function(t: Blend
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
         var b = Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
-        t.equal(b, { top: 0, left: 0, width: 400, height: 386 }, 'fixed horizontal scroller is ok');
+        t.equal(b, { top: 0, left: 0, width: 400, height: 388 }, 'fixed horizontal scroller is ok');
         t.done();
     });
 });
@@ -86,11 +86,10 @@ TestRunner.defineTest('Container View Scroll FixedBoth', function(t: Blend.testi
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
         var b = Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
-        t.equal(b, { top: 0, left: 0, width: 386, height: 386 }, 'fixed both scroller is ok');
+        t.equal(b, { top: 0, left: 0, width: 388, height: 388 }, 'fixed both scroller is ok');
         t.done();
     });
 });
-
 
 TestRunner.defineTest('Container View Scroll TrackSize', function(t: Blend.testing.TestRunner) {
 
@@ -109,10 +108,17 @@ TestRunner.defineTest('Container View Scroll TrackSize', function(t: Blend.testi
     });
 
     cview.performLayout();
+    (<any>window)['xtest'] = function(w:number,h:number) {
+        cview.setBounds({
+            width:w,
+            height:h
+        });
+    }
+
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
         var b = Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
-        t.equal(b, { top: 0, left: 0, width: 386, height: 386 }, 'fixed both scroller is ok');
-        //t.done();
+        t.equal(b, { top: 0, left: 0, width: 388, height: 388 }, 'fixed both scroller is ok');
+        t.done();
     });
 });
