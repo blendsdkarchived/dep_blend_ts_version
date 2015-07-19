@@ -103,7 +103,12 @@ module Blend.ui.widget {
             }
         }
 
-        scrollHandleTo(handlePosition: number) {
+        scrollTo(position: number) {
+            var me = this;
+            me.scrollHandleTo((position * me.trackSize) / me.scrollSize);
+        }
+
+        protected scrollHandleTo(handlePosition: number) {
             var me = this,
                 scrollPosition: number;
 

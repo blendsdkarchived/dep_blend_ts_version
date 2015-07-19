@@ -20,10 +20,11 @@ module Blend.ui {
         protected bodyPadding: number;
         protected layout: Blend.layout.container.Layout;
         protected allowScroll: eScroll;
-        protected hScrollbar:Blend.ui.widget.HorizontalScrollbar;
-        protected vScrollbar:Blend.ui.widget.VerticalScrollbar;
 
-        private innerLayout:Blend.layout.component.ContainerView;
+        protected hScrollbar: Blend.ui.widget.HorizontalScrollbar;
+        protected vScrollbar: Blend.ui.widget.VerticalScrollbar;
+
+        private innerLayout: Blend.layout.component.ContainerView;
 
         constructor(config?: IContainerViewConfig) {
             var me = this;
@@ -41,6 +42,22 @@ module Blend.ui {
             Blend.forEach(me.initialConfig.views, function(childView: string|IViewConfig|Blend.ui.View, index: number) {
                 me.addViewInternal(childView);
             });
+        }
+
+        /**
+         * Scroll the contents of this container within its width
+         */
+        public scrollWidthTo(position: number) {
+            var me = this;
+            me.hScrollbar.scrollTo(position);
+        }
+
+        /**
+         * Scroll the contents of this container within its height
+         */
+        public scrollHeightTo(position: number) {
+            var me = this;
+            me.vScrollbar.scrollTo(position);
         }
 
         /**
@@ -183,24 +200,24 @@ module Blend.ui {
          */
         protected layoutInnerElements() {
             var me = this;
-            if(!me.innerLayout) {
+            if (!me.innerLayout) {
                 me.innerLayout = me.createInnerLayout()
             }
             Blend.LayoutUtil.fitElement(me.bodyElement);
             me.innerLayout.performLayout();
         }
 
-        protected createInnerLayout() : Blend.layout.component.ContainerView {
-            var  me = this;
+        protected createInnerLayout(): Blend.layout.component.ContainerView {
+            var me = this;
             me.hScrollbar.setScrollElement(me.bodyContentElement);
             me.vScrollbar.setScrollElement(me.bodyContentElement);
             return new Blend.layout.component.ContainerView({
-                viewElement:me.el,
-                bodyElement:me.bodyElement,
-                bodyContentElement:me.bodyContentElement,
-                allowScroll:me.allowScroll,
-                hScrollbar:me.hScrollbar,
-                vScrollbar:me.vScrollbar
+                viewElement: me.el,
+                bodyElement: me.bodyElement,
+                bodyContentElement: me.bodyContentElement,
+                allowScroll: me.allowScroll,
+                hScrollbar: me.hScrollbar,
+                vScrollbar: me.vScrollbar
             });
         }
 
@@ -219,7 +236,7 @@ module Blend.ui {
         render(layoutConfig?: ICreateElement) {
             var me: ContainerView = this,
                 spec = Blend.apply(layoutConfig || {}, {
-                    unselectable:true,
+                    unselectable: true,
                     cls: Blend.cssPrefix('container', true),
                     children: [
                         me.renderBodyElement()
@@ -245,7 +262,7 @@ module Blend.ui {
 
             return <IDictionary>{
                 oid: 'bodyElement',
-                unselectable:true,
+                unselectable: true,
                 cls: Blend.cssPrefix('body'),
                 style: {
                     padding: me.bodyPadding
@@ -254,7 +271,7 @@ module Blend.ui {
                     {
                         cls: Blend.cssPrefix(['body-inner', 'fitted']),
                         oid: 'bodyContentElement',
-                        unselectable:true,
+                        unselectable: true,
                     },
                     me.vScrollbar.getElement(),
                     me.hScrollbar.getElement()

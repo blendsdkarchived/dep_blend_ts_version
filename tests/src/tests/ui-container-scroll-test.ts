@@ -91,7 +91,7 @@ TestRunner.defineTest('Container View Scroll FixedBoth', function(t: Blend.testi
     });
 });
 
-TestRunner.defineTest('Container View Scroll TrackSize', function(t: Blend.testing.TestRunner) {
+TestRunner.defineTest('Container View Scroll Fixed TrackSize', function(t: Blend.testing.TestRunner) {
 
     var cview = new UITestContainerView({
         allowScroll: eScroll.FixedBoth,
@@ -108,17 +108,42 @@ TestRunner.defineTest('Container View Scroll TrackSize', function(t: Blend.testi
     });
 
     cview.performLayout();
-    (<any>window)['xtest'] = function(w:number,h:number) {
-        cview.setBounds({
-            width:w,
-            height:h
-        });
-    }
 
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
         var b = Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
         t.equal(b, { top: 0, left: 0, width: 388, height: 388 }, 'fixed both scroller is ok');
+        t.done();
+    });
+});
+
+
+TestRunner.defineTest('Container View Scrolling', function(t: Blend.testing.TestRunner) {
+
+    var cview = new UITestContainerView({
+        allowScroll: eScroll.FixedBoth,
+        width: 400,
+        height: 400,
+        views: UITestUtils.createRects(20,{
+            width:800
+        })
+    });
+    t.clearBody(cview.getElement());
+
+    Blend.Dom.setStyle(cview.getElement(), {
+        position: 'absolute',
+        top: 50,
+        left: 60
+    });
+
+    cview.performLayout();
+    cview.scrollHeightTo(250);
+    cview.scrollWidthTo(400);
+
+    t.delay(function() {
+        var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
+        t.equal(el.scrollTop,250,'vertical scrolled correctly');
+        t.equal(el.scrollLeft,400,'vertical scrolled correctly');
         t.done();
     });
 });
