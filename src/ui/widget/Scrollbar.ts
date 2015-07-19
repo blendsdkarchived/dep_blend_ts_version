@@ -75,7 +75,8 @@ module Blend.ui.widget {
                 });
 
                 me.el.addEventListener('mousedown', function(e: MouseEvent) {
-                    me.scrolling = e.target === me.handleEl;
+                    console.log(e.button);
+                    me.scrolling = (e.target === me.handleEl) && (e.button === 0);
                 });
 
                 me.el.addEventListener('mouseup', function() {
@@ -88,7 +89,7 @@ module Blend.ui.widget {
 
                 document.addEventListener('mousemove', function(e: MouseEvent) {
                     var msize: number, p: Array<number>;
-                    if (e.buttons === 1 && me.scrolling) {
+                    if (me.scrolling) {
                         msize = me.getMovementSize(me.oldX, me.oldY, e.screenX, e.screenY);
                         if (me.getMovement(me.oldX, me.oldY, e.screenX, e.screenY) === 1) {
                             me.currentPosition += msize;
