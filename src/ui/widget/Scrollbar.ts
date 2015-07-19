@@ -37,9 +37,8 @@ module Blend.ui.widget {
             me.scrollbarSize = 12;
             me.scrolling = false;
             me.initialized = false;
-            me.currentPosition = 0;
             me.oldX = me.oldY = -1;
-            me.staticUnits = 0;
+            me.staticUnits = me.trackSize = me.hanldeSize = me.currentPosition = 0;
         }
 
         getCurrentPosition() {
@@ -124,7 +123,13 @@ module Blend.ui.widget {
 
         layout(trackSize: number, scrollSize: number, position: number) {
             var me = this,
+                currentScrollPosition = -1,
                 handleSize = (trackSize / scrollSize) * trackSize;
+
+            if (me.trackSize !== 0 && trackSize !== me.trackSize) {
+                // case of resized view
+                currentScrollPosition = (me.currentPosition * trackSize) / me.trackSize;
+            }
 
             me.scrollSize = scrollSize;
             me.initEvents();
@@ -140,6 +145,9 @@ module Blend.ui.widget {
             me.hanldeSize = handleSize;
 
             me.layoutInternal(position);
+            if (currentScrollPosition !== -1) {
+                me.scrollHandleTo(currentScrollPosition);
+            }
         }
 
         render(): HTMLElement {
