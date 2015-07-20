@@ -23,6 +23,7 @@ module Blend.ui.widget {
         private scrolling: boolean;
         private oldX: number;
         private oldY: number;
+        private wheelMovementSize: number
 
 
         protected scrollToInternal(handlePosition: number, scrollPosition: number): void { }
@@ -37,7 +38,7 @@ module Blend.ui.widget {
             me.scrollbarSize = 12;
             me.scrolling = false;
             me.initialized = false;
-            me.oldX = me.oldY = -1;
+            me.oldX = me.oldY = me.wheelMovementSize = -1;
             me.staticUnits = me.trackSize = me.hanldeSize = me.currentPosition = 0;
         }
 
@@ -62,8 +63,26 @@ module Blend.ui.widget {
         }
 
         initEvents() {
-            var me = this;
+
+            var me = this,
+                wheelDirection = -1,
+                mouseWheelEventHandler = function(e: MouseWheelEvent) {
+                    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || e.detail)));
+                    if (me.wheelMovementSize === -1) {
+                        me.wheelMovementSize = me.trackSize / 20;
+                    }
+                    if (delta === wheelDirection) {
+                        me.currentPosition += me.wheelMovementSize;
+                    } else {
+                        me.currentPosition -= me.wheelMovementSize;
+                    }
+
+                    me.oldX = me.oldY = 0;
+                    me.scrollHandleTo(me.currentPosition);
+                };
+
             me.oldX = me.oldY = -1;
+
             if (!me.initialized) {
                 me.initialized = true;
 
@@ -73,6 +92,18 @@ module Blend.ui.widget {
                     me.oldX = e.screenX;
                     me.oldY = e.screenY;
                 });
+
+                me.scrollElement.addEventListener("mousewheel", function(){
+                    wheelDirection = -1;
+                    return mouseWheelEventHandler.apply(me,arguments);
+                });
+
+
+                me.scrollElement.addEventListener("DOMMouseScroll", function(){
+                    wheelDirection = 1;
+                    return mouseWheelEventHandler.apply(me,arguments);
+                });
+
 
                 me.el.addEventListener('mousedown', function(e: MouseEvent) {
                     console.log(e.button);
@@ -131,6 +162,9 @@ module Blend.ui.widget {
             var me = this,
                 currentScrollPosition = -1,
                 handleSize = (trackSize / scrollSize) * trackSize;
+
+            // reset the wheel moment size since the track size may have been changed!
+            me.wheelMovementSize = -1;
 
             if (me.trackSize !== 0 && trackSize !== me.trackSize) {
                 // case of resized view
