@@ -66,19 +66,26 @@ module Blend.ui.widget {
 
             var me = this,
                 wheelDirection = -1,
+                wheelEventDist = new Date().getTime(),
                 mouseWheelEventHandler = function(e: MouseWheelEvent) {
-                    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || e.detail)));
-                    if (me.wheelMovementSize === -1) {
-                        me.wheelMovementSize = me.trackSize / 20;
-                    }
-                    if (delta === wheelDirection) {
-                        me.currentPosition += me.wheelMovementSize;
+                    var t = new Date().getTime();
+                    if (t - wheelEventDist < 30) {
+                        return;
                     } else {
-                        me.currentPosition -= me.wheelMovementSize;
-                    }
+                        wheelEventDist = t;
+                        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || e.detail)));
+                        if (me.wheelMovementSize === -1) {
+                            me.wheelMovementSize = me.trackSize / 20;
+                        }
+                        if (delta === wheelDirection) {
+                            me.currentPosition += me.wheelMovementSize;
+                        } else {
+                            me.currentPosition -= me.wheelMovementSize;
+                        }
 
-                    me.oldX = me.oldY = 0;
-                    me.scrollHandleTo(me.currentPosition);
+                        me.oldX = me.oldY = 0;
+                        me.scrollHandleTo(me.currentPosition);
+                    }
                 };
 
             me.oldX = me.oldY = -1;
@@ -93,15 +100,15 @@ module Blend.ui.widget {
                     me.oldY = e.screenY;
                 });
 
-                me.scrollElement.addEventListener("mousewheel", function(){
+                me.scrollElement.addEventListener("mousewheel", function() {
                     wheelDirection = -1;
-                    return mouseWheelEventHandler.apply(me,arguments);
+                    return mouseWheelEventHandler.apply(me, arguments);
                 });
 
 
-                me.scrollElement.addEventListener("DOMMouseScroll", function(){
+                me.scrollElement.addEventListener("DOMMouseScroll", function() {
                     wheelDirection = 1;
-                    return mouseWheelEventHandler.apply(me,arguments);
+                    return mouseWheelEventHandler.apply(me, arguments);
                 });
 
 
