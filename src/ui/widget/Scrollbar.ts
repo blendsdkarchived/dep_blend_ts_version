@@ -18,6 +18,7 @@ module Blend.ui.widget {
         protected currentPosition: number;
         protected scrollElement: HTMLElement;
         protected staticUnits: number;
+        protected enableMouseWheel: boolean;
 
         private initialized: boolean;
         private scrolling: boolean;
@@ -40,6 +41,7 @@ module Blend.ui.widget {
             me.initialized = false;
             me.oldX = me.oldY = me.wheelMovementSize = -1;
             me.staticUnits = me.trackSize = me.hanldeSize = me.currentPosition = 0;
+            me.enableMouseWheel = true;
         }
 
         getCurrentPosition() {
@@ -100,17 +102,18 @@ module Blend.ui.widget {
                     me.oldY = e.screenY;
                 });
 
-                me.scrollElement.addEventListener("mousewheel", function() {
-                    wheelDirection = -1;
-                    return mouseWheelEventHandler.apply(me, arguments);
-                });
+                if (me.enableMouseWheel === true) {
+                    me.scrollElement.addEventListener("mousewheel", function() {
+                        wheelDirection = -1;
+                        return mouseWheelEventHandler.apply(me, arguments);
+                    });
 
 
-                me.scrollElement.addEventListener("DOMMouseScroll", function() {
-                    wheelDirection = 1;
-                    return mouseWheelEventHandler.apply(me, arguments);
-                });
-
+                    me.scrollElement.addEventListener("DOMMouseScroll", function() {
+                        wheelDirection = 1;
+                        return mouseWheelEventHandler.apply(me, arguments);
+                    });
+                }
 
                 me.el.addEventListener('mousedown', function(e: MouseEvent) {
                     console.log(e.button);

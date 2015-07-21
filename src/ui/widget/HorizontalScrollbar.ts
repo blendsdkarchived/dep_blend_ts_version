@@ -13,6 +13,7 @@ module Blend.ui.widget {
             var me = this;
             super();
             me.cssClass = 'hscroll'
+            me.enableMouseWheel = false;
         }
 
         protected scrollToInternal(handlePosition: number, scrollPosition: number): void {
