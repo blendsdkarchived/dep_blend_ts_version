@@ -24,14 +24,14 @@ module Blend.ui.widget {
         private scrolling: boolean;
         private oldX: number;
         private oldY: number;
-        private wheelMovementSize: number
-
+        private wheelMovementSize: number;
+        private cachedBounds: IViewBounds;
+        private visible: boolean;
 
         protected scrollToInternal(handlePosition: number, scrollPosition: number): void { }
         protected layoutInternal(position: number): void { }
         protected getMovementSize(oldX: number, oldY: number, curX: number, curY: number): number { return 0; }
         protected getMovement(oldX: number, oldY: number, curX: number, curY: number): number { return 0; }
-
 
         constructor() {
             var me = this;
@@ -42,30 +42,69 @@ module Blend.ui.widget {
             me.oldX = me.oldY = me.wheelMovementSize = -1;
             me.staticUnits = me.trackSize = me.hanldeSize = me.currentPosition = 0;
             me.enableMouseWheel = true;
+            me.visible = true;
         }
 
-        getCurrentPosition() {
-            return this.currentPosition;
-        }
-
+        /**
+         * Sets the element that is going to be scrolled
+         * @internal
+         */
         setScrollElement(el: HTMLElement) {
             var me = this;
             me.scrollElement = el;
         }
 
+        /**
+         * Gets the size of the scrollbar
+         */
         getSize(): number {
             return this.scrollbarSize;
         }
 
-        hide() {
-            var me = this;
-            Blend.Dom.setStyle(me.el, {
-                display: 'none'
-            });
+        /**
+         * Makes the scrollbar visible
+         */
+        show() {
+            var me = this, tl: any = {};
+            if (me.visible === false) {
+                me.visible = true;
+                Blend.Dom.setStyle(me.el, {
+                    display: null
+                });
+            }
         }
 
-        initEvents() {
+        /**
+         * Checks if thi scroll bar is visible
+         */
+        isVisible(): boolean {
+            return this.visible;
+        }
 
+        /**
+         * Check if this scrollbar is being used to scroll
+         */
+        isScrolling(): boolean {
+            return this.scrolling;
+        }
+
+        /**
+         * Hides this scrollbar
+         */
+        hide() {
+            var me = this;
+            if (me.visible === true) {
+                me.visible = false;
+                Blend.Dom.setStyle(me.el, {
+                    display: 'none'
+                });
+            }
+        }
+
+        /**
+         * Initializes the interaction events for this scrollbar
+         */
+        private initEvents() {
             var me = this,
                 wheelDirection = -1,
                 wheelEventDist = new Date().getTime(),
@@ -145,11 +184,17 @@ module Blend.ui.widget {
             }
         }
 
+        /**
+         * Scrolls the scroll element to a given position
+         */
         scrollTo(position: number) {
             var me = this;
             me.scrollHandleTo((position * me.trackSize) / me.scrollSize);
         }
 
+        /**
+         * Scrolls the scrollhandle to a given position
+         */
         protected scrollHandleTo(handlePosition: number) {
             var me = this,
                 scrollPosition: number;
@@ -168,10 +213,18 @@ module Blend.ui.widget {
             me.scrollToInternal(handlePosition, scrollPosition);
         }
 
-        layout(trackSize: number, scrollSize: number, position: number) {
-            var me = this,
+        /**
+         * Layouts this scrollbar
+         * @internal
+         */
+        layout(trackSize: number, scrollSize: number, position: number, fixed: boolean) {
+            var me = this, fixedStyle: any = {},
                 currentScrollPosition = -1,
                 handleSize = (trackSize / scrollSize) * trackSize;
+
+            fixedStyle[<string>Blend.cssPrefix('scrollbar-auto')] = fixed === false;
+            fixedStyle[<string>Blend.cssPrefix('scrollbar-fixed')] = fixed === true;
+            Blend.Dom.cssClass(me.el, fixedStyle);
 
             // reset the wheel moment size since the track size may have been changed!
             me.wheelMovementSize = -1;
@@ -198,6 +251,11 @@ module Blend.ui.widget {
             if (currentScrollPosition !== -1) {
                 me.scrollHandleTo(currentScrollPosition);
             }
+
+            // reset the bounds
+            me.cachedBounds = null;
+            me.getBounds();
+
         }
 
         render(): HTMLElement {
@@ -209,7 +267,7 @@ module Blend.ui.widget {
                     {
                         tag: 'a',
                         oid: 'handleEl',
-                        cls: Blend.cssPrefix(['scrollbar-handle']),
+                        cls: Blend.cssPrefix(['scrollbar-handle', me.cssClass[0] + 'handle']),
                         unselectable: true
                     }
                 ]

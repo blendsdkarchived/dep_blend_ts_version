@@ -124,8 +124,8 @@ TestRunner.defineTest('Container View Scrolling', function(t: Blend.testing.Test
         allowScroll: eScroll.FixedBoth,
         width: 400,
         height: 400,
-        views: UITestUtils.createRects(20,{
-            width:800
+        views: UITestUtils.createRects(20, {
+            width: 800
         })
     });
     t.clearBody(cview.getElement());
@@ -142,8 +142,31 @@ TestRunner.defineTest('Container View Scrolling', function(t: Blend.testing.Test
 
     t.delay(function() {
         var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement');
-        t.equal(el.scrollTop,250,'vertical scrolled correctly');
-        t.equal(el.scrollLeft,400,'vertical scrolled correctly');
+        t.equal(el.scrollTop, 250, 'vertical scrolled correctly');
+        t.equal(el.scrollLeft, 400, 'vertical scrolled correctly');
         t.done();
     });
+});
+
+
+TestRunner.defineTest('Container View AutoScroll', function(t: Blend.testing.TestRunner) {
+
+    var cview = new UITestContainerView({
+        allowScroll: eScroll.FixedBoth,
+        width: 400,
+        height: 400,
+        views: UITestUtils.createRects(20, {
+            width: 800
+        })
+    });
+    t.clearBody(cview.getElement());
+    cview.performLayout();
+
+    t.delay(function() {
+        var el: HTMLElement = cview.getAttribute<HTMLElement>('bodyContentElement'),
+            scrollEl: HTMLElement = <HTMLElement>el.children[1];
+        t.isFalse(scrollEl.getAttribute('class').indexOf('-auto') !== -1, 'auto scrollbars exists');
+        t.done();
+    });
+
 });

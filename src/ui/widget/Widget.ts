@@ -17,6 +17,15 @@ module Blend.ui.widget {
             super(config);
         }
 
+        getBounds(): IViewBounds {
+            var me = this;
+            if (me.el) {
+                return Blend.Dom.getStyle(me.el, ['top', 'left', 'width', 'height']);
+            } else {
+                return null;
+            }
+        }
+
         getElement() {
             var me = this;
             if (!me.el) {

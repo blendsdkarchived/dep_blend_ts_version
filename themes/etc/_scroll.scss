@@ -1,7 +1,7 @@
 #{$prefix}-scrollbar {
+
     display: inline-block;
     position: absolute;
-    background-color: $scroll-track-color;
 
     #{$prefix}-scrollbar-handle {
         display: inline-block;
@@ -16,4 +16,12 @@
             background-color: $scroll-handle-active-color;
         }
     }
+}
+
+#{$prefix}-scrollbar-fixed {
+    background-color: $scroll-track-color;
+}
+
+#{$prefix}-scrollbar-auto {
+    background-color: transparent;
 }
