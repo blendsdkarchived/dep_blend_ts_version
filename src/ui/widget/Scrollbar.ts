@@ -1,5 +1,7 @@
 /// <reference path="../../Blend.ts"/>
 /// <reference path="../../dom/Dom.ts"/>
+/// <reference path="../../ComponentInterfaces.ts" />
+
 /// <reference path="Widget.ts" />
 
 module Blend.ui.widget {
@@ -135,8 +137,7 @@ module Blend.ui.widget {
                 me.initialized = true;
 
                 me.handleEl.addEventListener('mousedown', function(e: MouseEvent) {
-                    var target: HTMLElement = <HTMLElement>(e.target || e.srcElement),
-                        rect = target.getBoundingClientRect();
+                    var target: HTMLElement = <HTMLElement>(e.target || e.srcElement);
                     me.oldX = e.screenX;
                     me.oldY = e.screenY;
                 });
