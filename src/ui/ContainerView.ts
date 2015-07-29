@@ -3,11 +3,6 @@
 /// <reference path="../layout/Util.ts" />
 /// <reference path="../layout/container/Layout.ts" />
 /// <reference path="../layout/component/ContainerView.ts" />
-/// <reference path="widget/VerticalScrollbar.ts" />
-/// <reference path="widget/HorizontalScrollbar.ts" />
-
-
-
 
 module Blend.ui {
 
@@ -20,9 +15,6 @@ module Blend.ui {
         protected bodyPadding: number;
         protected layout: Blend.layout.container.Layout;
         protected allowScroll: eScroll;
-
-        protected hScrollbar: Blend.ui.widget.HorizontalScrollbar;
-        protected vScrollbar: Blend.ui.widget.VerticalScrollbar;
 
         private innerLayout: Blend.layout.component.ContainerView;
 
@@ -42,22 +34,6 @@ module Blend.ui {
             Blend.forEach(me.initialConfig.views, function(childView: string|IViewConfig|Blend.ui.View, index: number) {
                 me.addViewInternal(childView);
             });
-        }
-
-        /**
-         * Scroll the contents of this container within its width
-         */
-        public scrollWidthTo(position: number) {
-            var me = this;
-            me.hScrollbar.scrollTo(position);
-        }
-
-        /**
-         * Scroll the contents of this container within its height
-         */
-        public scrollHeightTo(position: number) {
-            var me = this;
-            me.vScrollbar.scrollTo(position);
         }
 
         /**
@@ -209,15 +185,11 @@ module Blend.ui {
 
         protected createInnerLayout(): Blend.layout.component.ContainerView {
             var me = this;
-            me.hScrollbar.setScrollElement(me.bodyContentElement);
-            me.vScrollbar.setScrollElement(me.bodyContentElement);
             return new Blend.layout.component.ContainerView({
                 viewElement: me.el,
                 bodyElement: me.bodyElement,
                 bodyContentElement: me.bodyContentElement,
-                allowScroll: me.allowScroll,
-                hScrollbar: me.hScrollbar,
-                vScrollbar: me.vScrollbar
+                allowScroll: me.allowScroll
             });
         }
 
@@ -257,8 +229,6 @@ module Blend.ui {
              * The scollbars are set on th content element (body-inner)
              */
             var me = this;
-            me.vScrollbar = new Blend.ui.widget.VerticalScrollbar();
-            me.hScrollbar = new Blend.ui.widget.HorizontalScrollbar();
 
             return <IDictionary>{
                 oid: 'bodyElement',
@@ -272,9 +242,8 @@ module Blend.ui {
                         cls: Blend.cssPrefix(['body-inner', 'fitted']),
                         oid: 'bodyContentElement',
                         unselectable: true,
-                    },
-                    me.vScrollbar.getElement(),
-                    me.hScrollbar.getElement()
+                        'data-scroll': Blend.getEnumValue<string>(eScroll, me.allowScroll)
+                    }
                 ]
             }
         }

@@ -22,8 +22,50 @@ module Blend {
 
         private readyCallbacks: Array<IReadCallback>;
         private kickStarted: boolean = false;
+        private scrollbarSize: number;
+
         isIE: boolean;
         ieVersion: number;
+
+
+        /**
+         * Retunsthe size of the scrollbars
+         */
+        getScrollbarSize() {
+            var me = this;
+            if (!me.scrollbarSize) {
+                var i: HTMLElement = Blend.Dom.createElement({
+                    style: {
+                        width: '100%',
+                        height: 200
+                    }
+                }),
+                    p: HTMLElement = Blend.Dom.createElement({
+                        style: {
+                            visibility: 'hidden',
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: 200,
+                            height: 150,
+                            overflow: 'hidden'
+                        },
+                        children: [i]
+                    }),
+                    io: number, oo: number, r: number;
+                document.body.appendChild(p);
+
+                io = i.offsetWidth;
+                p.style.setProperty('overflow', 'scroll');
+                oo = i.offsetWidth;
+                if (io == oo) {
+                    oo = p.clientWidth;
+                }
+                Blend.Dom.removeElement(p);
+                me.scrollbarSize = (io - oo);
+            }
+            return me.scrollbarSize;
+        }
 
         constructor() {
             var me = this;

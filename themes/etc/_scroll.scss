@@ -1,27 +1,21 @@
-#{$prefix}-scrollbar {
-
-    display: inline-block;
-    position: absolute;
-
-    #{$prefix}-scrollbar-handle {
-        display: inline-block;
-        position: absolute;
-        background-color: $scroll-handle-color;
-
-        &:hover {
-            background-color: $scroll-handle-hover-color;
-        }
-
-        &:active {
-            background-color: $scroll-handle-active-color;
-        }
-    }
+[data-scroll=none] {
+    overflow: hidden;
 }
 
-#{$prefix}-scrollbar-fixed {
-    background-color: $scroll-track-color;
+[data-scroll=auto] {
+    overflow: auto;
 }
 
-#{$prefix}-scrollbar-auto {
-    background-color: transparent;
+[data-scroll=fixedboth] {
+    overflow: scroll;
+}
+
+[data-scroll=fixedhorizontal] {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+[data-scroll=fixedvertical] {
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
