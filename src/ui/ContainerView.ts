@@ -38,6 +38,20 @@ module Blend.ui {
 
         /**
          * @override
+         * @internal
+         */
+        initEventChain(parentView?: View) {
+            var me = this;
+            if (!me.mvcReady) {
+                super.initEventChain(parentView);
+                Blend.forEach(me.views, function(view: View) {
+                    view.initEventChain(me);
+                });
+            }
+        }
+
+        /**
+         * @override
          */
         protected initConfig(config?: IViewConfig) {
             var me = this,
@@ -119,7 +133,6 @@ module Blend.ui {
                 };
                 view = Blend.createObjectWithAlias(config);
             }
-            view.setAttribute('parent', me);
             view.setAttribute('childIndex', me.views.length || 0);
             me.views.push(view);
             return view;
