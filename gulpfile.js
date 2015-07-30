@@ -90,7 +90,7 @@ gulp.task('dist', ['tests'], function () {
 });
 
 
-gulp.task('watch', function () {
+gulp.task('watch',['dist'], function () {
 
     var build = function (task) {
         if (!isbuilding) {
@@ -124,4 +124,7 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('default', ['watch']);
+gulp.task('default',function(){
+    console.log('Either run "[npm start dist] or [npm start watch]');
+    console.log('Done.');
+});
