@@ -198,7 +198,7 @@ TestRunner.defineTest('Container rendred', function(t: Blend.testing.TestRunner)
     t.delay(function() {
         var el = cntr.getElement();
         t.equal(el.childNodes.length, 1, 'container=>body');
-        t.equal(el.childNodes[0].childNodes.length, 3, 'container=>body=>content');
+        t.equal(el.childNodes[0].childNodes.length, 1, 'container=>body=>content');
         t.equal(el.childNodes[0].childNodes[0].childNodes.length, 3, 'container=>body=>content=>3x rect');
         t.done();
     });

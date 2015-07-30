@@ -19,10 +19,27 @@ module Blend.mvc {
         private references: IDictionary = {};
         private handlers: IDictionary = {};
 
-        constructor(globalId?:string) {
+        constructor(globalId?: string) {
             var me = this;
-            if(!Blend.isNullOrUndef(globalId)) {
+            if (!Blend.isNullOrUndef(globalId)) {
                 Blend.mvc.Context.registerController(globalId, me);
+            }
+        }
+
+        /**
+         * Retuns one or more references of a view registered in the controller
+         */
+        protected getReference<T>(name: string): T {
+            var me = this,v:T|Array<T>;
+            v = me.references[name] || null;
+            if(v) {
+                if(Blend.isArray(v)  && (<Array<T>>v).length === 1) {
+                    return <T>(<Array<T>>v)[0];
+                } else {
+                    return <T>v;
+                }
+            } else {
+                return null;
             }
         }
 

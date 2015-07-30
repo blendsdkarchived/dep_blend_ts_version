@@ -10,10 +10,9 @@ module Blend.mvc {
         protected reference: string;
         protected parent: View;
         protected initialConfig: IViewConfig;
-
+        protected mvcReady: boolean;
 
         private bindings: IStringDictionary;
-        private mvcReady: boolean;
         private controllers: Array<string|Controller>;
         private _controlerId: number;
 
@@ -26,6 +25,23 @@ module Blend.mvc {
             me.reference = me.initialConfig.reference
             me.addControllers([].concat(me.controllers, me.initialConfig.controllers));
             me.processBindings(me.initialConfig.bindings);
+
+        }
+
+        /**
+         * Initializes the event chain for this View
+         * @internal
+         */
+        initEventChain(parentView?:View) {
+            var me = this;
+            if (!me.mvcReady) {
+                if(parent) {
+                    me.parent = parentView;
+                }
+                me.resolveControllers();
+                me.bindToControllers();
+                me.mvcReady = true;
+            }
         }
 
         /**
@@ -93,11 +109,7 @@ module Blend.mvc {
         protected fireEvent(eventName: string, ...args: any[]) {
             var me = this,
                 controller: Controller;
-            if (!me.mvcReady) {
-                me.resolveControllers();
-                me.bindToControllers();
-                me.mvcReady = true;
-            }
+            me.initEventChain();
             if (me.controllers) {
                 Blend.forEach(me.controllers, function(controllerItem: Controller|string, id: string) {
                     if (Blend.isString(controllerItem)) {

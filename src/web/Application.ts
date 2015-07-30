@@ -38,7 +38,7 @@ module Blend.web {
                 }
             }
             if (me.mainView) {
-                me.mainView.setAttribute('parent', me);
+                me.mainView.initEventChain(me);
             }
         }
 
@@ -59,7 +59,7 @@ module Blend.web {
         render(): HTMLElement {
             var me = this,
                 el = me.createElement({
-                    cls: <string[]>Blend.cssPrefix(['application', 'fitted'], true)
+                    cls: <string[]>Blend.cssPrefix(['application','fitted'], true)
                 });
 
             if (me.mainView) {
@@ -104,12 +104,24 @@ module Blend.web {
         }
 
         protected setupWindowListeners() {
-            var me = this, tm = -1;
+            var me = this, tm = -1,
+                counts = 0,
+                curSize = -1;
             Blend.Environment.addEventListener(window, 'resize', function(evt: Event) {
-                clearTimeout(tm);
-                tm = setTimeout(function() {
-                    me.onWindowResize.apply(me, [evt]);
-                }, 1);
+                curSize = window.innerWidth + window.innerHeight;
+                clearInterval(tm);
+                tm = setInterval(function() {
+                    if (counts >= 3) {
+                        if (curSize === (window.innerWidth + innerHeight)) {
+                            clearInterval(tm);
+                            me.onWindowResize.apply(me, [evt]);
+                        } else {
+                            counts = 0;
+                        }
+                    } else {
+                        counts++;
+                    }
+                }, 50);
             });
         }
 

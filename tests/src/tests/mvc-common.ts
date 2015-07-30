@@ -2,6 +2,9 @@
 /// <reference path="../TestFramework.ts" />
 
 class MyController extends Blend.mvc.Controller {
+    getReferenceEx<T>(name: string): T {
+        return this.getReference.apply(this, arguments);
+    }
 }
 
 class BadView extends Blend.mvc.View {
