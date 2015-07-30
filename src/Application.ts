@@ -47,7 +47,7 @@ module Blend {
             var me = this,
                 defaultConfig: IContainerViewConfig = {
                 },
-                config: <IApplicationConfig>Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
+                config:IApplicationConfig = Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
 
             // Force application layout
             config.layout = {
