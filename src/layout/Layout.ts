@@ -11,9 +11,9 @@ module Blend.layout {
      */
     export class Layout extends Component {
 
-        protected view: Blend.ui.View;
-        protected cssClassName: string;
-        protected initialConfig: ILayoutConfig;
+        protected view: Blend.ui.View
+        protected cssClassName: string
+        protected initialConfig: ILayoutConfig
 
         constructor(config: ILayoutConfig) {
             var me = this;

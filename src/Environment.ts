@@ -8,8 +8,8 @@ module Blend {
      * Callback interface for the ready function
      */
     interface IReadCallback {
-        fn: Function;
-        sc?: any;
+        fn: Function
+        sc?: any
     }
 
     /**
@@ -20,12 +20,11 @@ module Blend {
      */
     export class EnvironmentSingleton {
 
-        private readyCallbacks: Array<IReadCallback>;
-        private kickStarted: boolean = false;
-        private scrollbarSize: number;
-
-        isIE: boolean;
-        ieVersion: number;
+        private readyCallbacks: Array<IReadCallback>
+        private kickStarted: boolean = false
+        private scrollbarSize: number
+        private isIE: boolean
+        private ieVersion: number
 
 
         /**

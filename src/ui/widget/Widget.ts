@@ -10,7 +10,7 @@ module Blend.ui.widget {
      */
     export class Widget extends Blend.Component {
 
-        protected el: HTMLElement;
+        protected el: HTMLElement
 
         constructor(config?: IDictionary) {
             var me = this;

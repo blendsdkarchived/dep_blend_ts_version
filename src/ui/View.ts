@@ -8,21 +8,19 @@ module Blend.ui {
 
     export class View extends Blend.mvc.View {
 
-        private isViewRendered: boolean;
-        private eventsEnabled: boolean;
-        private layoutEnabled: boolean;
-        private sizeHash: string;
-        private isInALayoutContext: boolean;
-        private itemId: string;
-
-        protected layout: Blend.layout.Layout;
-
+        private isViewRendered: boolean
+        private eventsEnabled: boolean
+        private layoutEnabled: boolean
+        private sizeHash: string
+        private isInALayoutContext: boolean
+        private itemId: string
         //UI
-        visible: boolean;
-        cssClass: IDictionary;
+        private visible: boolean
+        private cssClass: IDictionary
 
-        protected el: HTMLElement;
-        protected layoutTriggers: Array<string>;
+        protected layout: Blend.layout.Layout
+        protected el: HTMLElement
+        protected layoutTriggers: Array<string>
 
         /**
          * Destroys this View by setting the properties to null,

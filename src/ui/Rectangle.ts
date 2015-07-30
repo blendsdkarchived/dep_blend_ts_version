@@ -4,8 +4,8 @@
 module Blend.ui {
 
     export interface IRectangleConfig extends IViewConfig {
-        color?: string;
-        text?: string;
+        color?: string
+        text?: string
     }
 
     export var nextID = 0;
@@ -13,8 +13,8 @@ module Blend.ui {
     export class Rectangle extends Blend.ui.View {
 
         protected initialConfig: IRectangleConfig
-        protected color: string;
-        private rectId: string;
+        protected color: string
+        private rectId: string
 
         constructor(config?: IRectangleConfig) {
             var me = this;

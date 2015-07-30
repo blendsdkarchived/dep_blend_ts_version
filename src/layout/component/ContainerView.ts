@@ -19,7 +19,6 @@ module Blend.layout.component {
         private allowScroll: eScroll
         private bodyBounds: IViewBounds
 
-
         constructor(config: IContainerViewInnerLayout) {
             var me = this;
             super(config);

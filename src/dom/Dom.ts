@@ -9,10 +9,10 @@ module Blend.dom {
      */
     export class DomSingleton {
 
-        unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/;
-        unitTypeRe: RegExp = /(em$|\%$|auto|^calc)/;
-        pixelRe = /px$/;
-        UNIT: string = 'px';
+        private unitPropertyRe: RegExp = /(width$|height$|size$|radius$|padding|margin$|top$|bottom$|right$|left$)/
+        private unitTypeRe: RegExp = /(em$|\%$|auto|^calc)/
+        private pixelRe = /px$/
+        private UNIT: string = 'px'
 
         getBodyElement(content?: DocumentFragment|HTMLElement, clear?: boolean): HTMLElement {
             if (clear === true) {

@@ -9,14 +9,14 @@ module Blend.ui {
     export class ContainerView extends Blend.ui.View {
 
         protected initialConfig: IContainerViewConfig
-        protected views: Array<View>;
-        protected bodyElement: HTMLElement;
-        protected bodyContentElement: HTMLElement;
-        protected bodyPadding: number;
-        protected layout: Blend.layout.container.Layout;
-        protected allowScroll: eScroll;
+        protected views: Array<View>
+        protected bodyElement: HTMLElement
+        protected bodyContentElement: HTMLElement
+        protected bodyPadding: number
+        protected layout: Blend.layout.container.Layout
+        protected allowScroll: eScroll
 
-        private innerLayout: Blend.layout.component.ContainerView;
+        private innerLayout: Blend.layout.component.ContainerView
 
         constructor(config?: IContainerViewConfig) {
             var me = this;

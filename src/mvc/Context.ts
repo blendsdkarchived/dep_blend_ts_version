@@ -11,8 +11,8 @@ module Blend.mvc {
      */
     export class ContextSingleton {
 
-        private controllers: IControllerDictionary = {};
-        private models: IModelDictionary = {};
+        private controllers: IControllerDictionary = {}
+        private models: IModelDictionary = {}
 
         /**
          * Returns the controller dictionary of this Context

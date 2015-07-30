@@ -1,4 +1,5 @@
 /// <reference path="CommonInterfaces.ts" />
+/// <reference path="layout/Util.ts" />
 
 module Blend {
 

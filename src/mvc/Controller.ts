@@ -3,7 +3,7 @@
 /// <reference path="Context.ts" />
 
 interface ControllerEventHandler {
-    (view: Blend.mvc.View, ...args: any[]): void;
+    (view: Blend.mvc.View, ...args: any[]): void
 }
 
 module Blend.mvc {
@@ -16,8 +16,8 @@ module Blend.mvc {
      */
     export class Controller {
 
-        private references: IDictionary = {};
-        private handlers: IDictionary = {};
+        private references: IDictionary = {}
+        private handlers: IDictionary = {}
 
         constructor(globalId?: string) {
             var me = this;

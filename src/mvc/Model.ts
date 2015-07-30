@@ -37,13 +37,12 @@ module Blend.mvc {
     */
     export class Model extends Component {
 
-        protected id: string;
-        protected initialConfig:IModelConfig;
+        protected id: string
+        protected initialConfig:IModelConfig
 
-
-        private fieldValues: IDictionary;
-        private fields: IFieldRegistry;
-        private bindingCallbacks: IBindingCallback;
+        private fieldValues: IDictionary
+        private fields: IFieldRegistry
+        private bindingCallbacks: IBindingCallback
 
         constructor(config?: IModelConfig) {
             var me = this;

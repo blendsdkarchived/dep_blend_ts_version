@@ -2,7 +2,7 @@
  * Interface for implementing dictionary like objects
  */
 interface IDictionary {
-    [name: string]: any;
+    [name: string]: any
 }
 
 /**
@@ -10,14 +10,14 @@ interface IDictionary {
  * strings for values
  */
 interface IStringDictionary {
-    [name: string]: string;
+    [name: string]: string
 }
 
 /**
  * Interface for describing styles
  */
 interface IStyleConfig {
-    [name: string]: string|number;
+    [name: string]: string|number
 }
 
 /**
@@ -31,15 +31,15 @@ interface ICreateElementListeners {
  * Interface for the Dom.createElement utility
  */
 interface ICreateElement {
-    tag?: string;
-    scope?: any;
-    oid?: string;
-    cls?: string|Array<string>;
-    listeners?: ICreateElementListeners;
-    text?: string;
-    children?: Array<ICreateElement|HTMLElement>;
-    extra?: any;
-    style?: IStyleConfig;
+    tag?: string
+    scope?: any
+    oid?: string
+    cls?: string|Array<string>
+    listeners?: ICreateElementListeners
+    text?: string
+    children?: Array<ICreateElement|HTMLElement>
+    extra?: any
+    style?: IStyleConfig
 }
 
 /**

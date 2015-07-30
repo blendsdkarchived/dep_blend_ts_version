@@ -8,9 +8,9 @@ module Blend {
      */
     export class Application extends Blend.ui.View {
 
-        private isStarted: boolean;
+        private isStarted: boolean
 
-        protected isResizing: boolean;
+        protected isResizing: boolean
         protected initialConfig: IApplicationConfig
         protected mainView: Blend.ui.View
         protected layoutClassType: string
@@ -22,7 +22,6 @@ module Blend {
             me.bindToAllControllers();
             me.createMainView();
             me.isStarted = false;
-
         }
 
         /**

@@ -7,14 +7,14 @@ module Blend.mvc {
 
     export class View extends Component {
 
-        protected reference: string;
-        protected parent: View;
-        protected initialConfig: IViewConfig;
-        protected mvcReady: boolean;
+        protected reference: string
+        protected parent: View
+        protected initialConfig: IViewConfig
+        protected mvcReady: boolean
 
-        private bindings: IStringDictionary;
-        private controllers: Array<string|Controller>;
-        private _controlerId: number;
+        private bindings: IStringDictionary
+        private controllers: Array<string|Controller>
+        private _controlerId: number
 
         constructor(config?: IViewConfig) {
             var me = this

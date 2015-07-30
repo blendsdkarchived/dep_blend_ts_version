@@ -10,7 +10,7 @@ module Blend.layout.component.web {
 
     export class Application extends Layout {
 
-        protected view: Blend.web.Application;
+        protected view: Blend.web.Application
 
         performLayout() {
             var me = this;

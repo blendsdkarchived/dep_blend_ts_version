@@ -7,7 +7,7 @@ module Blend {
      */
     export class Component {
 
-        protected initialConfig: IDictionary;
+        protected initialConfig: IDictionary
 
         constructor(config?: any) {
             var me = this;

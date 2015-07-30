@@ -1,22 +1,35 @@
 /// <reference path="../../Blend.ts" />
 /// <reference path="../Layout.ts" />
+/// <reference path="../../ui/ContainerView.ts" />
+
 
 
 module Blend.layout.container {
 
     export class Layout extends Blend.layout.Layout {
 
-        protected isLayoutRendered: boolean;
-
-        private itemCssClassName: string;
-
+        private itemCssClassName: string
+        protected isLayoutRendered: boolean
 
         constructor(config: IContainerLayoutConfig) {
             var me = this;
             super(config);
-            me.itemCssClassName = <string>Blend.cssPrefix('layout-item');
             me.cssClassName = 'container';
+            me.itemCssClassName = <string>Blend.cssPrefix('layout-item');
             me.isLayoutRendered = false;
+        }
+
+        /**
+         * @override
+         */
+        performLayout() {
+            var me = this;
+            Blend.forEach(me.getVisibleViewItems(), function(view: Blend.ui.View) {
+                view.placeInALayoutContext(true);
+                view.performLayout();
+                view.placeInALayoutContext(false);
+            });
+            super.performLayout();
         }
 
         /**
@@ -51,6 +64,14 @@ module Blend.layout.container {
                 me.view.invalidateLayout();
                 me.view.performLayout();
             }
+        }
+
+        protected getVisibleViewItems() {
+            var me = this;
+            var filter = function(item: Blend.ui.View, index: number): boolean {
+                return item.isVisible();
+            }
+            return (<Blend.ui.ContainerView>me.view).getViews(filter);
         }
 
         /**
