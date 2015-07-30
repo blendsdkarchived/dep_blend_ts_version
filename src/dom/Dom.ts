@@ -134,7 +134,7 @@ module Blend.dom {
                     if (v === null) {
                         el.style.removeProperty(k);
                     } else {
-                        if (Blend.Environment.isIE) {
+                        if (Blend.Environment.getIsIE()) {
                             (<any>el.style)[k] = v;
                         } else {
                             el.style.setProperty(k, v);

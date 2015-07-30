@@ -28,6 +28,13 @@ module Blend {
 
 
         /**
+         * retuns true if the current browser is IE
+         */
+        getIsIE() {
+            return this.isIE;
+        }
+
+        /**
          * Retunsthe size of the scrollbars
          */
         getScrollbarSize() {
