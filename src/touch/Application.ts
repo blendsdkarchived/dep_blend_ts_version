@@ -1,9 +1,8 @@
 /// <reference path="../Application.ts" />
 
-module Blend.web {
+module Blend.touch {
     /**
-     * Base class for a web-desktop application creating
-     * a single page full viewport interface
+     * Base class for a touch hybrid application
      */
     export class Application extends Blend.Application {
     }
