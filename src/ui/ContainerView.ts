@@ -94,7 +94,6 @@ module Blend.ui {
             me.fireEvent('viewRemoved', childView);
         }
 
-
         /**
          * Adds a View to this container
          */
@@ -110,6 +109,9 @@ module Blend.ui {
             me.fireEvent('viewAdded', childView);
         }
 
+        /**
+         * Resets the child item indexes 
+         */
         private reIndexViews() {
             var me = this;
             Blend.forEach(me.views, function(view: View, index: number) {
@@ -138,7 +140,6 @@ module Blend.ui {
             return view;
         }
 
-
         /**
          * Retuns a list of child Views in this container. This function also accepts a filter
          * to help retuns a filtered list of child Views
@@ -156,7 +157,6 @@ module Blend.ui {
                 return this.views;
             }
         }
-
 
         /**
          * Destroys this View by setting the properties to null,
