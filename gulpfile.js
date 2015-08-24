@@ -11,6 +11,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var isbuilding = false;
+var buildCount = 0;
 
 function getFolders(dir) {
     return fs.readdirSync(dir)
@@ -105,7 +106,7 @@ gulp.task('watch',['dist'], function () {
 
     gulp.watch(__dirname + '/**/*.ts', function () {
         if(isbuilding === false) {
-            console.log('Building dist');
+            console.log('Building dist ===================> ' + (++buildCount) );
             isbuilding = true;
             gulp.run('dist',function(){
                 isbuilding = false;
