@@ -76,4 +76,3 @@ module Blend.ui {
 
     }
 }
-Blend.registerClassWithAlias('ui.rect', Blend.ui.Rectangle);

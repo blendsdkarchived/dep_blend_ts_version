@@ -95,7 +95,4 @@ module Blend.layout.container {
         }
 
     }
-
-    Blend.registerClassWithAlias('layout.container', Blend.layout.container.Layout);
-
 }

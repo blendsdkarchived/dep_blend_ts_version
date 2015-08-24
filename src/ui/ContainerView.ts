@@ -110,7 +110,7 @@ module Blend.ui {
         }
 
         /**
-         * Resets the child item indexes 
+         * Resets the child item indexes
          */
         private reIndexViews() {
             var me = this;
@@ -262,5 +262,3 @@ module Blend.ui {
         }
     }
 }
-
-Blend.registerClassWithAlias('ui.container', Blend.ui.ContainerView);

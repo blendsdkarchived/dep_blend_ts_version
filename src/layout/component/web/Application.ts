@@ -27,5 +27,3 @@ module Blend.layout.component.web {
         }
     }
 }
-
-Blend.registerClassWithAlias('layout.application', Blend.layout.component.web.Application);
