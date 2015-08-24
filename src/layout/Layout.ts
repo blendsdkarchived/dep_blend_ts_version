@@ -3,7 +3,6 @@
 /// <reference path="../ComponentInterfaces.ts" />
 /// <reference path="../ui/View.ts" />
 
-
 module Blend.layout {
 
     /**
@@ -49,23 +48,5 @@ module Blend.layout {
             return view.getAttribute<boolean>('isViewRendered');
         }
 
-    }
-
-    Blend.registerClassWithAlias('layout.default', Blend.layout.Layout);
-}
-
-module Blend {
-    /**
-         * Creates a Layout component for a View component
-         * @internal
-         */
-    export function createLayout(config: ILayoutConfig, view: Blend.ui.View): Blend.layout.Layout {
-        if (config && config.ctype) {
-            config.ctype = "layout." + config.ctype;
-            config.view = view;
-            return <Blend.layout.Layout>Blend.createObjectWithAlias(config);
-        } else {
-            throw new Error('Invalid ILayoutConfig object.')
-        }
     }
 }

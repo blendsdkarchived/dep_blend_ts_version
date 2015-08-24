@@ -9,6 +9,20 @@ module Blend {
     export var LayoutUtil: Blend.layout.Util;
 
     /**
+         * Creates a Layout component for a View component
+         * @internal
+         */
+    export function createLayout(config: ILayoutConfig, view: Blend.ui.View): Blend.layout.Layout {
+        if (config && config.ctype) {
+            config.ctype = "layout." + config.ctype;
+            config.view = view;
+            return <Blend.layout.Layout>Blend.createObjectWithAlias(config);
+        } else {
+            throw new Error('Invalid ILayoutConfig object.')
+        }
+    }
+
+    /**
      * Returns enum value, either the value as number or its string representation
      */
     export function getEnumValue<T>(objEnum: any, value: any, defaultValue?: any): T {
