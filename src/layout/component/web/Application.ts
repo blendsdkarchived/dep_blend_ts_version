@@ -3,9 +3,6 @@
 /// <reference path="../../../web/Application.ts" />
 /// <reference path="../../../ui/View.ts" />
 
-
-
-
 module Blend.layout.component.web {
 
     export class Application extends Layout {
@@ -13,9 +10,13 @@ module Blend.layout.component.web {
         protected view: Blend.web.Application
 
         performLayout() {
-            var me = this;
+            var me = this,
+            mainView = me.view.getMainView();
+
             Blend.LayoutUtil.fitElement(me.view.getElement());
-            Blend.LayoutUtil.fitElement(me.view.getMainView().getElement());
+            Blend.LayoutUtil.fitElement(mainView.getElement());
+            mainView.invalidateLayout();
+            mainView.performLayout();
             this.view.doneLayout();
         }
 
