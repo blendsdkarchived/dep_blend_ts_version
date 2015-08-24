@@ -3,6 +3,7 @@
 /// <reference path="../ComponentInterfaces.ts" />
 /// <reference path="../layout/Layout.ts" />
 /// <reference path="../dom/Dom.ts" />
+/// <reference path="../mvc/View.ts" />
 
 module Blend.ui {
 
