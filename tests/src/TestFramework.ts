@@ -357,7 +357,7 @@ module Blend.testing {
                 console.clear();
             }
 
-            window.onerror = function(errorMsg, url, lineNumber) {
+            window.onerror = <ErrorEventHandler>function(errorMsg:string, url:string,fileNo:number,  lineNumber:number) {
                 me.logWarn(`${errorMsg} [${url}] [Line: ${lineNumber}]`);
             }
 
