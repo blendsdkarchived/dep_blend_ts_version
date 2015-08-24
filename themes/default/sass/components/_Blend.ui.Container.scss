@@ -1,10 +1,12 @@
-#{$prefix}-cntnr {
-	#{$prefix}-body {
-		#{$prefix}-body-inner {
-			display: block;
-			position: relative;
-			top:0px;
-			left:0px;
-		}
-	}
+#{$prefix}-container {
+    #{$prefix}-body {
+        position: relative;
+        top:0px;
+        left:0px;
+        #{$prefix}-body-inner {
+            display: block;
+            top:0px;
+            left:0px;
+        }
+    }
 }
