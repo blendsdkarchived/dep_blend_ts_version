@@ -255,7 +255,7 @@ module Blend.ui {
                         cls: Blend.cssPrefix(['body-inner', 'fitted']),
                         oid: 'bodyContentElement',
                         unselectable: true,
-                        'data-scroll': Blend.getEnumValue<string>(eScroll, me.allowScroll)
+                        'data-scroll': Blend.getEnumValue<string>(eScroll, me.allowScroll).toLowerCase()
                     }
                 ]
             }

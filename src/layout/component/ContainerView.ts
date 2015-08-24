@@ -1,3 +1,4 @@
+/// <reference path="../../Blend.ts" />
 /// <reference path="../Layout.ts" />
 /// <reference path="../../ui/ContainerView.ts" />
 
@@ -32,8 +33,9 @@ module Blend.layout.component {
         }
 
         private setScrollState(value:eScroll) {
-            var me = this;
-            me.bodyContentElement.setAttribute('data-scroll',Blend.getEnumValue<string>(eScroll,me.allowScroll).toLowerCase());
+            var me = this,
+            scroll = Blend.getEnumValue<string>(eScroll,me.allowScroll).toLowerCase()
+            me.bodyContentElement.setAttribute('data-scroll',scroll);
         }
 
     }
