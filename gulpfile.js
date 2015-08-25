@@ -90,42 +90,4 @@ gulp.task('dist', ['tests'], function () {
         .pipe(gulp.dest('dist/js'));
 });
 
-
-gulp.task('watch',['dist'], function () {
-
-    var build = function (task) {
-        if (!isbuilding) {
-            isbuilding = true;
-            gulp.task(task, function () {
-                isbuilding = false;
-                console.log('done', task);
-            });
-        }
-    }
-
-
-    gulp.watch(__dirname + '/**/*.ts', function () {
-        if(isbuilding === false) {
-            console.log('Building dist ===================> ' + (++buildCount) );
-            isbuilding = true;
-            gulp.run('dist',function(){
-                isbuilding = false;
-            });
-        }
-    });
-
-    gulp.watch(__dirname + '/**/*.scss', function () {
-        if(isbuilding === false) {
-            console.log('Building themes');
-            isbuilding = true;
-            gulp.run('themes',function(){
-                isbuilding = false;
-            });
-        }
-    });
-});
-
-gulp.task('default',function(){
-    console.log('Either run "[npm start dist] or [npm start watch]');
-    console.log('Done.');
-});
+gulp.task('default',['dist']);
