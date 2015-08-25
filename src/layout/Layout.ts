@@ -12,9 +12,9 @@ module Blend.layout {
 
         protected view: Blend.ui.View
         protected cssClassName: string
-        protected initialConfig: ILayoutConfig
+        protected initialConfig: LayoutConfigInterface
 
-        constructor(config: ILayoutConfig) {
+        constructor(config: LayoutConfigInterface) {
             var me = this;
             super(config);
             me.cssClassName = me.cssClassName || 'default';

@@ -4,7 +4,7 @@
 
 module Blend.layout.component {
 
-    export interface IContainerViewInnerLayout extends ILayoutConfig {
+    export interface IContainerViewInnerLayout extends LayoutConfigInterface {
         viewElement: HTMLElement
         bodyElement: HTMLElement
         bodyContentElement: HTMLElement

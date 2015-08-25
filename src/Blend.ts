@@ -12,13 +12,13 @@ module Blend {
          * Creates a Layout component for a View component
          * @internal
          */
-    export function createLayout(config: ILayoutConfig, view: Blend.ui.View): Blend.layout.Layout {
+    export function createLayout(config: LayoutConfigInterface, view: Blend.ui.View): Blend.layout.Layout {
         if (config && config.ctype) {
             config.ctype = "layout." + config.ctype;
             config.view = view;
             return <Blend.layout.Layout>Blend.createObjectWithAlias(config);
         } else {
-            throw new Error('Invalid ILayoutConfig object.')
+            throw new Error('Invalid LayoutConfigInterface object.')
         }
     }
 

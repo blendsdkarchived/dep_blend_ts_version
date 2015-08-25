@@ -5,7 +5,7 @@
 /**
  * Interface for defining a layoutConfig of a Blend.ui.View
  */
-interface ILayoutConfig extends IComponentConfig {
+interface LayoutConfigInterface extends IComponentConfig {
     /**
      * @internal
      */
@@ -15,7 +15,7 @@ interface ILayoutConfig extends IComponentConfig {
 /**
  * Interface for providing configuration to a Layout component
  */
-interface IContainerLayoutConfig extends ILayoutConfig {
+interface IContainerLayoutConfig extends LayoutConfigInterface {
 
 }
 
@@ -62,7 +62,7 @@ interface IViewConfig extends IComponentConfig {
 
     //UI
 
-    layout?: ILayoutConfig
+    layout?: LayoutConfigInterface
     visible?: boolean
     cssClass?: string|IDictionary
 

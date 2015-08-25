@@ -20,7 +20,7 @@ module Blend.layout.component.web {
             this.view.doneLayout();
         }
 
-        constructor(config: ILayoutConfig) {
+        constructor(config: LayoutConfigInterface) {
             var me = this;
             super(config);
             me.cssClassName = 'application';
