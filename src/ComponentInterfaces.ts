@@ -5,7 +5,7 @@
 /**
  * Interface for defining a layoutConfig of a Blend.ui.View
  */
-interface LayoutConfigInterface extends IComponentConfig {
+interface LayoutConfigInterface extends ComponentConfigInterface {
     /**
      * @internal
      */
@@ -52,7 +52,7 @@ interface IViewBounds {
 /**
  * Interface for defining a View configuration
  */
-interface IViewConfig extends IComponentConfig {
+interface IViewConfig extends ComponentConfigInterface {
 
     //MVC
 
@@ -87,11 +87,11 @@ enum eScroll {
 
 interface IContainerViewConfig extends IViewConfig {
 
-    views?: Array<Blend.ui.View|IComponentConfig|string>
+    views?: Array<Blend.ui.View|ComponentConfigInterface|string>
     bodyPadding?: number
     allowScroll?:eScroll
 }
 
 interface IApplicationConfig extends IViewConfig {
-    mainView: Blend.ui.View|IComponentConfig|string
+    mainView: Blend.ui.View|ComponentConfigInterface|string
 }
