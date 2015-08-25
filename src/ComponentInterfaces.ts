@@ -95,3 +95,18 @@ interface ContainerViewConfigInterface extends ViewConfigInterface {
 interface ApplicationConfigInterface extends ViewConfigInterface {
     mainView: Blend.ui.View|ComponentConfigInterface|string
 }
+
+/**
+ * Interface for defining a Spacer widget to be used in containers with
+ * box layouts and Toolbar components
+ */
+interface SpacerInterface extends DictionaryInterface {
+    /**
+     * Size in pixels
+     */
+    size?:number
+    /**
+     * Size in flex units
+     */
+    flex?:number
+}

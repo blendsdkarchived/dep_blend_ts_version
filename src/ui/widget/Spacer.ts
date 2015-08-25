@@ -1,5 +1,6 @@
 /// <reference path="../../Blend.ts" />
-/// <reference path="SpacerInterface.ts" />
+/// <reference path="../../ComponentInterfaces.ts" />
+
 /// <reference path="../../dom/Dom.ts" />
 
 /// <reference path="Widget.ts" />
