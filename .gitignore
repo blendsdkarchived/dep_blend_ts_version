@@ -5,3 +5,8 @@ node_modules
 **/**/dist
 notes.txt
 *.log
+pocBlendSDK
+.settingsdevapps
+devapps
+dev-build.sh
+.settings
