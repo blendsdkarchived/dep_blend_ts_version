@@ -12,6 +12,9 @@ interface ILayoutConfig extends IComponentConfig {
     view?: Blend.ui.View
 }
 
+/**
+ * Interface for providing configuration to a Layout component
+ */
 interface IContainerLayoutConfig extends ILayoutConfig {
 
 }
@@ -20,18 +23,18 @@ interface IContainerLayoutConfig extends ILayoutConfig {
  * Interface for defining fields of a Model
  */
 interface IModelFieldConfig {
-    name: string;
-    bindTo?: Array<string>;
-    getValue?: () => any;
-    formatValue?: (value: any) => any;
+    name: string
+    bindTo?: Array<string>
+    getValue?: () => any
+    formatValue?: (value: any) => any
 }
 
 /**
  * Interface for defining a Model configuration
  */
 interface IModelConfig extends IDictionary {
-    id: string;
-    fields: Array<string|IModelFieldConfig>;
+    id: string
+    fields: Array<string|IModelFieldConfig>
 }
 
 /**
@@ -39,11 +42,11 @@ interface IModelConfig extends IDictionary {
  * @internal
  */
 interface IViewBounds {
-    top?: number;
-    left?: number;
-    width?: number|string;
-    height?: number|string;
-    visible?: boolean;
+    top?: number
+    left?: number
+    width?: number|string
+    height?: number|string
+    visible?: boolean
 }
 
 /**
@@ -53,32 +56,42 @@ interface IViewConfig extends IComponentConfig {
 
     //MVC
 
-    bindings?: IStringDictionary;
-    reference?: string;
-    controllers?: Array<string|Blend.mvc.Controller>;
+    bindings?: IStringDictionary
+    reference?: string
+    controllers?: Array<string|Blend.mvc.Controller>
 
     //UI
 
-    layout?: ILayoutConfig;
-    visible?: boolean;
-    cssClass?: string|IDictionary;
+    layout?: ILayoutConfig
+    visible?: boolean
+    cssClass?: string|IDictionary
 
     // SIZE
 
-    width?: number|string;
-    height?: number|string;
-    top?: number;
-    left?: number;
+    width?: number|string
+    height?: number|string
+    top?: number
+    left?: number
 
     // AS CONTAINER CHILD
-    itemId?:string;
+    itemId?: string
+}
 
-
+enum eScroll {
+    None,
+    Auto,
+    FixedBoth,
+    FixedHorizontal,
+    FixedVertical
 }
 
 interface IContainerViewConfig extends IViewConfig {
 
-    views?:Array<Blend.ui.View|IComponentConfig|string>;
-    boddyPadding?:number;
+    views?: Array<Blend.ui.View|IComponentConfig|string>
+    bodyPadding?: number
+    allowScroll?:eScroll
+}
 
+interface IApplicationConfig extends IViewConfig {
+    mainView: Blend.ui.View|IComponentConfig|string
 }
