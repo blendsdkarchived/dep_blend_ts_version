@@ -16,8 +16,8 @@ module Blend.mvc {
      */
     export class Controller {
 
-        private references: IDictionary = {}
-        private handlers: IDictionary = {}
+        private references: DictionaryInterface = {}
+        private handlers: DictionaryInterface = {}
 
         constructor(globalId?: string) {
             var me = this;

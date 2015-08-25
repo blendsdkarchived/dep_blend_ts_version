@@ -71,13 +71,13 @@ module Blend.dom {
          *      abc: false // results to class="mycls"
          * }
          */
-        cssClass(el: HTMLElement, cls?: string|IDictionary): IDictionary {
+        cssClass(el: HTMLElement, cls?: string|DictionaryInterface): DictionaryInterface {
             var me = this;
             if (cls) {
                 if (Blend.isString(cls)) {
                     var a: string = <string>cls;
-                    cls = <IDictionary>{};
-                    (<IDictionary>cls)[a] = true;
+                    cls = <DictionaryInterface>{};
+                    (<DictionaryInterface>cls)[a] = true;
                 }
                 var cur = me.cssClass(el),
                     re: Array<string> = [], s: string;
@@ -95,7 +95,7 @@ module Blend.dom {
             } else {
                 var value = el.getAttribute('class');
                 if (value && value !== '') {
-                    var r: IDictionary = {};
+                    var r: DictionaryInterface = {};
                     Blend.forEach(value.split(' '), function(cls: string) {
                         if (cls !== '') {
                             r[cls] = true;

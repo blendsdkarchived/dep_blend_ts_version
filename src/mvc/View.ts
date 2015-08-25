@@ -9,14 +9,14 @@ module Blend.mvc {
 
         protected reference: string
         protected parent: View
-        protected initialConfig: IViewConfig
+        protected initialConfig: ViewConfigInterface
         protected mvcReady: boolean
 
-        private bindings: IStringDictionary
+        private bindings: StringDictionaryInterface
         private controllers: Array<string|Controller>
         private _controlerId: number
 
-        constructor(config?: IViewConfig) {
+        constructor(config?: ViewConfigInterface) {
             var me = this
             super(config);
             me.mvcReady = false;
@@ -48,8 +48,8 @@ module Blend.mvc {
          * Initialises the provided config from the constructor
          * before using it in the View.
          */
-        protected initConfig(config?: IViewConfig): IViewConfig {
-            var defaultConfig: IViewConfig = {
+        protected initConfig(config?: ViewConfigInterface): ViewConfigInterface {
+            var defaultConfig: ViewConfigInterface = {
                 reference: null,
                 bindings: {},
                 controllers: []
@@ -243,7 +243,7 @@ module Blend.mvc {
         /**
          * Processes the model bindings
          */
-        private processBindings(bindings: IStringDictionary): void {
+        private processBindings(bindings: StringDictionaryInterface): void {
             var me = this;
             if (bindings) {
                 Blend.forEach(bindings, function(modelFieldPath: string, propertyName: string) {

@@ -1,7 +1,7 @@
 /**
  * Interface for implementing dictionary like objects
  */
-interface IDictionary {
+interface DictionaryInterface {
     [name: string]: any
 }
 
@@ -9,7 +9,7 @@ interface IDictionary {
  * Interface for implementing a dictionary that can only contain
  * strings for values
  */
-interface IStringDictionary {
+interface StringDictionaryInterface {
     [name: string]: string
 }
 
@@ -45,7 +45,7 @@ interface ICreateElement {
 /**
  * Interface for assigning configuration paremeters to a Blend class
  */
-interface IComponentConfig extends IDictionary {
+interface ComponentConfigInterface extends DictionaryInterface {
     ctype?: string
 }
 

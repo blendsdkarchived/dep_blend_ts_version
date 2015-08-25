@@ -12,12 +12,12 @@ module Blend.ui.widget {
 
         protected el: HTMLElement
 
-        constructor(config?: IDictionary) {
+        constructor(config?: DictionaryInterface) {
             var me = this;
             super(config);
         }
 
-        getBounds(): IViewBounds {
+        getBounds(): ViewBoundsInterface {
             var me = this;
             if (me.el) {
                 return Blend.Dom.getStyle(me.el, ['top', 'left', 'width', 'height']);

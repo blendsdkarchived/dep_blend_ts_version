@@ -33,18 +33,18 @@ module Blend.mvc {
 
     /**
     * Base class for Model. You can create a model either by deriving from this class
-    * or create a Model instance and pass an Blend.mvc.IModelConfig to the constructor
+    * or create a Model instance and pass an Blend.mvc.ModelConfigInterface to the constructor
     */
     export class Model extends Component {
 
         protected id: string
-        protected initialConfig:IModelConfig
+        protected initialConfig:ModelConfigInterface
 
-        private fieldValues: IDictionary
+        private fieldValues: DictionaryInterface
         private fields: IFieldRegistry
         private bindingCallbacks: IBindingCallback
 
-        constructor(config?: IModelConfig) {
+        constructor(config?: ModelConfigInterface) {
             var me = this;
 
             super(config);
@@ -60,8 +60,8 @@ module Blend.mvc {
         /**
         * Initializes the provided config assigned to the constructor
         */
-        protected initConfig(config?: IModelConfig): IModelConfig {
-            var defaultConfig:IModelConfig = {
+        protected initConfig(config?: ModelConfigInterface): ModelConfigInterface {
+            var defaultConfig:ModelConfigInterface = {
                 id:null,
                 fields:null
             }
@@ -72,9 +72,9 @@ module Blend.mvc {
         /**
         * Defines a list of fields within this model
         */
-        protected defineFields(fields: Array<IModelFieldConfig|string>) {
+        protected defineFields(fields: Array<ModelFieldConfigInterface|string>) {
             var me = this;
-            Blend.forEach(fields, function(fieldConfig: IModelFieldConfig|string) {
+            Blend.forEach(fields, function(fieldConfig: ModelFieldConfigInterface|string) {
                 me.defineField(fieldConfig);
             });
         }
@@ -82,9 +82,9 @@ module Blend.mvc {
         /**
         * Defines a field within this Model
         */
-        protected defineField(fieldConfig: IModelFieldConfig|string) {
+        protected defineField(fieldConfig: ModelFieldConfigInterface|string) {
             var me = this,
-                config: IModelFieldConfig;
+                config: ModelFieldConfigInterface;
             if (Blend.isString(<string>fieldConfig)) {
                 config = {
                     name: <string>fieldConfig,
@@ -95,7 +95,7 @@ module Blend.mvc {
                     }
                 }
             } else {
-                config = <IModelFieldConfig>fieldConfig;
+                config = <ModelFieldConfigInterface>fieldConfig;
             }
             me.createField(config);
         }
@@ -104,7 +104,7 @@ module Blend.mvc {
         * Prepares and creates a field within this model by dynamically building getters
         * ans setters
         */
-        private createField(fieldConfig: IModelFieldConfig) {
+        private createField(fieldConfig: ModelFieldConfigInterface) {
             var me = this,
                 oField: IFieldRegistryItem,
                 getterName: string,
@@ -211,7 +211,7 @@ module Blend.mvc {
         * Sets the values of the fields in this Model. This action triggers
         * all the handlers for bound View setters
         */
-        setData(data: IDictionary) {
+        setData(data: DictionaryInterface) {
             var me = this,
                 setterName: string;
             Blend.forEach(data, function(fieldValue: string, fieldName: any) {
@@ -225,7 +225,7 @@ module Blend.mvc {
         /**
         * Checks if this field is a complex/composite field
         */
-        private isComplexField(field: IModelFieldConfig) {
+        private isComplexField(field: ModelFieldConfigInterface) {
             return (field.bindTo && field.bindTo.length > 0) ? true : false;
         }
 

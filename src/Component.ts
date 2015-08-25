@@ -7,21 +7,21 @@ module Blend {
      */
     export class Component {
 
-        protected initialConfig: IDictionary
+        protected initialConfig: DictionaryInterface
 
         constructor(config?: any) {
             var me = this;
             me.initialConfig = me.initConfig(config);
         }
 
-        protected initConfig(config: IDictionary = {}) {
+        protected initConfig(config: DictionaryInterface = {}) {
             return config || {};
         }
 
         /**
          * Sets a list of dynamic attributes to this Component
          */
-        setAttributes(attrs:IDictionary) {
+        setAttributes(attrs:DictionaryInterface) {
             var me = this;
             Blend.forEach(attrs,function(value:any,key:string){
                 me.setAttribute(key,value);

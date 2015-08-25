@@ -18,9 +18,9 @@ class MyComponent1 extends Blend.Component {
 
 class Person extends Blend.Component {
 
-    protected initConfig(config?: IDictionary) {
+    protected initConfig(config?: DictionaryInterface) {
 
-        var defaultConfig: IDictionary = {
+        var defaultConfig: DictionaryInterface = {
             firstname: null,
             lastname: null
         };
@@ -37,8 +37,8 @@ class Person extends Blend.Component {
 
 class Employee extends Person {
 
-    protected initConfig(config?: IDictionary) {
-        var defaultConfig: IDictionary = {
+    protected initConfig(config?: DictionaryInterface) {
+        var defaultConfig: DictionaryInterface = {
             empNumber: null,
             salary: 3500,
         }
@@ -47,7 +47,7 @@ class Employee extends Person {
 }
 
 class Developer extends Employee {
-    protected initConfig(config?: IDictionary) {
+    protected initConfig(config?: DictionaryInterface) {
         var defaultConfig = {
             salary: 5000
         }

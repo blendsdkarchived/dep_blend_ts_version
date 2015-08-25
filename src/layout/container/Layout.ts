@@ -11,7 +11,7 @@ module Blend.layout.container {
         private itemCssClassName: string
         protected isLayoutRendered: boolean
 
-        constructor(config: IContainerLayoutConfig) {
+        constructor(config: ContainerLayoutConfigInterface) {
             var me = this;
             super(config);
             me.cssClassName = 'container';

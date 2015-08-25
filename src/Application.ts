@@ -11,11 +11,11 @@ module Blend {
         private isStarted: boolean
 
         protected isResizing: boolean
-        protected initialConfig: IApplicationConfig
+        protected initialConfig: ApplicationConfigInterface
         protected mainView: Blend.ui.View
         protected layoutClassType: string
 
-        constructor(config?: IApplicationConfig) {
+        constructor(config?: ApplicationConfigInterface) {
             var me = this;
             me.layoutClassType = me.layoutClassType || 'application';
             super(config);
@@ -44,11 +44,11 @@ module Blend {
             return el;
         }
 
-        protected initConfig(config?: IApplicationConfig) {
+        protected initConfig(config?: ApplicationConfigInterface) {
             var me = this,
-                defaultConfig: IContainerViewConfig = {
+                defaultConfig: ContainerViewConfigInterface = {
                 },
-                config: IApplicationConfig = Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
+                config: ApplicationConfigInterface = Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
 
             // Force application layout
             config.layout = {
@@ -80,7 +80,7 @@ module Blend {
                 } else if (Blend.isInstanceOf(mv, Blend.ui.View)) {
                     me.mainView = <Blend.ui.View>mv;
                 } else if (Blend.isObject(mv)) {
-                    me.mainView = Blend.createObjectWithAlias(<IComponentConfig>mv);
+                    me.mainView = Blend.createObjectWithAlias(<ComponentConfigInterface>mv);
                 }
             }
             if (me.mainView) {

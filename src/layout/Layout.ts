@@ -31,7 +31,7 @@ module Blend.layout {
              * We don't need to re-render the container if it has already been rendered
              */
             var me = this,
-                spec: IDictionary = {};
+                spec: DictionaryInterface = {};
             if (me.isViewRendered()) {
                 return me.view.getElement();
             } else {

@@ -15,14 +15,14 @@ interface LayoutConfigInterface extends ComponentConfigInterface {
 /**
  * Interface for providing configuration to a Layout component
  */
-interface IContainerLayoutConfig extends LayoutConfigInterface {
+interface ContainerLayoutConfigInterface extends LayoutConfigInterface {
 
 }
 
 /**
  * Interface for defining fields of a Model
  */
-interface IModelFieldConfig {
+interface ModelFieldConfigInterface {
     name: string
     bindTo?: Array<string>
     getValue?: () => any
@@ -32,16 +32,16 @@ interface IModelFieldConfig {
 /**
  * Interface for defining a Model configuration
  */
-interface IModelConfig extends IDictionary {
+interface ModelConfigInterface extends DictionaryInterface {
     id: string
-    fields: Array<string|IModelFieldConfig>
+    fields: Array<string|ModelFieldConfigInterface>
 }
 
 /**
  * Interface for defining View bounds and visibility
  * @internal
  */
-interface IViewBounds {
+interface ViewBoundsInterface {
     top?: number
     left?: number
     width?: number|string
@@ -52,11 +52,11 @@ interface IViewBounds {
 /**
  * Interface for defining a View configuration
  */
-interface IViewConfig extends ComponentConfigInterface {
+interface ViewConfigInterface extends ComponentConfigInterface {
 
     //MVC
 
-    bindings?: IStringDictionary
+    bindings?: StringDictionaryInterface
     reference?: string
     controllers?: Array<string|Blend.mvc.Controller>
 
@@ -64,7 +64,7 @@ interface IViewConfig extends ComponentConfigInterface {
 
     layout?: LayoutConfigInterface
     visible?: boolean
-    cssClass?: string|IDictionary
+    cssClass?: string|DictionaryInterface
 
     // SIZE
 
@@ -85,13 +85,13 @@ enum eScroll {
     FixedVertical
 }
 
-interface IContainerViewConfig extends IViewConfig {
+interface ContainerViewConfigInterface extends ViewConfigInterface {
 
     views?: Array<Blend.ui.View|ComponentConfigInterface|string>
     bodyPadding?: number
     allowScroll?:eScroll
 }
 
-interface IApplicationConfig extends IViewConfig {
+interface ApplicationConfigInterface extends ViewConfigInterface {
     mainView: Blend.ui.View|ComponentConfigInterface|string
 }

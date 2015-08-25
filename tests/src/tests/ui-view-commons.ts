@@ -32,8 +32,8 @@ class UITestContainerView extends Blend.ui.ContainerView {
 }
 
 class UITestUtils {
-    static createRects(counts: number, template: any = {}): Array<IComponentConfig> {
-        var result: Array<IComponentConfig> = [];
+    static createRects(counts: number, template: any = {}): Array<ComponentConfigInterface> {
+        var result: Array<ComponentConfigInterface> = [];
         for (var a = 0; a != counts; a++) {
             result.push(Blend.apply({
                 ctype: 'ui.rect',

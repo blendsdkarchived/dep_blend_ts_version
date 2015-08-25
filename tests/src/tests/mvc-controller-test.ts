@@ -13,15 +13,15 @@ TestRunner.defineTest('Controller gerRef', function(t: Blend.testing.TestRunner)
 
     var app = new Blend.web.Application({
         controller: new MyController(),
-        mainView: <IContainerViewConfig> {
+        mainView: <ContainerViewConfigInterface> {
             ctype: 'ui.container',
             reference: 'mainView',
             views: [
-                <IViewConfig>{
+                <ViewConfigInterface>{
                     ctype: 'ui.rect',
                     reference: 'rect'
                 },
-                <IViewConfig>{
+                <ViewConfigInterface>{
                     ctype: 'ui.rect',
                     reference: 'rect'
                 }

@@ -8,7 +8,7 @@ module Blend.ui {
 
     export class ContainerView extends Blend.ui.View {
 
-        protected initialConfig: IContainerViewConfig
+        protected initialConfig: ContainerViewConfigInterface
         protected views: Array<View>
         protected bodyElement: HTMLElement
         protected bodyContentElement: HTMLElement
@@ -18,7 +18,7 @@ module Blend.ui {
 
         private innerLayout: Blend.layout.component.ContainerView
 
-        constructor(config?: IContainerViewConfig) {
+        constructor(config?: ContainerViewConfigInterface) {
             var me = this;
             super(config);
             me.views = [];
@@ -31,7 +31,7 @@ module Blend.ui {
             ]);
 
             // Add the Views by config
-            Blend.forEach(me.initialConfig.views, function(childView: string|IViewConfig|Blend.ui.View, index: number) {
+            Blend.forEach(me.initialConfig.views, function(childView: string|ViewConfigInterface|Blend.ui.View, index: number) {
                 me.addViewInternal(childView);
             });
         }
@@ -53,9 +53,9 @@ module Blend.ui {
         /**
          * @override
          */
-        protected initConfig(config?: IViewConfig) {
+        protected initConfig(config?: ViewConfigInterface) {
             var me = this,
-                defaultConfig: IContainerViewConfig = {
+                defaultConfig: ContainerViewConfigInterface = {
                     bodyPadding: null,
                     allowScroll: eScroll.None,
                     views: [],
@@ -97,7 +97,7 @@ module Blend.ui {
         /**
          * Adds a View to this container
          */
-        addView(childView: string|IViewConfig|Blend.ui.View) {
+        addView(childView: string|ViewConfigInterface|Blend.ui.View) {
             var me = this,
                 view: View = me.addViewInternal.apply(me, arguments)
             me.layout.addView(view);
@@ -119,7 +119,7 @@ module Blend.ui {
             });
         }
 
-        private addViewInternal(childView: string|IViewConfig|Blend.ui.View) {
+        private addViewInternal(childView: string|ViewConfigInterface|Blend.ui.View) {
             var me = this,
                 view: View,
                 itemId: string;
@@ -128,9 +128,9 @@ module Blend.ui {
             if (Blend.isInstanceOf(childView, Blend.ui.View)) {
                 view = <View>childView;
             } else if (Blend.isObject(childView)) {
-                view = Blend.createObjectWithAlias(<IComponentConfig>childView);
+                view = Blend.createObjectWithAlias(<ComponentConfigInterface>childView);
             } else if (Blend.isString(childView)) {
-                var config: IComponentConfig = {
+                var config: ComponentConfigInterface = {
                     ctype: <string>childView
                 };
                 view = Blend.createObjectWithAlias(config);
@@ -236,14 +236,14 @@ module Blend.ui {
         /**
          * Renders the body element and a boddy-inner element.
          */
-        protected renderBodyElement(): IDictionary {
+        protected renderBodyElement(): DictionaryInterface {
             /**
              * The bodyElement is mainly used to enable a padding in the content
              * The scollbars are set on th content element (body-inner)
              */
             var me = this;
 
-            return <IDictionary>{
+            return <DictionaryInterface>{
                 oid: 'bodyElement',
                 unselectable: true,
                 cls: Blend.cssPrefix('body'),

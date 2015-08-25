@@ -17,7 +17,7 @@ module Blend.ui {
         private itemId: string
         //UI
         private visible: boolean
-        private cssClass: IDictionary
+        private cssClass: DictionaryInterface
 
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
@@ -40,7 +40,7 @@ module Blend.ui {
             });
         }
 
-        constructor(config?: IViewConfig) {
+        constructor(config?: ViewConfigInterface) {
             var me = this;
             super(config);
             me.isViewRendered = false;
@@ -61,9 +61,9 @@ module Blend.ui {
             return this.itemId;
         }
 
-        protected initConfig(config?: IViewConfig) {
+        protected initConfig(config?: ViewConfigInterface) {
 
-            var defaultConfig: IViewConfig = {
+            var defaultConfig: ViewConfigInterface = {
                 layout: {
                     ctype: 'default'
                 },
@@ -93,7 +93,7 @@ module Blend.ui {
         /**
          * Sets the CSS class names of this View
          */
-        setCssClass(value: string|IDictionary) {
+        setCssClass(value: string|DictionaryInterface) {
             var me = this;
             Blend.Dom.cssClass(me.el, value);
             me.cssClass = Blend.Dom.cssClass(me.el);
@@ -101,7 +101,7 @@ module Blend.ui {
         }
 
         /**
-         * Retrives a IDictionary object containing keys of
+         * Retrives a DictionaryInterface object containing keys of
          * css class names set to true
          */
         getCssClass() {
@@ -142,18 +142,18 @@ module Blend.ui {
         // SIZE AND POSITIONING
 
         /**
-         * Returns the bounds of this View based on the IViewBounds interface
+         * Returns the bounds of this View based on the ViewBoundsInterface interface
          */
-        getBounds(el?: HTMLElement): IViewBounds {
+        getBounds(el?: HTMLElement): ViewBoundsInterface {
             var me = this;
             el = el || me.getElement();
             return Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
         }
 
         /**
-         * Sets the bounds of this View based on the IViewBounds interface
+         * Sets the bounds of this View based on the ViewBoundsInterface interface
          */
-        setBounds(bounds: IViewBounds) {
+        setBounds(bounds: ViewBoundsInterface) {
             var me = this;
             me.setStyle(<IStyleConfig>bounds);
             me.notifyBoundsChanged();
@@ -225,7 +225,7 @@ module Blend.ui {
          */
         private getSizeHash(): string {
             var me = this,
-                cs = <IViewBounds>me.getBounds();
+                cs = <ViewBoundsInterface>me.getBounds();
             return [cs.height, cs.width].join('-');
         }
 

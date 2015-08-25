@@ -4,7 +4,7 @@
 module Blend {
 
     var CSS_PREFIX = 'b-';
-    var registry: IDictionary = {};
+    var registry: DictionaryInterface = {};
 
     export var LayoutUtil: Blend.layout.Util;
 
@@ -26,7 +26,7 @@ module Blend {
      * Returns enum value, either the value as number or its string representation
      */
     export function getEnumValue<T>(objEnum: any, value: any, defaultValue?: any): T {
-        var dic: IDictionary = objEnum;
+        var dic: DictionaryInterface = objEnum;
         if (Blend.isNumeric(value)) {
             return <T>(dic[parseInt(value)] || Blend.getEnumValue(objEnum, defaultValue));
         } else {
@@ -103,14 +103,14 @@ module Blend {
      * key/value in an object.
      * @returns {string} ctype or null of nothing found.
      */
-    export function getAlias(config: IComponentConfig) {
+    export function getAlias(config: ComponentConfigInterface) {
         return config ? (config['alias'] || config['ctype'] || null) : null;
     }
 
     /**
      * Creates an object based on an alias
      */
-    export function createObjectWithAlias(objectConfig: IComponentConfig) {
+    export function createObjectWithAlias(objectConfig: ComponentConfigInterface) {
         var alias = Blend.getAlias(objectConfig);
         if (registry[alias]) {
             return registry[alias].apply(this, [objectConfig]);

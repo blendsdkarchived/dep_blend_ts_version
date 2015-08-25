@@ -3,7 +3,7 @@
 
 module Blend.ui {
 
-    export interface IRectangleConfig extends IViewConfig {
+    export interface IRectangleConfig extends ViewConfigInterface {
         color?: string
         text?: string
     }
@@ -45,9 +45,9 @@ module Blend.ui {
             return this.color;
         }
 
-        protected initConfig(config?: IViewConfig) {
+        protected initConfig(config?: ViewConfigInterface) {
 
-            var defaultConfig: IViewConfig = {
+            var defaultConfig: ViewConfigInterface = {
                 color: '#' + Math.floor(Math.random() * 16777215).toString(16),
                 width: 100,
                 height: 100

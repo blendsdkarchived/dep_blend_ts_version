@@ -81,7 +81,7 @@ TestRunner.defineTest('View cssClass', function(t: Blend.testing.TestRunner) {
     t.clearBody(view.getElement());
     t.delay(function() {
         view.setCssClass('test1');
-        var c: IDictionary = view.getCssClass();
+        var c: DictionaryInterface = view.getCssClass();
         t.isOk(c['test1'], 'css class set');
         t.done();
     });
