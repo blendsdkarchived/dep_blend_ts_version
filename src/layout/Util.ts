@@ -39,6 +39,7 @@ module Blend.layout {
             });
             Blend.Dom.cssClass(element, <string>Blend.cssPrefix('center'));
         }
+
     }
 }
 
