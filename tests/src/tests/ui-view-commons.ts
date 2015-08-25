@@ -37,9 +37,7 @@ class UITestUtils {
         for (var a = 0; a != counts; a++) {
             result.push(Blend.apply({
                 ctype: 'ui.rect',
-                xcolor: '#fff',
-                width: Math.floor(Math.random() * (500 - 100)) + 100,
-                height: Math.floor(Math.random() * (500 - 100)) + 100
+                color:'#fff'
             }, template))
         }
         return result;
