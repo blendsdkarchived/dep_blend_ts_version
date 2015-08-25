@@ -4,7 +4,7 @@
  * Interface for defining a Spacer widget to be used in containers with
  * box layouts and Toolbar components
  */
-interface ISpacer extends IDictionary {
+interface SpacerInterface extends IDictionary {
     /**
      * Size in pixels
      */

@@ -8,7 +8,7 @@ module Blend.ui.widget {
 
     export class Spacer extends Widget {
 
-        constructor(config?: ISpacer) {
+        constructor(config?: SpacerInterface) {
             var me = this;
             super(config);
         }
