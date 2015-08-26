@@ -1,6 +1,7 @@
-/// <reference path="../CommonInterfaces.ts" />
-/// <reference path="Controller.ts" />
-/// <reference path="Model.ts" />
+/// <reference path="../interface/ControllerDictionaryInterface" />
+/// <reference path="../interface/ModelDictionaryInterface" />
+/// <reference path="Controller" />
+/// <reference path="Model" />
 
 module Blend.mvc {
 
@@ -11,13 +12,13 @@ module Blend.mvc {
      */
     export class ContextSingleton {
 
-        private controllers: IControllerDictionary = {}
-        private models: IModelDictionary = {}
+        private controllers: ControllerDictionaryInterface = {}
+        private models: ModelDictionaryInterface = {}
 
         /**
          * Returns the controller dictionary of this Context
          */
-        getControllers():IControllerDictionary {
+        getControllers():ControllerDictionaryInterface {
             return this.controllers;
         }
 

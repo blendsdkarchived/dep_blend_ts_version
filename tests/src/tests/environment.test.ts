@@ -1,5 +1,5 @@
-/// <reference path="../../typings/blend.d.ts" />
-/// <reference path="../TestFramework.ts" />
+/// <reference path="../../typings/blend" />
+/// <reference path="../TestFramework" />
 
 TestRunner.defineTest('Environment', function(t: Blend.testing.TestRunner) {
     var kickstarted = false;

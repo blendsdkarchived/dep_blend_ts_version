@@ -1,8 +1,8 @@
 /// <reference path="View.ts"/>
 /// <reference path="../dom/Dom.ts"/>
-/// <reference path="../layout/Util.ts" />
-/// <reference path="../layout/container/Layout.ts" />
-/// <reference path="../layout/component/ContainerView.ts" />
+/// <reference path="../layout/Util" />
+/// <reference path="../layout/container/Layout" />
+/// <reference path="../layout/component/ContainerView" />
 
 module Blend.ui {
 
@@ -218,7 +218,7 @@ module Blend.ui {
         /**
          * @override
          */
-        render(layoutConfig?: ICreateElement) {
+        render(layoutConfig?: CreateElementInterface) {
             var me: ContainerView = this,
                 spec = Blend.apply(layoutConfig || {}, {
                     unselectable: true,

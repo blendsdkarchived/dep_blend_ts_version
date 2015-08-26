@@ -1,5 +1,6 @@
-/// <reference path="CommonInterfaces.ts" />
-/// <reference path="Blend.ts" />
+/// <reference path="Blend" />
+/// <reference path="interface/DictionaryInterface" />
+
 
 module Blend {
     /**

@@ -1,9 +1,7 @@
-/// <reference path="../Blend.ts" />
-/// <reference path="../CommonInterfaces.ts" />
-/// <reference path="../ComponentInterfaces.ts" />
-/// <reference path="../layout/Layout.ts" />
-/// <reference path="../dom/Dom.ts" />
-/// <reference path="../mvc/View.ts" />
+/// <reference path="../Blend" />
+/// <reference path="../layout/Layout" />
+/// <reference path="../dom/Dom" />
+/// <reference path="../mvc/View" />
 
 module Blend.ui {
 
@@ -155,7 +153,7 @@ module Blend.ui {
          */
         setBounds(bounds: ViewBoundsInterface) {
             var me = this;
-            me.setStyle(<IStyleConfig>bounds);
+            me.setStyle(<StyleConfigiInterface>bounds);
             me.notifyBoundsChanged();
         }
 
@@ -174,7 +172,7 @@ module Blend.ui {
         /**
          * sets style attributes on this View
          */
-        protected setStyle(styles: IStyleConfig, el?: HTMLElement) {
+        protected setStyle(styles: StyleConfigiInterface, el?: HTMLElement) {
             var me = this;
             el = el || me.el || me.getElement();
             Blend.Dom.setStyle(el, styles);
@@ -334,7 +332,7 @@ module Blend.ui {
 
         // RENDER
 
-        render(layoutConfig: ICreateElement = {}): HTMLElement {
+        render(layoutConfig: CreateElementInterface = {}): HTMLElement {
             throw new Error('Not Implemented Yet!');
         }
 
@@ -371,7 +369,7 @@ module Blend.ui {
         /**
         * Prepares the element spec before passing it the createElement
         */
-        private prepareElement(elConfig: ICreateElement) {
+        private prepareElement(elConfig: CreateElementInterface) {
             var me = this,
                 data = {
                     // @TODO
@@ -387,7 +385,7 @@ module Blend.ui {
         * call the prepareElement in case we need to configure the element
         * spec before creating it
         */
-        protected createElement(config: ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
+        protected createElement(config: CreateElementInterface, elCallback?: Function, elCallbackScope?: any): HTMLElement {
             var me = this;
             return Blend.Dom.createElement(me.prepareElement(config), elCallback, me);
         }

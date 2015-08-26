@@ -1,4 +1,4 @@
-/// <reference path="../Application.ts" />
+/// <reference path="../Application" />
 
 module Blend.touch {
     /**

@@ -1,7 +1,6 @@
-/// <reference path="../Blend.ts" />
-/// <reference path="../Component.ts" />
-/// <reference path="../CommonInterfaces.ts" />
-/// <reference path="../ComponentInterfaces.ts" />
+/// <reference path="../Blend" />
+/// <reference path="../Component" />
+/// <reference path="../interface/ModelConfigInterface" />
 
 module Blend.mvc {
 

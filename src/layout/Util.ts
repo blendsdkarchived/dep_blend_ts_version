@@ -1,6 +1,5 @@
-/// <reference path="../Blend.ts" />
+/// <reference path="../Blend" />
 /// <reference path="../Component" />
-/// <reference path="../ComponentInterfaces.ts" />
 
 module Blend.layout {
 

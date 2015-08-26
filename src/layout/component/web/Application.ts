@@ -1,7 +1,9 @@
-/// <reference path="../../../Blend.ts" />
-/// <reference path="../../Layout.ts" />
-/// <reference path="../../../web/Application.ts" />
-/// <reference path="../../../ui/View.ts" />
+/// <reference path="../../../interface/LayoutConfigInterface" />
+/// <reference path="../../../Blend" />
+/// <reference path="../../Layout" />
+/// <reference path="../../../web/Application" />
+/// <reference path="../../../ui/View" />
+
 
 module Blend.layout.component.web {
 

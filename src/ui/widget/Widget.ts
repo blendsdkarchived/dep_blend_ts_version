@@ -1,6 +1,6 @@
 /// <reference path="../../Blend.ts"/>
 /// <reference path="../../dom/Dom.ts"/>
-/// <reference path="../../Component.ts" />
+/// <reference path="../../Component" />
 
 
 module Blend.ui.widget {

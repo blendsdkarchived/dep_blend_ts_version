@@ -1,13 +1,13 @@
-/// <reference path="../../typings/blend.d.ts" />
-/// <reference path="../TestFramework.ts" />
+/// <reference path="../../typings/blend" />
+/// <reference path="../TestFramework" />
 
 class UITestView extends Blend.ui.View {
 
     layoutCount: number = 0;
 
-    render(layoutConfig: ICreateElement = {}): HTMLElement {
+    render(layoutConfig: CreateElementInterface = {}): HTMLElement {
         var me = this,
-            spec: ICreateElement = {
+            spec: CreateElementInterface = {
                 text: 'View'
             }
         return me.createElement(Blend.apply(spec, layoutConfig, false, true));

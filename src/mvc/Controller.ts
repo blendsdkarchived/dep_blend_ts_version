@@ -1,6 +1,6 @@
-/// <reference path="../Blend.ts" />
-/// <reference path="View.ts" />
-/// <reference path="Context.ts" />
+/// <reference path="../Blend" />
+/// <reference path="View" />
+/// <reference path="Context" />
 
 interface ControllerEventHandler {
     (view: Blend.mvc.View, ...args: any[]): void

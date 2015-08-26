@@ -1,8 +1,8 @@
-/// <reference path="layout/Layout.ts" />
-/// <reference path="layout/component/web/Application.ts" />
-/// <reference path="layout/container/Layout.ts" />
-/// <reference path="ui/ContainerView.ts" />
-/// <reference path="ui/Rectangle.ts" />
+/// <reference path="layout/Layout" />
+/// <reference path="layout/component/web/Application" />
+/// <reference path="layout/container/Layout" />
+/// <reference path="ui/ContainerView" />
+/// <reference path="ui/Rectangle" />
 
 Blend.registerClassWithAlias('layout.default', Blend.layout.Layout);
 Blend.registerClassWithAlias('layout.application', Blend.layout.component.web.Application);

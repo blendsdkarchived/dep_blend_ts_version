@@ -1,4 +1,4 @@
-/// <reference path="../TestFramework.ts" />
+/// <reference path="../TestFramework" />
 TestRunner.defineTest('sanity', function(t: Blend.testing.TestRunner) {
     t.equal(1, 1, '1==1');
     t.notEqual(1, 2, '1 != 2');

@@ -1,6 +1,9 @@
-/// <reference path="../../Blend.ts" />
-/// <reference path="../Layout.ts" />
-/// <reference path="../../ui/ContainerView.ts" />
+/// <reference path="../../interface/ViewBoundsInterface" />
+/// <reference path="../../interface/LayoutConfigInterface" />
+/// <reference path="../../interface/ContainerViewConfigInterface" />
+/// <reference path="../../Blend" />
+/// <reference path="../Layout" />
+/// <reference path="../../ui/ContainerView" />
 
 module Blend.layout.component {
 

@@ -1,5 +1,7 @@
-/// <reference path="Blend.ts" />
-/// <reference path="ui/View.ts" />
+/// <reference path="Blend" />
+/// <reference path="ui/View" />
+
+
 
 module Blend {
 

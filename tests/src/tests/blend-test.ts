@@ -1,5 +1,5 @@
-/// <reference path="../../typings/blend.d.ts" />
-/// <reference path="../TestFramework.ts" />
+/// <reference path="../../typings/blend" />
+/// <reference path="../TestFramework" />
 
 module BlendTest {
     export enum enum1 {

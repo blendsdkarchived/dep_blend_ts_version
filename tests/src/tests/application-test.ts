@@ -1,5 +1,5 @@
-/// <reference path="../../typings/blend.d.ts" />
-/// <reference path="../TestFramework.ts" />
+/// <reference path="../../typings/blend" />
+/// <reference path="../TestFramework" />
 
 TestRunner.defineTest('Application fit into window', function(t: Blend.testing.TestRunner) {
 

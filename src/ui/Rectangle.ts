@@ -56,7 +56,7 @@ module Blend.ui {
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
         }
 
-        render(layoutConfig: ICreateElement = {}): HTMLElement {
+        render(layoutConfig: CreateElementInterface = {}): HTMLElement {
             var me = this,
                 spec = {
                     id: me.rectId,

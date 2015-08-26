@@ -1,6 +1,8 @@
-///<reference path="../CommonInterfaces.ts"/>
-///<reference path="../Blend.ts"/>
-///<reference path="../Environment.ts"/>
+///<reference path="../Blend"/>
+/// <reference path="../interface/StyleConfigiInterface" />
+/// <reference path="../interface/CreateElementInterface" />
+
+///<reference path="../Environment"/>
 module Blend.dom {
 
     /**
@@ -111,11 +113,11 @@ module Blend.dom {
         /**
          * Returns a dictionary with style information
          */
-        getStyle(el: HTMLElement, styles: string[]): IStyleConfig {
+        getStyle(el: HTMLElement, styles: string[]): StyleConfigiInterface {
             var me = this;
             if (el) {
                 var cs = window.getComputedStyle(el, null),
-                    r: IStyleConfig = {};
+                    r: StyleConfigiInterface = {};
                 Blend.forEach(styles, function(key: string) {
                     r[key] = me.fromUnit(cs.getPropertyValue(key));
                 });
@@ -128,7 +130,7 @@ module Blend.dom {
         /**
          * Set the styles of a HTMLElement
          */
-        setStyle(el: HTMLElement, styles: IStyleConfig) {
+        setStyle(el: HTMLElement, styles: StyleConfigiInterface) {
             var me = this,
                 setter = function(el: HTMLElement, k: string, v: any) {
                     if (v === null) {
@@ -173,11 +175,11 @@ module Blend.dom {
         }
 
         /**
-         * Utility to create a HTMLElement based on ICreateElement specification.
+         * Utility to create a HTMLElement based on CreateElementInterface specification.
          * This utility also can assign event listeners, styles, css classes, and
          * create child elements.
          */
-        createElement(config: ICreateElement, elCallback?: Function, elCallbackScope?: any): HTMLElement {
+        createElement(config: CreateElementInterface, elCallback?: Function, elCallbackScope?: any): HTMLElement {
             var me = this;
             if (Blend.isObject(config)) {
                 var el: HTMLElement = document.createElement(config.tag || 'div');
@@ -205,11 +207,11 @@ module Blend.dom {
                             if (!Blend.isArray(val)) {
                                 val = [val];
                             }
-                            val.forEach(function(child: HTMLElement|ICreateElement) {
+                            val.forEach(function(child: HTMLElement|CreateElementInterface) {
                                 if (child instanceof HTMLElement) {
                                     el.appendChild(<HTMLElement>child);
                                 } else {
-                                    el.appendChild(me.createElement(<ICreateElement>child, elCallback, elCallbackScope));
+                                    el.appendChild(me.createElement(<CreateElementInterface>child, elCallback, elCallbackScope));
                                 }
                             });
                             cfg = null;
@@ -220,7 +222,7 @@ module Blend.dom {
                             cfg = null;
                         } else if (cfg === 'style') {
                             cfg = null;
-                            me.setStyle(el, <IStyleConfig>val);
+                            me.setStyle(el, <StyleConfigiInterface>val);
                         } else if (cfg == 'unselectable') {
                             if (val === true) {
                                 val = 'on';

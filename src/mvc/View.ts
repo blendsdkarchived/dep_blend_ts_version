@@ -1,7 +1,9 @@
 /// <reference path="../Component" />
-/// <reference path="../ComponentInterfaces.ts" />
-/// <reference path="Model.ts" />
-/// <reference path="Context.ts" />
+/// <reference path="Model" />
+/// <reference path="Context" />
+
+
+
 
 module Blend.mvc {
 
