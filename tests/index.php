@@ -17,6 +17,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+    .bg-gray {
+        background-color:#EDEDED;
+    }
+
     .log {
         font-size:14px;
     }
