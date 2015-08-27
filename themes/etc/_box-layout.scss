@@ -1,0 +1,13 @@
+#{$prefix}-hbox-layout {
+    #{$prefix}-layout-item {
+        position:relative;
+        display: inline-block;
+    }
+}
+
+#{$prefix}-vbox-layout {
+    #{$prefix}-layout-item {
+        position:relative;
+        display: block;
+    }
+}

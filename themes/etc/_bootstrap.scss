@@ -6,6 +6,7 @@ $prefix:  '.b';
 @import "compass/css3/user-interface";
 @import "_layout.scss";
 @import "_scroll.scss";
+@import "_box-layout.scss";
 
 html, * , *:before, *:after{
     @include box-sizing(border-box);
