@@ -16,8 +16,9 @@ enum eBoxLayoutAlign {
 enum eBoxLayoutDirection {
     LeftToRight,
     RightToLeft,
-    TopToBottom,
-    BottomToTop
+    // Nice to have feature
+    //TopToBottom,
+    //BottomToTop
 }
 
 interface BoxItemContextInterface {

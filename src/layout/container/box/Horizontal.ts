@@ -11,9 +11,9 @@ module Blend.layout.container.box {
 
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
+            super(config);
             me.cssClassName = 'hbox';
             me.boxProcessor = new HBoxProcessor();
-            super(config);
         }
 
         protected initConfig(config?: BoxLayoutConfigInterface) {

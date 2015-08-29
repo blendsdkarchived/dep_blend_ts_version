@@ -16,7 +16,7 @@ module Blend.layout {
         constructor(config: LayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName = me.cssClassName || 'default';
+            me.cssClassName = 'default';
             me.view = me.initialConfig.view;
         }
 

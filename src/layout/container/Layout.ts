@@ -13,7 +13,7 @@ module Blend.layout.container {
         constructor(config: ContainerLayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName =  me.cssClassName || 'container';
+            me.cssClassName =  'container';
             me.itemCssClassName = <string>Blend.cssPrefix('layout-item');
             me.isLayoutRendered = false;
         }
