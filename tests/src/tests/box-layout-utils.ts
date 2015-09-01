@@ -66,7 +66,7 @@ var createBoxTest = function(name: string, layout: string, pack: eBoxLayoutPack,
 
                     t.equal(views.length, 3, name + ' tested');
                     t.done();
-                },500);
+                },250);
             });
         });
     });
@@ -85,4 +85,16 @@ var createFixedBoxTest = function(name: string, layout: string, pack: eBoxLayout
         }
     ];
     createBoxTest(name, layout, pack, align, direction, testViews, tests);
+}
+
+
+var createFlexedBoxTest = function(name: string, layout: string,  align: eBoxLayoutAlign, direction: eBoxLayoutDirection,flexes: Array<number>,tests: Array<ViewBoundsInterface>) {
+    var testViews: Array<ViewConfigInterface> = [];
+    Blend.forEach(flexes,function(value:number){
+        testViews.push({
+            ctype: 'ui.rect',
+            flex:value
+        });
+    });
+    createBoxTest(name, layout,eBoxLayoutPack.start , align, direction, testViews, tests);
 }
