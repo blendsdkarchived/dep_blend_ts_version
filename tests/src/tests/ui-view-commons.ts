@@ -22,7 +22,7 @@ class UITestView extends Blend.ui.View {
 
 }
 
-class UITestContainerView extends Blend.ui.ContainerView {
+class UITestContainerView extends Blend.ui.container.View {
 
     getBodyContentElement(): HTMLElement {
         var me = this;

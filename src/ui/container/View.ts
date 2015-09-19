@@ -1,12 +1,12 @@
-/// <reference path="View.ts"/>
-/// <reference path="../dom/Dom.ts"/>
-/// <reference path="../layout/Util" />
-/// <reference path="../layout/container/Layout" />
-/// <reference path="../layout/component/ContainerView" />
+/// <reference path="../View.ts"/>
+/// <reference path="../../dom/Dom.ts"/>
+/// <reference path="../../layout/Util" />
+/// <reference path="../../layout/container/Layout" />
+/// <reference path="../../layout/component/ContainerView" />
 
-module Blend.ui {
+module Blend.ui.container {
 
-    export class ContainerView extends Blend.ui.View {
+    export class View extends Blend.ui.View {
 
         protected initialConfig: ContainerViewConfigInterface
         protected views: Array<View>
@@ -219,7 +219,7 @@ module Blend.ui {
          * @override
          */
         render(layoutConfig?: CreateElementInterface) {
-            var me: ContainerView = this,
+            var me: Blend.ui.container.View = this,
                 spec = Blend.apply(layoutConfig || {}, {
                     unselectable: true,
                     cls: Blend.cssPrefix('container', true),

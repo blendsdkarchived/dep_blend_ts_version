@@ -3,7 +3,7 @@
 /// <reference path="../../interface/ContainerViewConfigInterface" />
 /// <reference path="../../Blend" />
 /// <reference path="../Layout" />
-/// <reference path="../../ui/ContainerView" />
+/// <reference path="../../ui/container/View" />
 
 module Blend.layout.component {
 

@@ -1,7 +1,7 @@
 /// <reference path="../../Blend" />
 /// <reference path="../Layout" />
 /// <reference path="../../interface/ContainerLayoutConfigInterface" />
-/// <reference path="../../ui/ContainerView" />
+/// <reference path="../../ui/container/View" />
 
 module Blend.layout.container {
 
@@ -70,7 +70,7 @@ module Blend.layout.container {
             var filter = function(item: Blend.ui.View, index: number): boolean {
                 return item.isVisible();
             }
-            return (<Blend.ui.ContainerView>me.view).getViews(filter);
+            return (<Blend.ui.container.View>me.view).getViews(filter);
         }
 
         /**
@@ -82,7 +82,7 @@ module Blend.layout.container {
                 bodyContentElement: HTMLElement = me.getViewBodyContentElement(),
                 docFrag = document.createDocumentFragment();
 
-            Blend.forEach((<Blend.ui.ContainerView>me.view).getViews(), function(viewItem: Blend.ui.View) {
+            Blend.forEach((<Blend.ui.container.View>me.view).getViews(), function(viewItem: Blend.ui.View) {
                 var el: HTMLElement = viewItem.getElement();
                 viewItem.setCssClass(me.itemCssClassName);
                 docFrag.appendChild(el);

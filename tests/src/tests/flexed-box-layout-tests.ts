@@ -28,7 +28,7 @@
 //         ]
 //     }
 
-//     var c = new Blend.ui.ContainerView(container);
+//     var c = new Blend.ui.container.View(container);
 //     Blend.Dom.clearElement(Blend.Dom.getBodyElement());
 //     Blend.Dom.getBodyElement(c.getElement());
 //     c.performLayout();

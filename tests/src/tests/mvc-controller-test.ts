@@ -30,7 +30,7 @@ TestRunner.defineTest('Controller gerRef', function(t: Blend.testing.TestRunner)
     });
 
     var controller:MyController = <MyController>app.getAttribute<Array<any>>('controllers')[0];
-    t.isTrue(Blend.isInstanceOf(controller.getReferenceEx<Blend.ui.ContainerView>('mainView'),Blend.ui.ContainerView),'mainView ref is correct');
+    t.isTrue(Blend.isInstanceOf(controller.getReferenceEx<Blend.ui.container.View>('mainView'),Blend.ui.container.View),'mainView ref is correct');
 
     var ar:Array<any> = controller.getReferenceEx<Array<any>>('rect');
     t.equal(ar.length,2,'rect refs are correct');

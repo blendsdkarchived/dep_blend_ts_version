@@ -19,7 +19,7 @@ var createBoxTest = function(name: string, layout: string, pack: eBoxLayoutPack,
             views: testViews
         }
 
-        var c = new Blend.ui.ContainerView(container);
+        var c = new Blend.ui.container.View(container);
         Blend.Dom.clearElement(Blend.Dom.getBodyElement());
         Blend.Dom.setStyle(c.getElement(), {
             'visibility': 'hidden'
