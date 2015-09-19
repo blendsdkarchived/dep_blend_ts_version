@@ -26,8 +26,6 @@ module Blend.layout.container.box {
 
         private allowScroll: boolean;
 
-
-
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
             super(config);
