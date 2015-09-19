@@ -1,10 +1,10 @@
-/// <reference path="DictionaryInterface" />
+/// <reference path="ViewConfigInterface" />
 
 /**
  * Interface for defining a Spacer widget to be used in containers with
  * box layouts and Toolbar components
  */
-interface SpacerInterface extends DictionaryInterface {
+interface SpacerConfigInterface extends ViewConfigInterface {
     /**
      * Size in pixels
      */
