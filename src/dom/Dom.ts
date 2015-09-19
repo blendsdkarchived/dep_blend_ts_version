@@ -191,6 +191,9 @@ module Blend.dom {
                             if (Blend.isArray(val)) {
                                 val = <Array<string>>val.join(' ');
                             }
+                        } else if (cfg === 'innerHTML') {
+                            cfg = null;
+                            el.innerHTML = val;
                         } else if (cfg === 'text') {
                             cfg = null;
                             var textNd = document.createTextNode(val);
