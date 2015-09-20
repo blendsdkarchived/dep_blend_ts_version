@@ -19,7 +19,7 @@ module Blend.layout.container {
         }
 
         /**
-         * Creates a list if Bkend.ui.Views based
+         * Creates a list if Blend.ui.Views based
          */
         createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>) {
             var me = this,
