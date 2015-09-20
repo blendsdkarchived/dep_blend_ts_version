@@ -29,9 +29,7 @@ interface BoxItemContextInterface {
     left: number
     width: number|string
     height: number|string
-    css: Array<string>,
-    margin:BoxLayoutItemMarginInterface,
-    split:boolean
+    css: Array<string>
 }
 
 interface BoxLayoutContextInterface {

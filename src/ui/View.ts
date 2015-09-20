@@ -2,6 +2,8 @@
 /// <reference path="../layout/Layout" />
 /// <reference path="../dom/Dom" />
 /// <reference path="../mvc/View" />
+/// <reference path="../interface/BoxLayoutInterface" />
+
 
 module Blend.ui {
 
@@ -16,6 +18,7 @@ module Blend.ui {
         //UI
         private visible: boolean
         private cssClass: DictionaryInterface
+        private margins:BoxLayoutItemMarginInterface;
 
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
@@ -53,6 +56,7 @@ module Blend.ui {
             ];
             me.visible = me.initialConfig.visible;
             me.itemId = me.initialConfig.itemId;
+            me.margins = me.initialConfig.margins;
         }
 
         getItemId(): string {
@@ -71,7 +75,8 @@ module Blend.ui {
                 left: null,
                 visible: true,
                 cssClass: null,
-                itemId: null
+                itemId: null,
+                margins:null
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);

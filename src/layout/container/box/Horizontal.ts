@@ -14,6 +14,14 @@ module Blend.layout.container.box {
             super(config);
             me.cssClassName = 'hbox';
             me.boxProcessor = new HBoxProcessor();
+            me.marginProperyName = "width";
+        }
+
+        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
+            var me = this;
+            me.marginA = margins.left || 0;
+            me.marginB = margins.right || 0;
+            return super.createViewMargins(view, margins);
         }
 
         protected initConfig(config?: BoxLayoutConfigInterface) {

@@ -25,6 +25,10 @@ module Blend.layout.container.box {
         protected boxProcessor: BoxProcessor;
 
         private allowScroll: boolean;
+        private setDefaultMargins: boolean;
+        protected marginA: number; // either left or top
+        protected marginB: number; // either bottom or right
+        protected marginProperyName: string; // either width or height
 
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
@@ -35,6 +39,55 @@ module Blend.layout.container.box {
             me.defaultItemMargin = me.initialConfig.defaultItemMargin;
             me.direction = me.initialConfig.direction;
             me.allowScroll = true;
+            me.setDefaultMargins = me.hasMargins(me.defaultItemMargin);
+        }
+
+        private hasMargins(margins: BoxLayoutItemMarginInterface) {
+            return ((margins.top || 0) + (margins.right || 0) + (margins.bottom || 0) + (margins.left || 0)) !== 0;
+        }
+
+        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
+            var me = this,
+                views: Array<Blend.ui.View> = [];
+            if (me.marginA !== 0) {
+                views.push(me.createSpacer(me.marginA));
+            }
+            views.push(view);
+            if (me.marginB !== 0) {
+                views.push(me.createSpacer(me.marginB));
+            }
+            return views;
+        }
+
+        private createSpacer(size: number) {
+            var me = this, spacer: any = {
+                ctype: 'ui.spacer'
+            }
+            spacer[me.marginProperyName] = size;
+            return me.createChildView(spacer)[0];
+        }
+
+
+        createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>): Array<Blend.ui.View> {
+            var me = this, views: Array<Blend.ui.View> = [],
+                tmp = super.createChildViews(childViews),
+                margins: BoxLayoutItemMarginInterface = null;
+
+            Blend.forEach(tmp, function(view: Blend.ui.View) {
+
+                margins = view.getAttribute<BoxLayoutItemMarginInterface>('margins');
+                if (!margins && me.setDefaultMargins === true) {
+                    margins = me.defaultItemMargin;
+                }
+
+                if (margins) {
+                    views = views.concat(me.createViewMargins(view, margins));
+                } else {
+                    views.push(view);
+                }
+
+            });
+            return views;
         }
 
         protected initConfig(config?: BoxLayoutConfigInterface) {
@@ -53,14 +106,6 @@ module Blend.layout.container.box {
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
-        }
-
-        handleLayout(itemCtxList: Array<BoxItemContextInterface>, layoutContext: BoxLayoutContextInterface) {
-            throw Error('handleLayout not yet implemented');
-        }
-
-        protected alignAndPack() {
-            throw Error('alignAndPack not yet implemented');
         }
 
         performLayout() {
@@ -91,7 +136,6 @@ module Blend.layout.container.box {
             return {
                 pack: me.pack,
                 align: me.align,
-                itemMargin: me.defaultItemMargin,
                 direction: me.direction,
                 bounds: <BoxLayoutBoundsInterface>bounds,
                 allowScroll: me.allowScroll
@@ -108,10 +152,7 @@ module Blend.layout.container.box {
                 list: Array<BoxItemContextInterface> = [];
             me.viewsInLayout = me.getVisibleViewItems();
             Blend.forEach(me.viewsInLayout, function(view: Blend.ui.View) {
-                var ctx: any = {
-                    margin: view.getInitialConfig('margin') || me.defaultItemMargin,
-                    split: view.getInitialConfig('split') || false,
-                },
+                var ctx: any = {},
                     flex = view.getInitialConfig('flex');
                 Blend.apply(ctx, view.getBounds());
                 if (flex) {
@@ -126,5 +167,14 @@ module Blend.layout.container.box {
             });
             return list;
         }
+
+        handleLayout(itemCtxList: Array<BoxItemContextInterface>, layoutContext: BoxLayoutContextInterface) {
+            throw Error('handleLayout not yet implemented');
+        }
+
+        protected alignAndPack() {
+            throw Error('alignAndPack not yet implemented');
+        }
+
     }
 }

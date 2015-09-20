@@ -1,5 +1,7 @@
 /// <reference path="StringDictionaryInterface" />
 /// <reference path="LayoutConfigInterface" />
+/// <reference path="BoxLayoutInterface" />
+
 
 /**
  * Interface for defining a View configuration
@@ -15,6 +17,11 @@ interface ViewConfigInterface extends ComponentConfigInterface {
     //UI
 
     layout?: LayoutConfigInterface
+    /**
+     * Works only when the View is a child View of a container and the container either has a hbox or a
+     * vbox layout
+     */
+    margins?: BoxLayoutItemMarginInterface;
     visible?: boolean
     cssClass?: string|DictionaryInterface
 

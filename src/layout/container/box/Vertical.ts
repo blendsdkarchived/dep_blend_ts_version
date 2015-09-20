@@ -14,7 +14,16 @@ module Blend.layout.container.box {
             super(config);
             me.cssClassName = 'vbox';
             me.boxProcessor = new VBoxProcessor();
+            me.marginProperyName = "height";
         }
+
+        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
+            var me = this;
+            me.marginA = margins.top || 0;
+            me.marginB = margins.bottom || 0;
+            return super.createViewMargins(view, margins);
+        }
+
 
         protected initConfig(config?: BoxLayoutConfigInterface) {
 
