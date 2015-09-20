@@ -9,7 +9,7 @@ module Blend.ui.container {
     export class View extends Blend.ui.View {
 
         protected initialConfig: ContainerViewConfigInterface
-        protected views: Array<View>
+        protected views: Array<Blend.ui.View>
         protected bodyElement: HTMLElement
         protected bodyContentElement: HTMLElement
         protected bodyPadding: number
@@ -30,10 +30,13 @@ module Blend.ui.container {
                 'viewRemoved'
             ]);
 
-            // Add the Views by config
-            Blend.forEach(me.initialConfig.views, function(childView: string|ViewConfigInterface|Blend.ui.View, index: number) {
-                me.addViewInternal(childView);
-            });
+            me.pushViews(me.layout.createChildViews(me.initialConfig.views))
+        }
+
+        protected pushViews(views: Blend.ui.View|Array<Blend.ui.View>) {
+            var me = this;
+            me.views = me.views.concat(Blend.wrapInArray(views));
+            me.reIndexViews();
         }
 
         /**
@@ -70,10 +73,10 @@ module Blend.ui.container {
          * Removes a given View from this container and retuns it in case it needs to be used
          * in another place
          */
-        removeView(childView: number|View) {
+        removeView(childView: number|Blend.ui.View): Blend.ui.View {
             var me = this,
                 index: number,
-                spliced: Array<View> = [];
+                spliced: Array<Blend.ui.View> = [];
             // Get the childView index
             if (Blend.isInstanceOf(childView, Blend.ui.View)) {
                 index = (<View>childView).getAttribute<number>('childIndex');
@@ -86,10 +89,12 @@ module Blend.ui.container {
                 me.reIndexViews();
                 me.notifyViewRemoved(spliced[0]);
                 return spliced[0];
+            } else {
+                return null;
             }
         }
 
-        notifyViewRemoved(childView: View) {
+        notifyViewRemoved(childView: Blend.ui.View) {
             var me = this;
             me.fireEvent('viewRemoved', childView);
         }
@@ -99,12 +104,16 @@ module Blend.ui.container {
          */
         addView(childView: string|ViewConfigInterface|Blend.ui.View) {
             var me = this,
-                view: View = me.addViewInternal.apply(me, arguments)
-            me.layout.addView(view);
-            me.notifyViewAdded(view);
+                views: Array<Blend.ui.View> = me.layout.createChildView(childView);
+            me.pushViews(views);
+            Blend.forEach(views, function(view: Blend.ui.View) {
+                if (me.layout.addView(view)) {
+                    me.notifyViewAdded(view);
+                }
+            });
         }
 
-        notifyViewAdded(childView: View) {
+        notifyViewAdded(childView: Blend.ui.View) {
             var me = this;
             me.fireEvent('viewAdded', childView);
         }
@@ -114,37 +123,16 @@ module Blend.ui.container {
          */
         private reIndexViews() {
             var me = this;
-            Blend.forEach(me.views, function(view: View, index: number) {
+            Blend.forEach(me.views, function(view: Blend.ui.View, index: number) {
                 view.setAttribute('childIndex', index);
             });
-        }
-
-        private addViewInternal(childView: string|ViewConfigInterface|Blend.ui.View) {
-            var me = this,
-                view: View,
-                itemId: string;
-
-            // Instantiate the View object
-            if (Blend.isInstanceOf(childView, Blend.ui.View)) {
-                view = <View>childView;
-            } else if (Blend.isObject(childView)) {
-                view = Blend.createObjectWithAlias(<ComponentConfigInterface>childView);
-            } else if (Blend.isString(childView)) {
-                var config: ComponentConfigInterface = {
-                    ctype: <string>childView
-                };
-                view = Blend.createObjectWithAlias(config);
-            }
-            view.setAttribute('childIndex', me.views.length || 0);
-            me.views.push(view);
-            return view;
         }
 
         /**
          * Retuns a list of child Views in this container. This function also accepts a filter
          * to help retuns a filtered list of child Views
          */
-        getViews(filter?: (item: View, index: number) => boolean, filterScope?: any): Array<View> {
+        getViews(filter?: (item: View, index: number) => boolean, filterScope?: any): Array<Blend.ui.View> {
             var me = this, filtered: Array<View> = [];
             if (filter) {
                 Blend.forEach(me.views, function(child: View, idx: number) {

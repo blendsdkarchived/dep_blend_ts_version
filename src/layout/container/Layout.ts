@@ -13,9 +13,45 @@ module Blend.layout.container {
         constructor(config: ContainerLayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName =  'container';
+            me.cssClassName = 'container';
             me.itemCssClassName = <string>Blend.cssPrefix('layout-item');
             me.isLayoutRendered = false;
+        }
+
+        /**
+         * Creates a list if Bkend.ui.Views based
+         */
+        createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>) {
+            var me = this,
+                views: Array<Blend.ui.View> = [];
+            Blend.forEach(childViews, function(childView: Blend.ui.View|ComponentConfigInterface|string) {
+                views = views.concat(me.createChildView(childView));
+            });
+            return views;
+        }
+
+        /**
+         * Creates a child View instance and returns it wrapped in an Array. This is done
+         * this way because a container layout may be injecting object views inside the container
+         * view hierarchy
+         */
+        createChildView(childView: Blend.ui.View|ComponentConfigInterface|string): Array<Blend.ui.View> {
+            var me = this,
+                view: Blend.ui.View,
+                itemId: string;
+
+            // Instantiate the View object
+            if (Blend.isInstanceOf(childView, Blend.ui.View)) {
+                view = <Blend.ui.View>childView;
+            } else if (Blend.isObject(childView)) {
+                view = Blend.createObjectWithAlias(<ComponentConfigInterface>childView);
+            } else if (Blend.isString(childView)) {
+                var config: ComponentConfigInterface = {
+                    ctype: <string>childView
+                };
+                view = Blend.createObjectWithAlias(config);
+            }
+            return [view];
         }
 
         /**
@@ -63,6 +99,7 @@ module Blend.layout.container {
                 me.view.invalidateLayout();
                 me.view.performLayout();
             }
+            return me.isLayoutRendered;
         }
 
         protected getVisibleViewItems() {
