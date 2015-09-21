@@ -1,11 +1,13 @@
 ///<reference path="View.ts"/>
+/// <reference path="../interface/ViewConfigInterface" />
 ///<reference path="../dom/Dom.ts"/>
 
 module Blend.ui {
 
     export interface IRectangleConfig extends ViewConfigInterface {
         color?: string
-        text?: string
+        text?: string,
+        border?:boolean
     }
 
     export var nextID = 0;
@@ -14,12 +16,14 @@ module Blend.ui {
 
         protected initialConfig: IRectangleConfig
         protected color: string
+        border:boolean
         private rectId: string
 
         constructor(config?: IRectangleConfig) {
             var me = this;
             me.rectId = 'rect' + (Blend.ui.nextID++).toString();
             super(config);
+            me.border = me.initialConfig.border || false;
 
         }
 
@@ -61,7 +65,7 @@ module Blend.ui {
                 spec = {
                     id: me.rectId,
                     style: {
-                        border: '1px dashed black'
+                        border: me.border ? '1px dashed black' : null
                     }
                 }
             return me.createElement(Blend.apply(spec, layoutConfig));
