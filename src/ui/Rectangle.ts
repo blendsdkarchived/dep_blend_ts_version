@@ -7,7 +7,7 @@ module Blend.ui {
     export interface IRectangleConfig extends ViewConfigInterface {
         color?: string
         text?: string,
-        border?:boolean
+        border?: boolean
     }
 
     export var nextID = 0;
@@ -16,7 +16,7 @@ module Blend.ui {
 
         protected initialConfig: IRectangleConfig
         protected color: string
-        border:boolean
+        border: boolean
         private rectId: string
 
         constructor(config?: IRectangleConfig) {
@@ -24,7 +24,6 @@ module Blend.ui {
             me.rectId = 'rect' + (Blend.ui.nextID++).toString();
             super(config);
             me.border = me.initialConfig.border || false;
-
         }
 
         setText(value: string) {
