@@ -26,8 +26,8 @@ module Blend.layout.container.box {
 
         private allowScroll: boolean;
         private setDefaultMargins: boolean;
-        protected marginA: number; // either left or top
-        protected marginB: number; // either bottom or right
+        protected marginBefore: number; // either left or top
+        protected marginAfter: number; // either bottom or right
         protected marginProperyName: string; // either width or height
 
         constructor(config: BoxLayoutConfigInterface) {
@@ -42,19 +42,25 @@ module Blend.layout.container.box {
             me.setDefaultMargins = me.hasMargins(me.defaultItemMargin);
         }
 
+        /**
+         * Check if the a given margins value is set
+         */
         private hasMargins(margins: BoxLayoutItemMarginInterface) {
             return ((margins.top || 0) + (margins.right || 0) + (margins.bottom || 0) + (margins.left || 0)) !== 0;
         }
 
+        /**
+         * Creates margins for a given view by placing placers before and after.
+         */
         protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
             var me = this,
                 views: Array<Blend.ui.View> = [];
-            if (me.marginA !== 0) {
-                views.push(me.createSpacer(me.marginA));
+            if (me.marginBefore !== 0) {
+                views.push(me.createSpacer(me.marginBefore));
             }
             views.push(view);
-            if (me.marginB !== 0) {
-                views.push(me.createSpacer(me.marginB));
+            if (me.marginAfter !== 0) {
+                views.push(me.createSpacer(me.marginAfter));
             }
             return views;
         }
