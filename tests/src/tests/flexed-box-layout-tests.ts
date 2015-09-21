@@ -3,37 +3,6 @@
 /// <reference path="ui-view-commons" />
 /// <reference path="box-layout-utils" />
 
-
-// TestRunner.defineTest('Box-Layout-' + name + '-test', function(t: Blend.testing.TestRunner) {
-
-//     var container = <ContainerViewConfigInterface>{
-//         layout: <BoxLayoutConfigInterface> {
-//             ctype: 'hbox',
-//             pack: eBoxLayoutPack.end,
-//             align: eBoxLayoutAlign.stretch,
-//             direction: eBoxLayoutDirection.RightToLeft
-//         },
-//         width: 400,
-//         height: 400,
-//         cssClass: 'bg-gray',
-//         views: [
-//             {
-//                 ctype: 'ui.rect',
-//                 flex: 2
-//             },
-//             {
-//                 ctype: 'ui.rect',
-//                 flex: 1
-//             }
-//         ]
-//     }
-
-//     var c = new Blend.ui.container.View(container);
-//     Blend.Dom.clearElement(Blend.Dom.getBodyElement());
-//     Blend.Dom.getBodyElement(c.getElement());
-//     c.performLayout();
-// });
-
 // pack * align start
 
 var flexedRects = [2, 1, 2];

@@ -37,7 +37,7 @@ interface BoxLayoutContextInterface {
     packUnits?:number,
     align?: eBoxLayoutAlign,
     alignUnits?:number,
-    margin?: BoxLayoutItemMarginInterface
+    margin?: BoxLayoutMarginInterface
     direction?: eBoxLayoutDirection
     allowScroll:boolean,
     handler?: Function
@@ -51,11 +51,11 @@ interface BoxLayoutBoundsInterface {
     height: number
 }
 
-interface BoxLayoutItemMarginInterface {
-    top: number
-    right: number
-    bottom: number
-    left: number
+interface BoxLayoutMarginInterface {
+    top?: number
+    right?: number
+    bottom?: number
+    left?: number
 }
 
 interface BoxLayoutConfigInterface extends ContainerLayoutConfigInterface {
@@ -63,5 +63,5 @@ interface BoxLayoutConfigInterface extends ContainerLayoutConfigInterface {
     align?: eBoxLayoutAlign
     splitter?: boolean
     direction?: eBoxLayoutDirection
-    defaultItemMargin?: BoxLayoutItemMarginInterface
+    defaultItemMargin?: BoxLayoutMarginInterface
 }

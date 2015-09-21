@@ -2,7 +2,7 @@
 /// <reference path="../TestFramework" />
 /// <reference path="ui-view-commons" />
 
-var createBoxTest = function(name: string, layout: string, pack: eBoxLayoutPack, align: eBoxLayoutAlign, direction: eBoxLayoutDirection, testViews: Array<ViewConfigInterface>, tests: Array<ViewBoundsInterface>) {
+var createBoxTest = function(name: string, layout: string, defMargins: BoxLayoutMarginInterface, hasMargins: boolean, pack: eBoxLayoutPack, align: eBoxLayoutAlign, direction: eBoxLayoutDirection, testViews: Array<ViewConfigInterface>, tests: Array<ViewBoundsInterface>) {
 
     TestRunner.defineTest('Box-Layout-' + name + '-test', function(t: Blend.testing.TestRunner) {
 
@@ -11,7 +11,8 @@ var createBoxTest = function(name: string, layout: string, pack: eBoxLayoutPack,
                 ctype: layout,
                 pack: pack,
                 align: align,
-                direction: direction
+                direction: direction,
+                defaultItemMargin: defMargins
             },
             width: 400,
             height: 400,
@@ -63,10 +64,11 @@ var createBoxTest = function(name: string, layout: string, pack: eBoxLayoutPack,
                             t.equal(test.height, bounds.height, `${name } /V:${index}/height`);
                         }
                     });
-
-                    t.equal(views.length, 3, name + ' tested');
+                    if (!hasMargins) {
+                        t.equal(views.length, 3, name + ' tested');
+                    }
                     t.done();
-                },250);
+                }, 100);
             });
         });
     });
@@ -84,17 +86,17 @@ var createFixedBoxTest = function(name: string, layout: string, pack: eBoxLayout
             ctype: 'ui.rect'
         }
     ];
-    createBoxTest(name, layout, pack, align, direction, testViews, tests);
+    createBoxTest(name, layout, null, false, pack, align, direction, testViews, tests);
 }
 
 
-var createFlexedBoxTest = function(name: string, layout: string,  align: eBoxLayoutAlign, direction: eBoxLayoutDirection,flexes: Array<number>,tests: Array<ViewBoundsInterface>) {
+var createFlexedBoxTest = function(name: string, layout: string, align: eBoxLayoutAlign, direction: eBoxLayoutDirection, flexes: Array<number>, tests: Array<ViewBoundsInterface>) {
     var testViews: Array<ViewConfigInterface> = [];
-    Blend.forEach(flexes,function(value:number){
+    Blend.forEach(flexes, function(value: number) {
         testViews.push({
             ctype: 'ui.rect',
-            flex:value
+            flex: value
         });
     });
-    createBoxTest(name, layout,eBoxLayoutPack.start , align, direction, testViews, tests);
+    createBoxTest(name, layout, null, false, eBoxLayoutPack.start, align, direction, testViews, tests);
 }

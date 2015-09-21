@@ -17,7 +17,7 @@ module Blend.layout.container.box {
             me.marginProperyName = "height";
         }
 
-        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
+        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutMarginInterface): Array<Blend.ui.View> {
             var me = this;
             me.marginBefore = margins.top || 0;
             me.marginAfter = margins.bottom || 0;

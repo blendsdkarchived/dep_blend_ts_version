@@ -16,7 +16,7 @@ module Blend.layout.container.box {
         protected align: eBoxLayoutAlign;
         protected splitter: boolean;
         protected direction: eBoxLayoutDirection;
-        protected defaultItemMargin: BoxLayoutItemMarginInterface;
+        protected defaultItemMargin: BoxLayoutMarginInterface;
         protected initialConfig: BoxLayoutConfigInterface;
 
         protected itemContext: Array<BoxItemContextInterface>
@@ -45,14 +45,14 @@ module Blend.layout.container.box {
         /**
          * Check if the a given margins value is set
          */
-        private hasMargins(margins: BoxLayoutItemMarginInterface) {
-            return ((margins.top || 0) + (margins.right || 0) + (margins.bottom || 0) + (margins.left || 0)) !== 0;
+        private hasMargins(margins: BoxLayoutMarginInterface) {
+            return (margins ? ((margins.top || 0) + (margins.right || 0) + (margins.bottom || 0) + (margins.left || 0)) : 0) !== 0;
         }
 
         /**
          * Creates margins for a given view by placing placers before and after.
          */
-        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutItemMarginInterface): Array<Blend.ui.View> {
+        protected createViewMargins(view: Blend.ui.View, margins: BoxLayoutMarginInterface): Array<Blend.ui.View> {
             var me = this,
                 views: Array<Blend.ui.View> = [];
             if (me.marginBefore !== 0) {
@@ -65,6 +65,9 @@ module Blend.layout.container.box {
             return views;
         }
 
+        /**
+         * Creates a spacer View to be used as margins
+         */
         private createSpacer(size: number) {
             var me = this, spacer: any = {
                 ctype: 'ui.spacer'
@@ -73,26 +76,30 @@ module Blend.layout.container.box {
             return me.createChildView(spacer)[0];
         }
 
-
         createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>): Array<Blend.ui.View> {
             var me = this, views: Array<Blend.ui.View> = [],
-                tmp = super.createChildViews(childViews),
-                margins: BoxLayoutItemMarginInterface = null;
-
+                tmp = super.createChildViews(childViews)
             Blend.forEach(tmp, function(view: Blend.ui.View) {
-
-                margins = view.getAttribute<BoxLayoutItemMarginInterface>('margins');
-                if (!margins && me.setDefaultMargins === true) {
-                    margins = me.defaultItemMargin;
-                }
-
-                if (margins) {
-                    views = views.concat(me.createViewMargins(view, margins));
-                } else {
-                    views.push(view);
-                }
-
+                views = me.processMargins(view, views);
             });
+            return views;
+        }
+
+        protected processMargins(view: Blend.ui.View, views: Array<Blend.ui.View>) {
+            var me = this,
+                margins: BoxLayoutMarginInterface = null;
+
+            margins = view.getAttribute<BoxLayoutMarginInterface>('margins');
+            if (!margins && me.setDefaultMargins === true) {
+                margins = me.defaultItemMargin;
+            }
+
+            if (margins) {
+                views = views.concat(me.createViewMargins(view, margins));
+            } else {
+                views.push(view);
+            }
+
             return views;
         }
 
@@ -103,7 +110,7 @@ module Blend.layout.container.box {
                 align: eBoxLayoutAlign.start,
                 splitter: false,
                 direction: null,
-                defaultItemMargin: <BoxLayoutItemMarginInterface> {
+                defaultItemMargin: <BoxLayoutMarginInterface> {
                     bottom: 0,
                     left: 0,
                     top: 0,

@@ -18,7 +18,7 @@ module Blend.ui {
         //UI
         private visible: boolean
         private cssClass: DictionaryInterface
-        private margins:BoxLayoutItemMarginInterface;
+        private margins:BoxLayoutMarginInterface;
 
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
