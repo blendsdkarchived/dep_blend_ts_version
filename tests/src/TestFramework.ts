@@ -289,6 +289,9 @@ module Blend.testing {
                     me.span('expected pct40', `expected: [${me.htmlEntities(JSON.stringify(expected)) }]`)
                 ])
                 );
+            if (console && console.log) {
+                console.log(me.currentTest.name, 'FAILED');
+            }
         }
 
         logWarn(message: string) {
@@ -357,7 +360,7 @@ module Blend.testing {
                 console.clear();
             }
 
-            window.onerror = <ErrorEventHandler>function(errorMsg:string, url:string,fileNo:number,  lineNumber:number) {
+            window.onerror = <ErrorEventHandler>function(errorMsg: string, url: string, fileNo: number, lineNumber: number) {
                 me.logWarn(`${errorMsg} [${url}] [Line: ${lineNumber}]`);
             }
 
