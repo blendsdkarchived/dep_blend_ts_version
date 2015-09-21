@@ -197,6 +197,11 @@ module Blend {
      * Checks if the give value is instance of another class/function
      */
     export function isInstanceOf(obj: any, clazz: any): boolean {
+
+        if(obj === null || obj === undefined) {
+            return false;
+        }
+
         var hc = '[object HTMLCollection]';
         if (obj.toString() === hc && clazz === 'HTMLCollection') {
             return true;
