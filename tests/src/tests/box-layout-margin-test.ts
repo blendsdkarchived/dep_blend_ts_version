@@ -9,7 +9,7 @@ var defHBoxMargins:BoxLayoutMarginInterface = {
 }
 
 var hBoxMarginViews:Array<ViewConfigInterface> = [
-    
+
     {
         ctype:'ui.rect',
         margins:{
@@ -20,7 +20,7 @@ var hBoxMarginViews:Array<ViewConfigInterface> = [
     {
         ctype:'ui.rect',
         flex:1
-    } 
+    }
 ]
 
 var hBoxMarginsTests:Array<ViewBoundsInterface> = [
@@ -29,7 +29,7 @@ var hBoxMarginsTests:Array<ViewBoundsInterface> = [
     },
     {
         left:10,
-    }    
+    }
 ];
 
 createBoxTest('hbox-fix-margins','hbox',defHBoxMargins,true,eBoxLayoutPack.start , eBoxLayoutAlign.start, eBoxLayoutDirection.LeftToRight, hBoxMarginViews, hBoxMarginsTests);
@@ -42,7 +42,7 @@ var defVBoxMargins:BoxLayoutMarginInterface = {
 }
 
 var vBoxMarginViews:Array<ViewConfigInterface> = [
-    
+
     {
         ctype:'ui.rect',
         margins:{
@@ -53,7 +53,7 @@ var vBoxMarginViews:Array<ViewConfigInterface> = [
     {
         ctype:'ui.rect',
         flex:1
-    } 
+    }
 ]
 
 var vBoxMarginsTests:Array<ViewBoundsInterface> = [
@@ -62,7 +62,7 @@ var vBoxMarginsTests:Array<ViewBoundsInterface> = [
     },
     {
         top:10,
-    }    
+    }
 ];
 
 createBoxTest('vbox-fix-margins','vbox',defVBoxMargins,true,eBoxLayoutPack.start , eBoxLayoutAlign.start, eBoxLayoutDirection.LeftToRight, vBoxMarginViews, vBoxMarginsTests);

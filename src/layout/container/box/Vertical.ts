@@ -12,7 +12,7 @@ module Blend.layout.container.box {
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName = 'vbox';
+            me.cssClassName = me.splitterType = 'vbox';
             me.boxProcessor = new VBoxProcessor();
             me.marginProperyName = "height";
         }

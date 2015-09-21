@@ -1,0 +1,17 @@
+#{$prefix}-splitter {
+    background-color: $splitter-color;
+}
+
+#{$prefix}-splitter-active {
+    background-color: $splitter-active-color;
+}
+
+#{$prefix}-splitter-hbox {
+    height:100%;
+    width: $splitter-size;
+}
+
+#{$prefix}-splitter-vbox {
+    width:100%;
+    height: $splitter-size;
+}

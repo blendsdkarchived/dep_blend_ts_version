@@ -7,8 +7,8 @@ $default-font-size: 1em;
 // Colors
 $base-color: #E0E0E0;
 
-// Scrollbars
-$scroll-track-color: darken($base-color,5%);
-$scroll-handle-color: darken($scroll-track-color,10%);
-$scroll-handle-hover-color:darken($scroll-track-color,20%);
-$scroll-handle-active-color:darken($scroll-track-color,40%);
+// splitter
+
+$splitter-color: red; // darken($base-color,20%);
+$splitter-active-color: darken($splitter-color,5%);
+$splitter-size: 7px;

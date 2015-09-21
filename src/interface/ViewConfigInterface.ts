@@ -21,7 +21,8 @@ interface ViewConfigInterface extends ComponentConfigInterface {
      * Works only when the View is a child View of a container and the container either has a hbox or a
      * vbox layout
      */
-    margins?: BoxLayoutMarginInterface;
+    margins?: BoxLayoutMarginInterface
+    split?:boolean
     visible?: boolean
     cssClass?: string|DictionaryInterface
 

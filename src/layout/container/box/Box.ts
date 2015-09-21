@@ -2,8 +2,8 @@
 /// <reference path="../../../interface/BoxLayoutInterface" />
 /// <reference path="../../utils/box/BoxProcessor" />
 /// <reference path="../Layout" />
-
-
+/// <reference path="../../../ui/splitter/Splitter" />
+/// <reference path="../../../ui/splitter/Manager" />
 
 module Blend.layout.container.box {
 
@@ -26,20 +26,27 @@ module Blend.layout.container.box {
 
         private allowScroll: boolean;
         private setDefaultMargins: boolean;
+        private usedMargins: boolean;
+        private usedSplitter: boolean;
+        private spLastView: Blend.ui.View;
+
         protected marginBefore: number; // either left or top
         protected marginAfter: number; // either bottom or right
         protected marginProperyName: string; // either width or height
+        protected splitterType: string; // either h or v
+        protected splitManager: Blend.ui.splitter.Manager
+
 
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
             super(config);
             me.pack = me.initialConfig.pack;
             me.align = me.initialConfig.align;
-            me.splitter = me.initialConfig.splitter;
             me.defaultItemMargin = me.initialConfig.defaultItemMargin;
             me.direction = me.initialConfig.direction;
             me.allowScroll = true;
-            me.setDefaultMargins = me.hasMargins(me.defaultItemMargin);
+            me.setDefaultMargins = me.usedMargins = me.hasMargins(me.defaultItemMargin);
+            me.usedSplitter = false;
         }
 
         /**
@@ -76,15 +83,48 @@ module Blend.layout.container.box {
             return me.createChildView(spacer)[0];
         }
 
+        private createSplitter() {
+            var me = this, splitter: any = {
+                ctype: 'ui.splitter',
+                splitType: me.splitterType
+            }
+            return me.createChildView(splitter)[0];
+        }
+
+        /**
+         * Loops thoigh the provided views for processing margins and splitters
+         */
         createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>): Array<Blend.ui.View> {
             var me = this, views: Array<Blend.ui.View> = [],
                 tmp = super.createChildViews(childViews)
-            Blend.forEach(tmp, function(view: Blend.ui.View) {
-                views = me.processMargins(view, views);
+            Blend.forEach(tmp, function(view: Blend.ui.View, index: number) {
+                if (me.usedSplitter === true) {
+                    views = me.processSplitters(view, index, views, tmp.length);
+                } else {
+                    views = me.processMargins(view, views);
+                }
             });
+            me.usedMargins = true;
             return views;
         }
 
+        createChildView(childView: Blend.ui.View|ComponentConfigInterface|string): Array<Blend.ui.View> {
+            var me = this,
+                views: Array<Blend.ui.View> = super.createChildView(childView),
+                view = views[0];
+            if (me.usedMargins === false) {
+                me.usedMargins = view.getAttribute<BoxLayoutMarginInterface>('margins') ? true : false;
+            }
+            if (me.usedSplitter === false) {
+                me.usedSplitter = view.getAttribute<boolean>('split') || false;
+            }
+            return views;
+        }
+
+
+        /**
+         * Addes margins before or after a View
+         */
         protected processMargins(view: Blend.ui.View, views: Array<Blend.ui.View>) {
             var me = this,
                 margins: BoxLayoutMarginInterface = null;
@@ -93,14 +133,72 @@ module Blend.layout.container.box {
             if (!margins && me.setDefaultMargins === true) {
                 margins = me.defaultItemMargin;
             }
-
             if (margins) {
                 views = views.concat(me.createViewMargins(view, margins));
             } else {
                 views.push(view);
             }
-
             return views;
+        }
+
+        /**
+         * Adds splitters before or after a View
+         */
+        protected processSplitters(view: Blend.ui.View, viewIndex: number, views: Array<Blend.ui.View>, numViews: number) {
+            var me = this, strategy: string;
+            var hasSplitter: boolean = view.getAttribute<boolean>('split') || false;
+            if (hasSplitter && numViews > 1) {
+                me.initSplitManager();
+                var isFirst = viewIndex === 0;
+                var isLast = viewIndex === numViews - 1;
+                var isLastViewSplitter = Blend.isInstanceOf(me.spLastView, Blend.ui.splitter.Splitter);
+
+                if (isFirst) {
+                    strategy = 'vs';
+                } else if (isLast && isLastViewSplitter === false) {
+                    strategy = 'sv';
+                } else if(!isFirst && !isLast) {
+                    if(isLastViewSplitter) {
+                        strategy = 'vs';
+                    } else {
+                        strategy = 'sv';
+                    }
+                }
+
+                if (strategy === 'vs') {
+                    views.push(view);
+                    views.push(me.createSplitter())
+                } else {
+                    views.push(me.createSplitter())
+                    views.push(view);
+                }
+
+                // //
+
+                // if () {
+                //     // the last view is a splitter so we need to bind this View to that
+                //     // splitter
+                //     views.push(me.createSplitter())
+                //     views.push(view);
+                // } else {
+                //     views.push(view);
+                //     views.push(me.createSplitter())
+                // }
+            } else {
+                views.push(view);
+            }
+            me.spLastView = views[views.length - 1];
+            return views;
+        }
+
+        /**
+         * Lazy initialisation of the splitManager
+         */
+        private initSplitManager() {
+            var me = this;
+            if (!me.splitManager) {
+                me.splitManager = new Blend.ui.splitter.Manager();
+            }
         }
 
         protected initConfig(config?: BoxLayoutConfigInterface) {
@@ -146,6 +244,14 @@ module Blend.layout.container.box {
         createLayoutContext(): BoxLayoutContextInterface {
             var me = this,
                 bounds: any = Blend.Dom.getStyle(me.getViewBodyContentElement(), ['top', 'left', 'width', 'height'])
+
+            if (me.usedSplitter === true) {
+                /**
+                 * Make sure the View are stretched when a splitter is used
+                 */
+                me.align = eBoxLayoutAlign.stretch;
+            }
+
             return {
                 pack: me.pack,
                 align: me.align,

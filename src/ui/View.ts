@@ -18,7 +18,8 @@ module Blend.ui {
         //UI
         private visible: boolean
         private cssClass: DictionaryInterface
-        private margins:BoxLayoutMarginInterface;
+        private margins:BoxLayoutMarginInterface
+        private split:boolean
 
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
@@ -57,6 +58,7 @@ module Blend.ui {
             me.visible = me.initialConfig.visible;
             me.itemId = me.initialConfig.itemId;
             me.margins = me.initialConfig.margins;
+            me.split = me.initialConfig.split;
         }
 
         getItemId(): string {

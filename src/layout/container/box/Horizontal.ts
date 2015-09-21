@@ -12,7 +12,7 @@ module Blend.layout.container.box {
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName = 'hbox';
+            me.cssClassName = me.splitterType = 'hbox';
             me.boxProcessor = new HBoxProcessor();
             me.marginProperyName = "width";
         }

@@ -61,7 +61,6 @@ interface BoxLayoutMarginInterface {
 interface BoxLayoutConfigInterface extends ContainerLayoutConfigInterface {
     pack?: eBoxLayoutPack
     align?: eBoxLayoutAlign
-    splitter?: boolean
     direction?: eBoxLayoutDirection
     defaultItemMargin?: BoxLayoutMarginInterface
 }
