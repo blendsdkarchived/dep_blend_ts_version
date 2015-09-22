@@ -37,7 +37,7 @@ module Blend.mvc {
         initEventChain(parentView?:View) {
             var me = this;
             if (!me.mvcReady) {
-                if(parent) {
+                if(!me.parent) {
                     me.parent = parentView;
                 }
                 me.resolveControllers();
