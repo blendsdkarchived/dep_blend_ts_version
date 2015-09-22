@@ -32,18 +32,6 @@ module Blend.layout.container.box {
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
         }
 
-        protected alignAndPack() {
-            var me = this,
-                direction = me.layoutContext.direction === eBoxLayoutDirection.LeftToRight ? 'ltr' : 'rtl',
-                pack = 'padding-' + (direction === 'ltr' ? 'left' : 'right'),
-                props: StyleConfigiInterface = {
-                    'padding-top': me.layoutContext.alignUnits || null,
-                    'direction': direction
-                };
-            props[pack] = me.layoutContext.packUnits || null;
-            Blend.Dom.setStyle(me.getViewBodyContentElement(), props);
-        }
-
         handleLayout(itemCtxList: Array<BoxItemContextInterface>, layoutContext: BoxLayoutContextInterface) {
             var me = this;
             me.boxProcessor.calculate(itemCtxList, layoutContext);

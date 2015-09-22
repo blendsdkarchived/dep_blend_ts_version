@@ -86,7 +86,8 @@ module Blend.layout.container.box {
         private createSplitter() {
             var me = this, splitter: any = {
                 ctype: 'ui.splitter',
-                splitType: me.splitterType
+                splitType: me.splitterType,
+
             }
             return me.createChildView(splitter)[0];
         }
@@ -157,8 +158,8 @@ module Blend.layout.container.box {
                     strategy = 'vs';
                 } else if (isLast && isLastViewSplitter === false) {
                     strategy = 'sv';
-                } else if(!isFirst && !isLast) {
-                    if(isLastViewSplitter) {
+                } else if (!isFirst && !isLast) {
+                    if (isLastViewSplitter) {
                         strategy = 'vs';
                     } else {
                         strategy = 'sv';
@@ -224,7 +225,6 @@ module Blend.layout.container.box {
             me.itemContext = me.createItemLayoutContext();
             me.layoutContext = me.createLayoutContext();
             me.handleLayout(me.itemContext, me.layoutContext);
-            me.alignAndPack();
             Blend.forEach(me.itemContext, function(ctx: BoxItemContextInterface, idx: number) {
                 setTimeout(function() {
                     var view = me.viewsInLayout[idx];
@@ -289,10 +289,6 @@ module Blend.layout.container.box {
 
         handleLayout(itemCtxList: Array<BoxItemContextInterface>, layoutContext: BoxLayoutContextInterface) {
             throw Error('handleLayout not yet implemented');
-        }
-
-        protected alignAndPack() {
-            throw Error('alignAndPack not yet implemented');
         }
 
     }

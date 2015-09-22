@@ -21,7 +21,7 @@ module Blend.layout.container {
         /**
          * Creates a list if Blend.ui.Views based
          */
-        createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>) : Array<Blend.ui.View> {
+        createChildViews(childViews: Array<Blend.ui.View|ComponentConfigInterface|string>): Array<Blend.ui.View> {
             var me = this,
                 views: Array<Blend.ui.View> = [];
             Blend.forEach(childViews, function(childView: Blend.ui.View|ComponentConfigInterface|string) {
@@ -49,8 +49,8 @@ module Blend.layout.container {
                     ctype: <string>childView
                 };
                 view = Blend.createObjectWithAlias(config);
-                view.setAttribute('parent',me.view);
             }
+            view.setAttribute('parent', me.view);
             return [view];
         }
 

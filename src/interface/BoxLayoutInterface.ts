@@ -34,9 +34,7 @@ interface BoxItemContextInterface {
 
 interface BoxLayoutContextInterface {
     pack?: eBoxLayoutPack,
-    packUnits?:number,
     align?: eBoxLayoutAlign,
-    alignUnits?:number,
     margin?: BoxLayoutMarginInterface
     direction?: eBoxLayoutDirection
     allowScroll:boolean,

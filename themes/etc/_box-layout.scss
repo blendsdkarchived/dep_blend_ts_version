@@ -1,7 +1,7 @@
 #{$prefix}-hbox-layout {
     white-space: nowrap;
     #{$prefix}-layout-item {
-        position:relative;
+        position: absolute;
         display: inline-block;
     }
 }
@@ -9,7 +9,7 @@
 #{$prefix}-vbox-layout {
     white-space: nowrap;
     #{$prefix}-layout-item {
-        position:relative;
+        position: absolute;
         display: block;
     }
 }

@@ -24,23 +24,12 @@ module Blend.layout.container.box {
             return super.createViewMargins(view, margins);
         }
 
-
         protected initConfig(config?: BoxLayoutConfigInterface) {
 
             var defaultConfig: BoxLayoutConfigInterface = {
                 direction: eBoxLayoutDirection.LeftToRight,
             };
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
-        }
-
-        protected alignAndPack() {
-            var me = this,
-                direction = me.layoutContext.direction === eBoxLayoutDirection.LeftToRight ? 'ltr' : 'rtl';
-            Blend.Dom.setStyle(me.getViewBodyContentElement(), {
-                'padding-top': me.layoutContext.packUnits || null,
-                'padding-left': me.layoutContext.alignUnits || null,
-                'direction': direction
-            });
         }
 
         handleLayout(itemCtxList: Array<BoxItemContextInterface>, layoutContext: BoxLayoutContextInterface) {
