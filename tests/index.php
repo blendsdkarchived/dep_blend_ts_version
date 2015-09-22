@@ -21,6 +21,11 @@
         background-color:#EDEDED;
     }
 
+    .bg-blue {
+        background-color:blue !important;
+        color:#fff !important;
+    }
+
     .log {
         font-size:14px;
     }
