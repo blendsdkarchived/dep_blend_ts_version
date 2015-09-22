@@ -2,16 +2,26 @@
     background-color: $splitter-color;
 }
 
+#{$prefix}-splitter-hover {
+    background-color: $splitter-hover-color;
+}
+
 #{$prefix}-splitter-active {
     background-color: $splitter-active-color;
 }
 
 #{$prefix}-splitter-hbox {
-    height:100%;
+    height: 100%;
     width: $splitter-size;
 }
 
 #{$prefix}-splitter-vbox {
-    width:100%;
+    width: 100%;
     height: $splitter-size;
+}
+
+#{$prefix}-splitter-ghost {
+    @include opacity(0.7);   
+    z-index: 100000;
+    position: absolute;
 }

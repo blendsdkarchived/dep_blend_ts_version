@@ -15,6 +15,10 @@ html, * , *:before, *:after{
     @include user-select(none);
 }
 
+ #{$prefix}-layout-item {
+    border: 1px solid transparent;
+}
+
 body {
     font-family: $default-font-family;
     font-size: $default-font-size;

@@ -5,10 +5,11 @@ $default-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $default-font-size: 1em;
 
 // Colors
-$base-color: #E0E0E0;
+$base-color: #EDEDED;
 
 // splitter
 
-$splitter-color: red; // darken($base-color,20%);
-$splitter-active-color: darken($splitter-color,5%);
-$splitter-size: 7px;
+$splitter-color: darken($base-color,20%);
+$splitter-active-color: darken($splitter-color,15%);
+$splitter-hover-color: darken($splitter-color,7%);
+$splitter-size: 0.6em;
