@@ -21,7 +21,7 @@
 }
 
 #{$prefix}-splitter-ghost {
-    @include opacity(0.7);   
+    @include opacity(0.7);
     z-index: 100000;
     position: absolute;
 }
