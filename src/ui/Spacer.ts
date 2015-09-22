@@ -35,8 +35,7 @@ module Blend.ui {
         render(layoutConfig: CreateElementInterface = {}): HTMLElement {
             var me = this,
                 spec = {
-                    cls: Blend.cssPrefix('spacer'),
-                    innerHTML:'&nbsp;'
+                    cls: Blend.cssPrefix('spacer')
                 }
             return me.createElement(Blend.apply(spec, layoutConfig));
         }
