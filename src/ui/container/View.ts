@@ -132,7 +132,7 @@ module Blend.ui.container {
          * Retuns a list of child Views in this container. This function also accepts a filter
          * to help retuns a filtered list of child Views
          */
-        getViews(filter?: (item: View, index: number) => boolean, filterScope?: any): Array<Blend.ui.View> {
+        getViews(filter?: (item: Blend.ui.View, index: number) => boolean, filterScope?: any): Array<Blend.ui.View> {
             var me = this, filtered: Array<View> = [];
             if (filter) {
                 Blend.forEach(me.views, function(child: View, idx: number) {
