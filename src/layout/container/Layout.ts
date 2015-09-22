@@ -37,8 +37,7 @@ module Blend.layout.container {
          */
         createChildView(childView: Blend.ui.View|ComponentConfigInterface|string): Array<Blend.ui.View> {
             var me = this,
-                view: Blend.ui.View,
-                itemId: string;
+                view: Blend.ui.View
 
             // Instantiate the View object
             if (Blend.isInstanceOf(childView, Blend.ui.View)) {
@@ -50,6 +49,7 @@ module Blend.layout.container {
                     ctype: <string>childView
                 };
                 view = Blend.createObjectWithAlias(config);
+                view.setAttribute('parent',me.view);
             }
             return [view];
         }
