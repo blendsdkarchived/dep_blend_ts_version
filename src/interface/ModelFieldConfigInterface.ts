@@ -1,7 +1,9 @@
+/// <reference path="DictionaryInterface" />
+
 /**
  * Interface for defining fields of a Model
  */
-interface ModelFieldConfigInterface {
+interface ModelFieldConfigInterface extends DictionaryInterface {
     name: string
     bindTo?: Array<string>
     getValue?: () => any
