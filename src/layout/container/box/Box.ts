@@ -114,10 +114,10 @@ module Blend.layout.container.box {
                 views: Array<Blend.ui.View> = super.createChildView(childView),
                 view = views[0];
             if (me.usedMargins === false) {
-                me.usedMargins = view.getAttribute<BoxLayoutMarginInterface>('margins') ? true : false;
+                me.usedMargins = view.getInitialConfig<BoxLayoutMarginInterface>('margins') ? true : false;
             }
             if (me.usedSplitter === false) {
-                me.usedSplitter = view.getAttribute<boolean>('split') || false;
+                me.usedSplitter = view.getInitialConfig<boolean>('split') || false;
             }
             return views;
         }
@@ -130,7 +130,7 @@ module Blend.layout.container.box {
             var me = this,
                 margins: BoxLayoutMarginInterface = null;
 
-            margins = view.getAttribute<BoxLayoutMarginInterface>('margins');
+            margins = view.getInitialConfig<BoxLayoutMarginInterface>('margins');
             if (!margins && me.setDefaultMargins === true) {
                 margins = me.defaultItemMargin;
             }
@@ -147,7 +147,7 @@ module Blend.layout.container.box {
          */
         protected processSplitters(view: Blend.ui.View, viewIndex: number, views: Array<Blend.ui.View>, numViews: number) {
             var me = this, strategy: string;
-            var hasSplitter: boolean = view.getAttribute<boolean>('split') || false;
+            var hasSplitter: boolean = view.getInitialConfig<boolean>('split') || false;
             if (hasSplitter && numViews > 1) {
                 me.initSplitManager();
                 var isFirst = viewIndex === 0;
@@ -159,7 +159,7 @@ module Blend.layout.container.box {
                 } else if (isLast && isLastViewSplitter === false) {
                     strategy = 'sv';
                 } else if (!isFirst && !isLast) {
-                    if (isLastViewSplitter) {
+                    if (isLastViewSplitter === true) {
                         strategy = 'vs';
                     } else {
                         strategy = 'sv';
@@ -169,22 +169,13 @@ module Blend.layout.container.box {
                 if (strategy === 'vs') {
                     views.push(view);
                     views.push(me.createSplitter())
-                } else {
+                } else if(strategy == 'sv') {
                     views.push(me.createSplitter())
+                    views.push(view);
+                } else {
                     views.push(view);
                 }
 
-                // //
-
-                // if () {
-                //     // the last view is a splitter so we need to bind this View to that
-                //     // splitter
-                //     views.push(me.createSplitter())
-                //     views.push(view);
-                // } else {
-                //     views.push(view);
-                //     views.push(me.createSplitter())
-                // }
             } else {
                 views.push(view);
             }
@@ -228,6 +219,7 @@ module Blend.layout.container.box {
             Blend.forEach(me.itemContext, function(ctx: BoxItemContextInterface, idx: number) {
                 setTimeout(function() {
                     var view = me.viewsInLayout[idx];
+                    view.setAttribute('flexPerPixel', me.layoutContext.flexPerPixel);
                     /**
                      * This will trigger the view's native performLayout instead
                      * of view's parent's performLayout which is the default behaviour

@@ -37,8 +37,9 @@ interface BoxLayoutContextInterface {
     align?: eBoxLayoutAlign,
     margin?: BoxLayoutMarginInterface
     direction?: eBoxLayoutDirection
-    allowScroll:boolean,
+    allowScroll: boolean
     handler?: Function
+    flexPerPixel?: number
     bounds: BoxLayoutBoundsInterface
 }
 

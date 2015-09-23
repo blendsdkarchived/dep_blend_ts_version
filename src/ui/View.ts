@@ -18,8 +18,8 @@ module Blend.ui {
         //UI
         private visible: boolean
         private cssClass: DictionaryInterface
-        private margins:BoxLayoutMarginInterface
-        private split:boolean
+        //private margins: BoxLayoutMarginInterface
+        //private split: boolean
 
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
@@ -56,9 +56,6 @@ module Blend.ui {
                 'visibilityChanged'
             ];
             me.visible = me.initialConfig.visible;
-            me.itemId = me.initialConfig.itemId;
-            me.margins = me.initialConfig.margins;
-            me.split = me.initialConfig.split;
         }
 
         getItemId(): string {
@@ -78,7 +75,7 @@ module Blend.ui {
                 visible: true,
                 cssClass: null,
                 itemId: null,
-                margins:null
+                margins: null
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
@@ -205,14 +202,14 @@ module Blend.ui {
         /**
          * Temporary suspends the layout cycle
          */
-        protected suspendLayout() {
+        suspendLayout() {
             this.layoutEnabled = false;
         }
 
         /**
          * Resumes the layout cycle
          */
-        protected resumeLayout() {
+        resumeLayout() {
             this.layoutEnabled = true;
         }
 
@@ -287,8 +284,12 @@ module Blend.ui {
          * Makes sure the layout state is invalid so it can be placed in
          * the next layout cycle
          */
-        invalidateLayout() {
-            this.sizeHash = null;
+        invalidateLayout(performLayout?: boolean) {
+            var me = this;
+            me.sizeHash = null;
+            if (performLayout === true) {
+                me.performLayout();
+            }
         }
 
         // INTERNAL EVENTS

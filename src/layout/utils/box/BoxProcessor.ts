@@ -90,6 +90,7 @@ module Blend.layout.container.box {
                 maxFlex: number = 0,
                 pixelsPerFlex: number,
                 size: number,
+                availSpace: number,
                 flexedItems: Array<number> = [];
             Blend.forEach(ilctx, function(ctx: BoxItemContextInterface, idx: number) {
                 if (ctx.flex === true) {
@@ -101,12 +102,17 @@ module Blend.layout.container.box {
             });
 
             if (maxFlex !== 0) {
-                pixelsPerFlex = (<number>(<any>me.layoutContext.bounds)[me.boxedProperty] - me.requiredSpace) / maxFlex;
+                availSpace = (<number>(<any>me.layoutContext.bounds)[me.boxedProperty] - me.requiredSpace)
+                pixelsPerFlex = availSpace / maxFlex;
+                me.layoutContext.flexPerPixel = maxFlex / availSpace;
                 Blend.forEach(flexedItems, function(idx: number) {
                     size = pixelsPerFlex * ilctx[idx].flexSize;
                     (<any>ilctx)[idx][me.boxedProperty] = size;
                     me.requiredSpace += size
                 });
+                // This is used later to place of the Views to recalculate pixels to flex
+
+
             }
         }
 
