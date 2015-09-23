@@ -14,6 +14,7 @@ module Blend.ui.splitter {
         protected splitType: string;
         protected activeCssClass: string;
         protected hoverCssClass: string;
+        protected cursorCssClass: string;
         protected isActive: boolean;
         protected ghostEl: HTMLElement;
         protected origin: ViewBoundsInterface;
@@ -38,6 +39,7 @@ module Blend.ui.splitter {
             me.hoverCssClass = <string>Blend.cssPrefix('splitter-hover');
             me.isActive = false;
             me.ghostEl = null;
+            me.cursorCssClass = <string>Blend.cssPrefix('splitter-' + me.splitType + '-cursor');
 
             if (me.splitType === 'hbox') {
                 me.positionProperty = 'left';
@@ -142,7 +144,7 @@ module Blend.ui.splitter {
                 me.currentDisplacement = 0;
                 me.isActive = true;
                 me.origin = { top: ev.screenY, left: ev.screenX };
-                me.setCssClass({ [me.activeCssClass]: true });
+                me.setCssClass({ [me.activeCssClass]: true, [me.cursorCssClass]: true });
                 me.setCssClass({ [me.hoverCssClass]: false });
                 me.positionGhost();
                 me.bindAdjacentViews();
@@ -161,7 +163,7 @@ module Blend.ui.splitter {
             var me = this;
             if (me.isActive) {
                 me.isActive = false;
-                me.setCssClass({ [me.activeCssClass]: false });
+                me.setCssClass({ [me.activeCssClass]: false, [me.cursorCssClass]: false });
                 me.setCssClass({ [me.hoverCssClass]: false });
                 me.resizeViews();
                 Blend.Dom.removeEventListener(document, 'mousemove', me.moveHandlerFn);

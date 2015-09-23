@@ -4,10 +4,19 @@
 
 #{$prefix}-splitter-hover {
     background-color: $splitter-hover-color;
+    cursor: pointer;
 }
 
 #{$prefix}-splitter-active {
     background-color: $splitter-active-color;
+}
+
+#{$prefix}-splitter-hbox-cursor {
+    cursor: col-resize;
+}
+
+#{$prefix}-splitter-vbox-cursor {
+    cursor: row-resize;
 }
 
 #{$prefix}-splitter-hbox {
