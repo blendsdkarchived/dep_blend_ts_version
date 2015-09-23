@@ -21,6 +21,11 @@
         background-color:#EDEDED;
     }
 
+    .bg-gray2 {
+        background-color:#EAEAEA;
+    }
+
+
     .bg-blue {
         background-color:blue !important;
         color:#fff !important;
