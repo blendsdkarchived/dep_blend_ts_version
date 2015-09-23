@@ -22,10 +22,10 @@ module Blend {
         /**
          * Sets a list of dynamic attributes to this Component
          */
-        setAttributes(attrs:DictionaryInterface) {
+        setAttributes(attrs: DictionaryInterface) {
             var me = this;
-            Blend.forEach(attrs,function(value:any,key:string){
-                me.setAttribute(key,value);
+            Blend.forEach(attrs, function(value: any, key: string) {
+                me.setAttribute(key, value);
             });
         }
 
@@ -43,6 +43,15 @@ module Blend {
         getInitialConfig<T>(name: string): T {
             var me: any = this;
             return (Blend.isNullOrUndef(me.initialConfig[name]) ? null : me.initialConfig[name]);
+        }
+
+        /**
+         * Retrives a value from the initial config. This function is only usefull for internal handling
+         * of the layout system and should not be used anywhere else.
+         */
+        setInitialConfig<T>(name: string, value: any) {
+            var me: any = this;
+            me.initialConfig[name] = value;
         }
 
         /**
