@@ -13,3 +13,6 @@
         display: block;
     }
 }
+
+@include createSpacer();
+@include createSplitter();

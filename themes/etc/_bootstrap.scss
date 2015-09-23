@@ -4,9 +4,7 @@ $prefix:  '.b';
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/css3/user-interface";
-@import "_layout.scss";
-@import "_scroll.scss";
-@import "_box-layout.scss";
+@import "lib/lib";
 
 html, * , *:before, *:after{
     @include box-sizing(border-box);
@@ -29,3 +27,7 @@ body {
 [unselectable=on] {
     @include user-select(none);
 }
+
+@import "layout";
+@import "scroll";
+@import "box-layout";
