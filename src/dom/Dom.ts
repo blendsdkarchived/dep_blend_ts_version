@@ -1,6 +1,7 @@
-///<reference path="../Blend"/>
+/// <reference path="../Blend"/>
 /// <reference path="../interface/StyleConfigiInterface" />
 /// <reference path="../interface/CreateElementInterface" />
+
 
 ///<reference path="../Environment"/>
 module Blend.dom {
@@ -73,13 +74,19 @@ module Blend.dom {
          *      abc: false // results to class="mycls"
          * }
          */
-        cssClass(el: HTMLElement, cls?: string|DictionaryInterface): DictionaryInterface {
-            var me = this;
+        cssClass(el: HTMLElement, cls?: string|Array<string>|DictionaryInterface): DictionaryInterface {
+            var me = this, arCls: Array<string>;
             if (cls) {
                 if (Blend.isString(cls)) {
-                    var a: string = <string>cls;
+                    arCls = Blend.wrapInArray(cls);
+                } else if (Blend.isArray(cls)) {
+                    arCls = <Array<string>>cls;
+                }
+                if (Blend.isArray(arCls)) {
                     cls = <DictionaryInterface>{};
-                    (<DictionaryInterface>cls)[a] = true;
+                    Blend.forEach(arCls, function(itm: string) {
+                        (<DictionaryInterface>cls)[itm] = true;
+                    });
                 }
                 var cur = me.cssClass(el),
                     re: Array<string> = [], s: string;
