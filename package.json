@@ -1,35 +1,39 @@
 {
-  "name": "blendsdk",
-  "version": "1.0.0",
-  "description": "BlendSDK Web Application Framework",
-  "scripts": {
-    "start": "node node_modules/gulp/bin/gulp.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blendsdk/blendsdk.git"
-  },
-  "keywords": [
-    "blendsdk",
-    "TypeScript"
-  ],
-  "author": "Gevik Babakhani",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/blendsdk/blendsdk/issues"
-  },
-  "homepage": "https://github.com/blendsdk/blendsdk#readme",
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-compass": "^2.1.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-print": "*",
-    "gulp-rename": "^1.2.2",
-    "gulp-rm": "^1.0.0",
-    "gulp-sourcemaps": "*",
-    "gulp-typescript": "*",
-    "gulp-uglify": "^1.2.0",
-    "merge-stream": "*"
-  }
+    "name": "blendsdk",
+    "version": "1.0.0",
+    "description": "BlendSDK Web Application Framework",
+    "scripts": {
+        "start": "node node_modules/gulp/bin/gulp.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blendsdk/blendsdk.git"
+    },
+    "keywords": [
+        "blendsdk",
+        "TypeScript"
+    ],
+    "author": "Gevik Babakhani",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/blendsdk/blendsdk/issues"
+    },
+    "homepage": "https://github.com/blendsdk/blendsdk#readme",
+    "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-compass": "^2.1.0",
+        "gulp-plumber": "^1.0.1",
+        "gulp-print": "*",
+        "gulp-rename": "^1.2.2",
+        "gulp-rm": "^1.0.0",
+        "gulp-sourcemaps": "*",
+        "gulp-typescript": "*",
+        "gulp-uglify": "^1.2.0",
+        "merge-stream": "*",
+        "readline-sync": "*",
+        "mkdirp": "*",
+        "swig": "*",
+        "string.prototype.repeat": "*"
+    }
 }
