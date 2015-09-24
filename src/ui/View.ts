@@ -3,6 +3,9 @@
 /// <reference path="../dom/Dom" />
 /// <reference path="../mvc/View" />
 /// <reference path="../interface/BoxLayoutInterface" />
+/// <reference path="../interface/ViewConfigInterface" />
+/// <reference path="../interface/ViewBoundsInterface" />
+
 
 
 module Blend.ui {
@@ -18,9 +21,8 @@ module Blend.ui {
         //UI
         private visible: boolean
         private cssClass: DictionaryInterface
-        //private margins: BoxLayoutMarginInterface
-        //private split: boolean
 
+        protected borderCssClass: string
         protected layout: Blend.layout.Layout
         protected el: HTMLElement
         protected layoutTriggers: Array<string>
@@ -56,10 +58,7 @@ module Blend.ui {
                 'visibilityChanged'
             ];
             me.visible = me.initialConfig.visible;
-        }
-
-        getItemId(): string {
-            return this.itemId;
+            me.borderCssClass = me.initialConfig.border === true ? <string>Blend.cssPrefix('border-normal') : ''
         }
 
         protected initConfig(config?: ViewConfigInterface) {
@@ -74,8 +73,8 @@ module Blend.ui {
                 left: null,
                 visible: true,
                 cssClass: null,
-                itemId: null,
-                margins: null
+                margins: null,
+                border: false
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
@@ -95,7 +94,7 @@ module Blend.ui {
         /**
          * Sets the CSS class names of this View
          */
-        setCssClass(value: string|DictionaryInterface) {
+        setCssClass(value: string|Array<string>|DictionaryInterface) {
             var me = this;
             Blend.Dom.cssClass(me.el, value);
             me.cssClass = Blend.Dom.cssClass(me.el);
@@ -339,7 +338,6 @@ module Blend.ui {
         }
 
         // RENDER
-
         render(layoutConfig: CreateElementInterface = {}): HTMLElement {
             throw new Error('Not Implemented Yet!');
         }
@@ -350,7 +348,7 @@ module Blend.ui {
         protected finalizeRender() {
             var me = this;
             me.setVisible(me.initialConfig.visible);
-            me.setCssClass(me.initialConfig.cssClass);
+            me.setCssClass(<Array<string>>[me.initialConfig.cssClass, me.borderCssClass]);
             me.setBounds({
                 width: me.initialConfig.width,
                 height: me.initialConfig.height,
