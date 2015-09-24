@@ -7,4 +7,5 @@
  */
 interface ApplicationConfigInterface extends ViewConfigInterface {
     mainView: Blend.ui.View|ComponentConfigInterface|string
+    theme?: string
 }
