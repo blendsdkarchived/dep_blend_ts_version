@@ -1,0 +1,50 @@
+@mixin blend-theme(
+    $name,
+    $basecolor:$base-color,
+
+    $font-family: $default-font-family,
+    $font-size: $default-font-size,
+
+    $border-size: $default-border-size,
+    $border-color: $default-border-color,
+    $border-radius: $default-border-radius,
+
+    $splitter-size: $default-splitter-size,
+    $splitter-color: $default-splitter-color,
+    $splitter-hover-color: $default-splitter-hover-color,
+    $splitter-active-color: $default-splitter-active-color
+)
+{
+    body {
+        background-color: $basecolor;
+    }
+
+    .#{$name} {
+
+        @include blend-application(
+            $font-family,
+            $font-size
+        );
+
+        @include blend-border(
+            'normal',
+            $border-size,
+            $border-color,
+            $border-radius
+        );
+
+        @include blend-ui-splitter(
+                $splitter-size,
+                $splitter-color,
+                $splitter-hover-color,
+                $splitter-active-color
+        );
+
+        @include blend-ui-spacer();
+        @include blend-layout-box();
+        @include blend-layout-center();
+        @include blend-layout-fitted();
+        @include blend-ui-container();
+
+    }
+}

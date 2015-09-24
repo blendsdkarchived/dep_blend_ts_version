@@ -1,7 +1,8 @@
-@mixin createSplitter(
-    $splitter-color:        $splitter-color,
-    $splitter-hover-color:  $splitter-hover-color,
-    $splitter-active-color: $splitter-active-color
+@mixin blend-ui-splitter(
+    $splitter-size,
+    $splitter-color,
+    $splitter-hover-color,
+    $splitter-active-color
 ) {
     #{$prefix}-splitter {
         background-color: $splitter-color;

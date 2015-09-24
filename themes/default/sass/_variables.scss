@@ -1,15 +1,18 @@
-// Base values
-$default-background-color:  #fff;
-$default-text-color:  #000;
+// Fonts
 $default-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 $default-font-size: 1em;
 
-// Colors
+// Global colors
 $base-color: #EDEDED;
+$default-background-color: $base-color;
 
-// splitter
+// Borders
+$default-border-color:  darken($default-background-color,10%);
+$default-border-size: 2px;
+$default-border-radius: false; // do not generate
 
-$splitter-color: darken($base-color,20%);
-$splitter-active-color: darken($splitter-color,15%);
-$splitter-hover-color: darken($splitter-color,7%);
-$splitter-size: 0.5em;
+//Splitter
+$default-splitter-size: 0.6em;
+$default-splitter-color: darken($base-color,20%);
+$default-splitter-hover-color: darken($default-splitter-color,7%);
+$default-splitter-active-color: darken($default-splitter-color,15%);

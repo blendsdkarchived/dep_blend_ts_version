@@ -1,3 +1,6 @@
 @import "_variables";
 @import "../../etc/_bootstrap";
-@import "components/ui-container";
+
+@include blend-theme(
+    $name:'default'
+);

@@ -1,0 +1,13 @@
+@mixin blend-border(
+    $name,
+    $size,
+    $color,
+    $radius
+) {
+    #{$prefix}-border-#{$name} {
+        border: $size solid $color;
+        @if ($radius != false)  {
+            @include border-radius($radius);
+        }
+    }
+}

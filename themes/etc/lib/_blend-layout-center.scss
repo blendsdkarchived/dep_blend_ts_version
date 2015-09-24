@@ -1,0 +1,9 @@
+@mixin blend-layout-center() {
+    #{$prefix}-center {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left:50%;
+        @include transform(translate(-50%,-50%));
+    }
+}

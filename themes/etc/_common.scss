@@ -1,0 +1,41 @@
+html, * , *:before, *:after{
+    @include box-sizing(border-box);
+    width:100%;
+    height:100%;
+    @include user-select(none);
+}
+
+body {
+    position: absolute;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+[unselectable=on] {
+    @include user-select(none);
+}
+
+[data-scroll=none] {
+    overflow: hidden;
+}
+
+[data-scroll=auto] {
+    overflow: auto;
+}
+
+[data-scroll=fixedboth] {
+    overflow: scroll;
+}
+
+[data-scroll=fixedhorizontal] {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+
+[data-scroll=fixedvertical] {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
