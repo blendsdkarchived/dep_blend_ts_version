@@ -58,7 +58,7 @@ module Blend.ui {
                 'visibilityChanged'
             ];
             me.visible = me.initialConfig.visible;
-            me.borderCssClass = me.initialConfig.border === true ? <string>Blend.cssPrefix('border-normal') : ''
+            me.borderCssClass = me.initialConfig.border === true ? <string>Blend.cssPrefix('border-normal') : null
         }
 
         protected initConfig(config?: ViewConfigInterface) {

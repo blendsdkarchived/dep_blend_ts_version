@@ -91,9 +91,11 @@ module Blend.dom {
                 var cur = me.cssClass(el),
                     re: Array<string> = [], s: string;
                 cur = Blend.apply(cur, cls, true);
-                Blend.forEach(cur, function(v: boolean, k: string) {
-                    if (v === true) {
-                        re.push(k);
+                Blend.forEach(cur, function(v: boolean, k: any) {
+                    if (k !== null && k !== 'null') {
+                        if (v === true) {
+                            re.push(k);
+                        }
                     }
                 });
                 s = re.join(' ');
