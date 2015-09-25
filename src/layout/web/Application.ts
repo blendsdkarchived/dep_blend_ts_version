@@ -1,11 +1,11 @@
-/// <reference path="../../../interface/LayoutConfigInterface" />
-/// <reference path="../../../Blend" />
-/// <reference path="../../Layout" />
-/// <reference path="../../../web/Application" />
-/// <reference path="../../../ui/View" />
+/// <reference path="../../interface/LayoutConfigInterface" />
+/// <reference path="../../Blend" />
+/// <reference path="../Layout" />
+/// <reference path="../../web/Application" />
+/// <reference path="../..//ui/View" />
 
 
-module Blend.layout.component.web {
+module Blend.layout.web {
 
     export class Application extends Layout {
 

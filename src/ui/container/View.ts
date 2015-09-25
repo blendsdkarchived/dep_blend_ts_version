@@ -2,7 +2,7 @@
 /// <reference path="../../dom/Dom.ts"/>
 /// <reference path="../../layout/Util" />
 /// <reference path="../../layout/container/Layout" />
-/// <reference path="../../layout/component/ContainerView" />
+/// <reference path="../../layout/ui/container/View" />
 
 module Blend.ui.container {
 
@@ -16,7 +16,7 @@ module Blend.ui.container {
         protected layout: Blend.layout.container.Layout
         protected allowScroll: eScroll
 
-        private innerLayout: Blend.layout.component.ContainerView
+        protected innerLayout: Blend.layout.ui.container.View
 
         constructor(config?: ContainerViewConfigInterface) {
             var me = this;
@@ -184,9 +184,9 @@ module Blend.ui.container {
             me.innerLayout.performLayout();
         }
 
-        protected createInnerLayout(): Blend.layout.component.ContainerView {
+        protected createInnerLayout(): Blend.layout.ui.container.View {
             var me = this;
-            return new Blend.layout.component.ContainerView({
+            return new Blend.layout.ui.container.View({
                 viewElement: me.el,
                 bodyElement: me.bodyElement,
                 bodyContentElement: me.bodyContentElement,
@@ -240,7 +240,7 @@ module Blend.ui.container {
                 },
                 children: [
                     {
-                        cls: Blend.cssPrefix(['body-inner', 'fitted']),
+                        cls: Blend.cssPrefix(['body-inner']),
                         oid: 'bodyContentElement',
                         unselectable: true,
                         'data-scroll': Blend.getEnumValue<string>(eScroll, me.allowScroll).toLowerCase()

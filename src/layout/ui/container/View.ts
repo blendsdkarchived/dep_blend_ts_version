@@ -1,11 +1,11 @@
-/// <reference path="../../interface/ViewBoundsInterface" />
-/// <reference path="../../interface/LayoutConfigInterface" />
-/// <reference path="../../interface/ContainerViewConfigInterface" />
-/// <reference path="../../Blend" />
-/// <reference path="../Layout" />
-/// <reference path="../../ui/container/View" />
+/// <reference path="../../../interface/ViewBoundsInterface" />
+/// <reference path="../../../interface/LayoutConfigInterface" />
+/// <reference path="../../../interface/ContainerViewConfigInterface" />
+/// <reference path="../../../Blend" />
+/// <reference path="../../Layout" />
+/// <reference path="../../../ui/container/View" />
 
-module Blend.layout.component {
+module Blend.layout.ui.container {
 
     export interface IContainerViewInnerLayout extends LayoutConfigInterface {
         viewElement: HTMLElement
@@ -14,7 +14,7 @@ module Blend.layout.component {
         allowScroll: eScroll
     }
 
-    export class ContainerView extends Blend.layout.Layout {
+    export class View extends Blend.layout.Layout {
 
         private bodyElement: HTMLElement
         private bodyContentElement: HTMLElement
@@ -31,7 +31,8 @@ module Blend.layout.component {
 
         performLayout() {
             var me = this;
-            me.bodyBounds = Blend.Dom.getStyle(me.bodyElement, ['top', 'left', 'width', 'height']);
+
+            me.bodyBounds =  Blend.Dom.getBounds(me.bodyElement);
             me.setScrollState(me.allowScroll);
         }
 
