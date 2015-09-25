@@ -1,5 +1,6 @@
 /// <reference path="Blend" />
 /// <reference path="ui/View" />
+/// <reference path="layout/Application/" />
 /// <reference path="interface/ApplicationConfigInterface" />
 /// <reference path="interface/ContainerViewConfigInterface" />
 
@@ -15,15 +16,14 @@ module Blend {
         protected isResizing: boolean
         protected initialConfig: ApplicationConfigInterface
         protected mainView: Blend.ui.View
-        protected layoutClassType: string
 
         constructor(config?: ApplicationConfigInterface) {
             var me = this;
-            me.layoutClassType = me.layoutClassType || 'application';
             super(config);
             me.bindToAllControllers();
             me.createMainView();
             me.isStarted = false;
+            me.cssClass = Blend.cssPrefix('application');
         }
 
         /**
@@ -33,17 +33,8 @@ module Blend {
             return this.mainView;
         }
 
-        render(): HTMLElement {
-            var me = this,
-                el = me.createElement({
-                    cls: <string[]>Blend.cssPrefix(['application', 'fitted'], true)
-                });
-
-            if (me.mainView) {
-                el.appendChild(me.mainView.getElement());
-            }
-
-            return el;
+        protected createLayout(): Blend.layout.Layout {
+            return new Blend.layout.Application({ view: this });
         }
 
         protected initConfig(config?: ApplicationConfigInterface) {
@@ -53,10 +44,6 @@ module Blend {
                 },
                 config: ApplicationConfigInterface = Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
 
-            // Force application layout
-            config.layout = {
-                ctype: me.layoutClassType,
-            }
             config.reference = 'application';
             return config;
         }
@@ -64,7 +51,7 @@ module Blend {
         protected finalizeRender() {
             var me = this;
             super.finalizeRender();
-            Blend.Dom.cssClass(document.body,me.initialConfig.theme);
+            Blend.Dom.cssClass(document.body, me.initialConfig.theme);
         }
 
         /**
@@ -91,6 +78,8 @@ module Blend {
                 } else if (Blend.isObject(mv)) {
                     me.mainView = Blend.createObjectWithAlias(<ComponentConfigInterface>mv);
                 }
+            } else {
+                throw new Error('Missing mainView configuration for this application!');
             }
             if (me.mainView) {
                 me.mainView.initEventChain(me);

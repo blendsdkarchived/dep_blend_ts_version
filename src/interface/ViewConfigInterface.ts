@@ -16,7 +16,7 @@ interface ViewConfigInterface extends ComponentConfigInterface {
     //UI
     layout?: LayoutConfigInterface
     visible?: boolean
-    cssClass?: string|DictionaryInterface
+    cssClass?: string|Array<string>
     border?:boolean
 
     // SIZE

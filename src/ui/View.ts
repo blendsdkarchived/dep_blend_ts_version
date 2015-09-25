@@ -12,7 +12,6 @@ module Blend.ui {
 
     export class View extends Blend.mvc.View {
 
-        private isViewRendered: boolean
         private eventsEnabled: boolean
         private layoutEnabled: boolean
         private sizeHash: string
@@ -20,7 +19,7 @@ module Blend.ui {
         private itemId: string
         //UI
         private visible: boolean
-        private cssClass: DictionaryInterface
+        protected cssClass: string|Array<string>
 
         protected borderCssClass: string
         protected layout: Blend.layout.Layout
@@ -47,7 +46,6 @@ module Blend.ui {
         constructor(config?: ViewConfigInterface) {
             var me = this;
             super(config);
-            me.isViewRendered = false;
             me.isInALayoutContext = false;
             me.eventsEnabled = true;
             me.layoutEnabled = true;
@@ -84,8 +82,7 @@ module Blend.ui {
          * Creates an instance of Blend.layout.Layout for this View
          */
         protected createLayout(): Blend.layout.Layout {
-            var me = this;
-            return Blend.createLayout(me.initialConfig.layout, me);
+            return new Blend.layout.Layout({ view: this });
         }
 
 
@@ -97,7 +94,6 @@ module Blend.ui {
         setCssClass(value: string|Array<string>|DictionaryInterface) {
             var me = this;
             Blend.Dom.cssClass(me.el, value);
-            me.cssClass = Blend.Dom.cssClass(me.el);
             me.redoLayout();
         }
 
@@ -165,7 +161,7 @@ module Blend.ui {
          */
         notifyBoundsChanged() {
             var me = this;
-            if (me.isViewRendered) {
+            if (me.layout.isViewRendered()) {
                 me.fireEvent('boundsChanged', me.getBounds());
             }
         }
@@ -194,7 +190,7 @@ module Blend.ui {
          */
         protected canLayout() {
             return this.layoutEnabled
-                && this.isViewRendered
+                && this.layout.isViewRendered()
                 && this.visible;
         }
 
@@ -308,7 +304,7 @@ module Blend.ui {
              * performLayout on registered events.
              */
             var me = this;
-            if (me.isViewRendered === true && me.canFireEvents()) {
+            if (me.layout.isViewRendered() === true && me.canFireEvents()) {
                 me.handleLayoutTriggers(eventName);
                 if (eventName !== 'redo-layout') {
                     super.fireEvent.apply(me, arguments);
@@ -337,18 +333,17 @@ module Blend.ui {
             return this.eventsEnabled;
         }
 
-        // RENDER
-        render(layoutConfig: CreateElementInterface = {}): HTMLElement {
-            throw new Error('Not Implemented Yet!');
-        }
-
         /**
          *Helps configuring the thsi View before the rendering cycle is complete
          */
         protected finalizeRender() {
-            var me = this;
+            var me = this,
+                cssClass = []
+                    .concat(Blend.wrapInArray(me.cssClass))
+                    .concat(Blend.wrapInArray(me.borderCssClass))
+                    .concat(Blend.wrapInArray(me.initialConfig.cssClass));
             me.setVisible(me.initialConfig.visible);
-            me.setCssClass(<Array<string>>[me.initialConfig.cssClass, me.borderCssClass]);
+            me.setCssClass(cssClass);
             me.setBounds({
                 width: me.initialConfig.width,
                 height: me.initialConfig.height,
@@ -362,38 +357,13 @@ module Blend.ui {
         */
         getElement(): HTMLElement {
             var me = this;
-            if (!me.isViewRendered) {
+            if (!me.layout.isViewRendered()) {
                 me.el = me.layout.render();
                 me.dispableEvents();
                 me.finalizeRender();
                 me.enableEvents();
-                me.isViewRendered = true;
             }
             return me.el;
-        }
-
-        /**
-        * Prepares the element spec before passing it the createElement
-        */
-        private prepareElement(elConfig: CreateElementInterface) {
-            var me = this,
-                data = {
-                    // @TODO
-                    // style: me.style || {},
-                    // cls: me.cls || []
-                };
-            Blend.apply(elConfig, data, false, true);
-            return elConfig;
-        }
-
-        /**
-        * Wrapper function for Blend.dom.CreateElement. It additionally will
-        * call the prepareElement in case we need to configure the element
-        * spec before creating it
-        */
-        protected createElement(config: CreateElementInterface, elCallback?: Function, elCallbackScope?: any): HTMLElement {
-            var me = this;
-            return Blend.Dom.createElement(me.prepareElement(config), elCallback, me);
         }
     }
 }

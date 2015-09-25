@@ -9,15 +9,15 @@ module Blend.layout {
      */
     export class Layout extends Component {
 
+        private viewRendered: boolean
         protected view: Blend.ui.View
-        protected cssClassName: string
         protected initialConfig: LayoutConfigInterface
 
         constructor(config: LayoutConfigInterface) {
             var me = this;
             super(config);
-            me.cssClassName = 'default';
             me.view = me.initialConfig.view;
+            me.viewRendered = false;
         }
 
         performLayout() {
@@ -25,26 +25,18 @@ module Blend.layout {
             this.view.doneLayout();
         }
 
-        render(): HTMLElement {
-            /**
-             * We don't need to re-render the container if it has already been rendered
-             */
-            var me = this,
-                spec: DictionaryInterface = {};
-            if (me.isViewRendered()) {
-                return me.view.getElement();
-            } else {
-                if (me.cssClassName) {
-                    spec['cls'] = <string[]>Blend.cssPrefix(me.cssClassName + '-layout', true);
-                }
-                return me.view.render.apply(me.view, [spec]);
-            }
+        protected assignElements(el: HTMLElement, id: string): void {
+
         }
 
-        protected isViewRendered(view?: Blend.ui.View): boolean {
+        render(spec?: CreateElementInterface): HTMLElement {
             var me = this;
-            view = view || me.view;
-            return view.getAttribute<boolean>('isViewRendered');
+            me.viewRendered = true;
+            return Blend.Dom.createElement(spec || {}, me.assignElements, me);
+        }
+
+        isViewRendered(view?: Blend.ui.View): boolean {
+            return this.viewRendered;
         }
 
     }

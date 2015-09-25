@@ -17,13 +17,14 @@ module Blend.ui {
         protected initialConfig: IRectangleConfig
         protected color: string
         private rectId: string
-        layoutCount:number;
+        layoutCount: number;
 
         constructor(config?: IRectangleConfig) {
             var me = this;
             me.rectId = 'rect' + (Blend.ui.nextID++).toString();
-            super(config);
             me.layoutCount = 0;
+            me.cssClass = Blend.cssPrefix('rectangle');
+            super(config);
         }
 
         setText(value: any) {
@@ -63,14 +64,6 @@ module Blend.ui {
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
-        }
-
-        render(layoutConfig: CreateElementInterface = {}): HTMLElement {
-            var me = this,
-                spec = {
-                    id: me.rectId
-                }
-            return me.createElement(Blend.apply(spec, layoutConfig));
         }
 
         finalizeRender() {

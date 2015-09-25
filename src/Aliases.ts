@@ -1,5 +1,4 @@
 /// <reference path="layout/Layout"/>
-/// <reference path="layout/web/Application"/>
 /// <reference path="layout/container/Layout" />
 /// <reference path="layout/container/box/Horizontal"/>
 /// <reference path="layout/container/box/Vertical"/>
@@ -11,7 +10,6 @@
 
 
 Blend.registerClassWithAlias('layout.default', Blend.layout.Layout);
-Blend.registerClassWithAlias('layout.application', Blend.layout.web.Application);
 Blend.registerClassWithAlias('layout.container', Blend.layout.container.Layout);
 Blend.registerClassWithAlias('layout.hbox', Blend.layout.container.box.Horizontal);
 Blend.registerClassWithAlias('layout.vbox', Blend.layout.container.box.Vertical);
