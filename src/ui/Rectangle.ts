@@ -16,17 +16,17 @@ module Blend.ui {
 
         protected initialConfig: IRectangleConfig
         protected color: string
-        border: boolean
         private rectId: string
+        layoutCount:number;
 
         constructor(config?: IRectangleConfig) {
             var me = this;
             me.rectId = 'rect' + (Blend.ui.nextID++).toString();
             super(config);
-            me.border = me.initialConfig.border || false;
+            me.layoutCount = 0;
         }
 
-        setText(value: string) {
+        setText(value: any) {
             var me = this;
             me.el.innerHTML = value;
         }
@@ -48,6 +48,12 @@ module Blend.ui {
             return this.color;
         }
 
+        protected layoutView() {
+            var me = this;
+            super.layoutView();
+            me.setText(++me.layoutCount);
+        }
+
         protected initConfig(config?: ViewConfigInterface) {
 
             var defaultConfig: ViewConfigInterface = {
@@ -62,10 +68,7 @@ module Blend.ui {
         render(layoutConfig: CreateElementInterface = {}): HTMLElement {
             var me = this,
                 spec = {
-                    id: me.rectId,
-                    style: {
-                        border: me.border ? '1px dashed black' : null
-                    }
+                    id: me.rectId
                 }
             return me.createElement(Blend.apply(spec, layoutConfig));
         }
