@@ -20,6 +20,7 @@ module Blend.ui.container {
 
         constructor(config?: ContainerViewConfigInterface) {
             var me = this;
+            me.cssClass = Blend.cssPrefix('container');
             super(config);
             me.views = [];
             me.bodyPadding = me.initialConfig.bodyPadding;
@@ -30,7 +31,7 @@ module Blend.ui.container {
                 'viewRemoved'
             ]);
 
-            me.pushViews(me.layout.createChildViews(me.initialConfig.views))
+            me.pushViews(me.layout.createChildViews(me.initialConfig.views));
         }
 
         protected pushViews(views: Blend.ui.View|Array<Blend.ui.View>) {
