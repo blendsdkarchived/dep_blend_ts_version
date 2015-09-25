@@ -124,7 +124,7 @@ module Blend {
      * Prefixes a CSS directive with CSS_PREFIX.
      * @returns {string/string[]}
      */
-    export function cssPrefix(className: string|Array<string>, returnArray: boolean = false): string|string[] {
+    export function cssPrefix(className: string|Array<string>, returnArray: boolean = false): string|Array<string> {
         var r: Array<string> = [];
         if (!Blend.isArray(className)) {
             className = <Array<string>>[className];
@@ -198,7 +198,7 @@ module Blend {
      */
     export function isInstanceOf(obj: any, clazz: any): boolean {
 
-        if(obj === null || obj === undefined) {
+        if (obj === null || obj === undefined) {
             return false;
         }
 
