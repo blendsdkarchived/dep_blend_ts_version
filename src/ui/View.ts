@@ -148,7 +148,7 @@ module Blend.ui {
         getBounds(el?: HTMLElement): ViewBoundsInterface {
             var me = this;
             el = el || me.getElement();
-            return Blend.Dom.getStyle(el, ['top', 'left', 'width', 'height']);
+            return Blend.Dom.getBounds(el);
         }
 
         /**

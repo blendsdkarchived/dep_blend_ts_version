@@ -1,6 +1,8 @@
 /// <reference path="../Blend"/>
+/// <reference path="../interface/ViewBoundsInterface" />
 /// <reference path="../interface/StyleConfigiInterface" />
 /// <reference path="../interface/CreateElementInterface" />
+
 
 
 ///<reference path="../Environment"/>
@@ -16,6 +18,18 @@ module Blend.dom {
         private unitTypeRe: RegExp = /(em$|\%$|auto|^calc)/
         private pixelRe = /px$/
         private UNIT: string = 'px'
+
+        /**
+         * Returns the bounds of a given element that is set by its style configuration
+         */
+        getBounds(el: HTMLElement): ViewBoundsInterface {
+            var me = this;
+            if (el) {
+                return me.getStyle(el, ['top', 'left', 'bottom', 'right']);
+            } else {
+                return null;
+            }
+        }
 
         getBodyElement(content?: DocumentFragment|HTMLElement, clear?: boolean): HTMLElement {
             if (clear === true) {

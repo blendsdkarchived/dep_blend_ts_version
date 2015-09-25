@@ -235,7 +235,7 @@ module Blend.layout.container.box {
 
         createLayoutContext(): BoxLayoutContextInterface {
             var me = this,
-                bounds: any = Blend.Dom.getStyle(me.getViewBodyContentElement(), ['top', 'left', 'width', 'height'])
+                bounds: any = Blend.Dom.getBounds(me.getViewBodyContentElement())
 
             if (me.usedSplitter === true) {
                 /**
