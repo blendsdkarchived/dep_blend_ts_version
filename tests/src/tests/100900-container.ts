@@ -22,12 +22,12 @@ TestRunner.defineTest('container children', function(t: Blend.testing.TestRunner
             }
         ]
     });
-    
+
     var app = new Blend.web.Application({
         mainView: view
     });
     app.run();
-    t.delay(function() { 
+    t.delay(function() {
         var viewEl = view.getElement();
         var bodyEl = <HTMLElement>viewEl.children[0];
         t.hasCssClass(viewEl, 'b-container');

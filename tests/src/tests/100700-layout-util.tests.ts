@@ -16,15 +16,15 @@ TestRunner.defineTest('LayoutUtil-Fit', function(t: Blend.testing.TestRunner) {
             'background-color': 'silver'
         }
     });
-    
+
     var fittedEl = Blend.Dom.createElement({
         style: {
             'background-color': 'yellow'
         }
     });
-    
 
-    el.appendChild(fittedEl);        
+
+    el.appendChild(fittedEl);
     t.clearBody(el);
     Blend.LayoutUtil.fitElement(fittedEl);
 
@@ -55,7 +55,7 @@ TestRunner.defineTest('LayoutUtil-Center', function(t: Blend.testing.TestRunner)
             'background-color': 'silver'
         }
     });
-    
+
     var fittedEl = Blend.Dom.createElement({
         style: {
             'background-color': 'red',
@@ -63,14 +63,14 @@ TestRunner.defineTest('LayoutUtil-Center', function(t: Blend.testing.TestRunner)
             height:50
         }
     });
-    
 
-    el.appendChild(fittedEl);        
+
+    el.appendChild(fittedEl);
     t.clearBody(el);
     Blend.LayoutUtil.centerElement(fittedEl);
 
     t.delay(function() {
-        
+
         //top and left are set to 100 (50% of the parent) and then translated -50% (of the child element)
         // so it is 100 instead of 75!!
         var bounds = Blend.Dom.getBounds(fittedEl);
