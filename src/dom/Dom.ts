@@ -18,6 +18,7 @@ module Blend.dom {
         private unitTypeRe: RegExp = /(em$|\%$|auto|^calc)/
         private pixelRe = /px$/
         private UNIT: string = 'px'
+        private elId = 1000;
 
         /**
          * Returns the bounds of a given element that is set by its style configuration
@@ -25,7 +26,7 @@ module Blend.dom {
         getBounds(el: HTMLElement): ViewBoundsInterface {
             var me = this;
             if (el) {
-                return me.getStyle(el, ['top', 'left', 'bottom', 'right']);
+                return me.getStyle(el, ['top', 'left', 'bottom', 'right', 'width', 'height']);
             } else {
                 return null;
             }
@@ -263,6 +264,10 @@ module Blend.dom {
                 }
                 if (elCallback && config.oid) {
                     elCallback.apply(elCallbackScope || window, [el, config.oid]);
+                }
+                if (Blend.DEBUG === true) {
+                    el.setAttribute('id', 'ID' + me.elId);
+                    me.elId++;
                 }
                 return el;
             } else {
