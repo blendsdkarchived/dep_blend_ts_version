@@ -96,6 +96,11 @@ module Blend.testing {
             }, amount);
         }
 
+        hasCssClass(el: HTMLElement, cssClass: string) {
+            var cls = el.getAttribute('class');
+            this.isTrue(cls.indexOf(cssClass) !== -1, 'Element has ' + cssClass);
+        }
+
         /**
          * Check if the value is true
          */
