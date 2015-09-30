@@ -8,20 +8,7 @@ module Blend {
     var registry: DictionaryInterface = {};
 
     export var LayoutUtil: Blend.layout.Util;
-
-    /**
-         * Creates a Layout component for a View component
-         * @internal
-         */
-    export function createLayout(config: LayoutConfigInterface, view: Blend.ui.View): Blend.layout.Layout {
-        if (config && config.ctype) {
-            config.ctype = "layout." + config.ctype;
-            config.view = view;
-            return <Blend.layout.Layout>Blend.createObjectWithAlias(config);
-        } else {
-            throw new Error('Invalid LayoutConfigInterface object.')
-        }
-    }
+    export var DEBUG: boolean = false;
 
     /**
      * Returns enum value, either the value as number or its string representation
@@ -130,7 +117,11 @@ module Blend {
             className = <Array<string>>[className];
         }
         Blend.forEach(className, function(itm: string) {
-            r.push(CSS_PREFIX + itm);
+            if (itm.indexOf(CSS_PREFIX) === -1) {
+                r.push(CSS_PREFIX + itm);
+            } else {
+                r.push(itm);
+            }
         });
         if (returnArray === true) {
             return r;
