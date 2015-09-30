@@ -1,0 +1,10 @@
+@mixin blend-layout-flow() {
+
+    #{$prefix}-flow-layout {
+        #{$prefix}-layout-item {
+            position: relative;
+            display: inline-block;
+        }
+    }
+
+}

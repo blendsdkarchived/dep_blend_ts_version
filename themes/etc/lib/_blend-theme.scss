@@ -44,6 +44,7 @@
         @include blend-layout-box();
         @include blend-layout-center();
         @include blend-layout-fitted();
+        @include blend-layout-flow();
         @include blend-ui-container();
 
     }

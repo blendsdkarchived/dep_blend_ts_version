@@ -12,7 +12,7 @@
         white-space: nowrap;
         #{$prefix}-layout-item {
             position: absolute;
-            display: block;
+            display: inline-block;;
         }
     }
 }
