@@ -2,7 +2,6 @@
 /// <reference path="ui/View" />
 /// <reference path="layout/Application/" />
 /// <reference path="interface/ApplicationConfigInterface" />
-/// <reference path="interface/ContainerViewConfigInterface" />
 
 module Blend {
 
@@ -39,8 +38,9 @@ module Blend {
 
         protected initConfig(config?: ApplicationConfigInterface) {
             var me = this,
-                defaultConfig: ContainerViewConfigInterface = {
-                    theme: 'default'
+                defaultConfig: ApplicationConfigInterface = {
+                    theme: 'default',
+                    mainView: null
                 },
                 config: ApplicationConfigInterface = Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
 
