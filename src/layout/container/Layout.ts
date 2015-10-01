@@ -12,12 +12,13 @@ module Blend.layout.container {
         protected childViews: Array<Blend.ui.View>;
         protected layoutCssClass: string;
         protected layoutItemCssClass: string;
+        protected bodyElement: HTMLElement;
 
         constructor(config: ContainerLayoutConfigInterface) {
             var me = this;
             super(config);
             me.childViews = [];
-            me.layoutItemCssClass = <string>Blend.cssPrefix('layout-item');
+            me.layoutItemCssClass = <string>Blend.cssPrefix(me.layoutCssClass + '-layout-item');
             me.addChildViews(me.initialConfig.views);
         }
 
@@ -62,7 +63,8 @@ module Blend.layout.container {
                 spec: CreateElementInterface = {
                     children: [
                         <CreateElementInterface>{
-                            cls: Blend.cssPrefix([me.layoutCssClass, 'fitted']),
+                            oid: 'bodyElement',
+                            cls: Blend.cssPrefix([me.layoutCssClass + '-layout', 'fitted']),
                             children: me.renderChilViews()
                         }
                     ]
