@@ -26,7 +26,8 @@ module Blend.layout {
         }
 
         protected assignElements(el: HTMLElement, id: string): void {
-
+            var me = this;
+            me.setAttribute(id, el);
         }
 
         render(spec?: CreateElementInterface): HTMLElement {
