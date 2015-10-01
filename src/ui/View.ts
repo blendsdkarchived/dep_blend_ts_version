@@ -62,9 +62,6 @@ module Blend.ui {
         protected initConfig(config?: ViewConfigInterface) {
 
             var defaultConfig: ViewConfigInterface = {
-                layout: {
-                    ctype: 'default'
-                },
                 width: null,
                 height: null,
                 top: null,
