@@ -33,7 +33,7 @@ TestRunner.defineTest('container children', function(t: Blend.testing.TestRunner
         t.hasCssClass(viewEl, 'b-container');
         t.equal(bodyEl.children.length, 2, 'has two children');
         t.hasCssClass(<HTMLElement>bodyEl.children[0], 'b-rectangle');
-        t.hasCssClass(<HTMLElement>bodyEl.children[0], 'b-layout-item');
+        t.hasCssClass(<HTMLElement>bodyEl.children[0], 'b-flow-layout-item');
         t.done();
     });
 });
