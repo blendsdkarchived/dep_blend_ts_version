@@ -18,7 +18,7 @@
 <style>
 
     .bg-gray {
-        background-color:#EDEDED;
+        background-color:silver;
     }
 
     .bg-gray2 {
