@@ -1,16 +1,14 @@
 @mixin blend-layout-box() {
 
     #{$prefix}-hbox-layout {
-        white-space: nowrap;
-        #{$prefix}-layout-item {
+        #{$prefix}-hbox-layout-item {
             position: absolute;
             display: inline-block;
         }
     }
 
     #{$prefix}-vbox-layout {
-        white-space: nowrap;
-        #{$prefix}-layout-item {
+        #{$prefix}-vbox-layout-item {
             position: absolute;
             display: inline-block;;
         }
