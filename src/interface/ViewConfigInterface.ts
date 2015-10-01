@@ -14,7 +14,6 @@ interface ViewConfigInterface extends ComponentConfigInterface {
     controllers?: Array<string|Blend.mvc.Controller>
 
     //UI
-    layout?: LayoutConfigInterface
     visible?: boolean
     cssClass?: string|Array<string>
     border?:boolean
