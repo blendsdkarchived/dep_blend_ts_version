@@ -15,4 +15,5 @@ interface CreateElementInterface extends DictionaryInterface {
     children?: Array<CreateElementInterface|HTMLElement>
     extra?: any
     style?: StyleConfigiInterface,
+    unselectable?:boolean
 }
