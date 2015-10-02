@@ -105,7 +105,6 @@ module Blend.layout.container.box {
                 if (ctx.flex === true) {
                     maxFlex += ctx.flexSize;
                     flexedItems.push(idx);
-                    me.requiredSpace += (ctx.marginBefore + ctx.marginAfter);
                 } else { // fixed
                     me.requiredSpace += ((<number>(<any>ctx)[me.boxedProperty]) + ctx.marginBefore + ctx.marginAfter);
                 }
