@@ -64,8 +64,8 @@ module Blend.layout.container.box {
                 if (me.calculateMargins) {
                     margins = view.getInitialConfig<BoxLayoutMarginInterface>('margins') || me.initialConfig.defaultItemMargin || null;
                     if (margins !== null) {
-                        mrgBefore = (<any>margins)[me.marginBeforeProperty];
-                        mrgAfter = (<any>margins)[me.marginAfterProperty];
+                        mrgBefore = (<any>margins)[me.marginBeforeProperty] || 0;
+                        mrgAfter = (<any>margins)[me.marginAfterProperty] || 0;
                     }
                 }
 
