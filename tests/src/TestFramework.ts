@@ -279,9 +279,10 @@ module Blend.testing {
 
         private logPass(testtype: string, message?: string) {
             var me = this;
-            if (console && console.log) {
-                console.log(me.currentTest.name, 'PASSED', testtype, 'Total passed: ', me.totalPass, 'Total failed:', me.totalFail);
-            }
+            return;
+            // if (console && console.log) {
+            //     console.log(me.currentTest.name, 'PASSED', testtype, 'Total passed: ', me.totalPass, 'Total failed:', me.totalFail);
+            // }
         }
 
         private logFail(testtype: string, actual: any, expected: any, message?: string) {
