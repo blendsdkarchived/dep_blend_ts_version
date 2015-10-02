@@ -40,25 +40,25 @@ function boxPositionTest(layoutConfig: any, viewsConfig: Array<any>, tops: Array
 
                 Blend.forEach(container.getViews(), function(view: Blend.ui.View, index: number) {
                     bounds = view.getBounds();
-                    t.equal(bounds.top, tops[index], 'Top of View ' + createMessage(index) + ' test');
+                    t.equal(Math.round(bounds.top), tops[index], 'Top of View ' + createMessage(index) + ' test');
                 });
             }
             if (lefts !== null) {
                 Blend.forEach(container.getViews(), function(view: Blend.ui.View, index: number) {
                     bounds = view.getBounds();
-                    t.equal(bounds.left, lefts[index], 'Left of View ' + index + ' test');
+                    t.equal(Math.round(bounds.left), lefts[index], 'Left of View ' + index + ' test');
                 });
             }
             if (widths !== null) {
                 Blend.forEach(container.getViews(), function(view: Blend.ui.View, index: number) {
                     bounds = view.getBounds();
-                    t.equal(bounds.width, widths[index], 'Width of View ' + index + ' test');
+                    t.equal(Math.round(<number>bounds.width), widths[index], 'Width of View ' + index + ' test');
                 });
             }
             if (heights !== null) {
                 Blend.forEach(container.getViews(), function(view: Blend.ui.View, index: number) {
                     bounds = view.getBounds();
-                    t.equal(bounds.height, heights[index], 'Heigh of View ' + index + ' test');
+                    t.equal(Math.round(<number>bounds.height), heights[index], 'Heigh of View ' + index + ' test');
                 });
             }
             if (stop === false) {
