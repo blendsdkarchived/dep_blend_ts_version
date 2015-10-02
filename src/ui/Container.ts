@@ -79,22 +79,20 @@ module Blend.ui {
 
         private createContentLayout(): Blend.layout.container.Layout {
 
-            var me = this, lconfig: any;
-            lconfig = me.initialConfig.layout;
+            var me = this, lconfig: any = {};
 
-            if (Blend.isString(lconfig)) {
+            if (Blend.isString(me.initialConfig.layout)) {
                 lconfig = {
                     ctype: 'layout.' + me.initialConfig.layout,
-                    views: me.views,
-                    view: me
                 }
-            } else if (Blend.isObject(lconfig)) {
+            } else if (Blend.isObject(me.initialConfig.layout)) {
+                lconfig = Blend.apply({}, me.initialConfig.layout); // hard copy!
                 lconfig.ctype = 'layout.' + lconfig.ctype;
-                lconfig.views = me.views
-                lconfig.view = me;
             }
 
             if (Blend.isObject(lconfig)) {
+                lconfig.views = me.views
+                lconfig.view = me;
                 return Blend.createObjectWithAlias(lconfig);
             } else {
                 throw Error('Invalid or missing layout configuration for this Container!');
