@@ -157,7 +157,7 @@ module Blend.dom {
         setStyle(el: HTMLElement, styles: StyleConfigiInterface) {
             var me = this,
                 setter = function(el: HTMLElement, k: string, v: any) {
-                    if (v === null || v.toString() === 'auto') {
+                    if (v === null || (<string>v) === 'auto') {
                         el.style.removeProperty(k);
                     } else {
                         if (Blend.Environment.getIsIE()) {
