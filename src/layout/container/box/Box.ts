@@ -33,7 +33,6 @@ module Blend.layout.container.box {
             me.boxProcessor.calculate(itemsLayoutContext, layoutContext);
 
             Blend.forEach(itemsLayoutContext, function(ctx: BoxLayoutItemContextInterface, index: number) {
-                //setTimeout(function() {
                 var view = me.childViews[index];
                 view.setAttribute('flexPerPixel', layoutContext.flexPerPixel);
                 /**
@@ -44,11 +43,14 @@ module Blend.layout.container.box {
                 view.placeInALayoutContext(true);
                 view.setBounds(ctx);
                 view.placeInALayoutContext(false);
-                //}, 5);
             })
             me.view.doneLayout();
         }
 
+        /**
+         * Here we create a layout contextx for each View (splitters included). The result
+         * of this function is fed to a BoxProcessor
+         */
         private createItemsLayoutContext(layoutContext: BoxLayoutContextInterface): Array<BoxLayoutItemContextInterface> {
             var me = this,
                 result: Array<BoxLayoutItemContextInterface> = [],
@@ -94,6 +96,11 @@ module Blend.layout.container.box {
             return result;
         }
 
+        /**
+         * Create a layout context for this Box layout. We automatically
+         * set the box align to stretch if any of the child Views have the
+         * split property set to true
+         */
         private createLayoutContext(): BoxLayoutContextInterface {
             var me = this, ctx: BoxLayoutContextInterface = {
                 align: me.initialConfig.align,
@@ -110,6 +117,10 @@ module Blend.layout.container.box {
         }
 
 
+        /**
+         * Adds the child views from the parent component to this Box
+         * Layout
+         */
         protected addChildViews(childViews: Array<Blend.ui.View>) {
             var me = this;
             if (me.implementSplitters(childViews)) {
@@ -120,6 +131,9 @@ module Blend.layout.container.box {
             }
         }
 
+        /**
+         * Create a Splitter view
+         */
         private createSplitter() {
             var me = this
             var splitter = new Blend.ui.Splitter({
@@ -129,6 +143,9 @@ module Blend.layout.container.box {
             return splitter;
         }
 
+        /**
+         * Loop through a list of Views and place Splitters in propert positions
+         */
         protected addChildViewsWithSplitter(childViews: Array<Blend.ui.View>) {
             var me = this,
                 strategy: string,
@@ -143,6 +160,12 @@ module Blend.layout.container.box {
                 if (view.isVisible()) {
                     split = view.getInitialConfig('split') === true ? true : false;
                     if (split && numViews > 1) {
+
+                        /**
+                         * Here we decide whether we need to go with a splitter and then the
+                         * View or the other way around
+                         */
+
                         isFirst = index === 0;
                         isLast = index === (numViews - 1);
                         isLastViewSplitter = me.isSplitter(lastView);
@@ -165,6 +188,9 @@ module Blend.layout.container.box {
                             }
                         }
 
+                        /**
+                         * Create the View and the Splitter based on the strategy above
+                         */
                         if (strategy === 'vs') {
                             me.childViews.push(view);
                             me.childViews.push(me.createSplitter())
@@ -189,10 +215,19 @@ module Blend.layout.container.box {
             });
         }
 
+        /**
+         * Check if the provided View is a Splitter
+         */
         private isSplitter(view: Blend.ui.View) {
             return Blend.isInstanceOf(view, Blend.ui.Splitter) === true
         }
 
+        /**
+         * The Box layout does not support Splitters and margin of the Views
+         * at the same time. This function loops through a given View list and
+         * trys to decide a strategy either for creating Splitters go with the
+         * margins
+         */
         protected implementSplitters(childViews: Array<Blend.ui.View>): boolean {
 
             var me = this,
