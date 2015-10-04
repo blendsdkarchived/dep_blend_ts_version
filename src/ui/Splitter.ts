@@ -11,7 +11,6 @@ module Blend.ui {
     export class Splitter extends Blend.ui.View {
 
         protected initialConfig: SplitterConfigInterface;
-        protected splitType: string;
         protected activeCssClass: string;
         protected hoverCssClass: string;
         protected cursorCssClass: string;
@@ -33,13 +32,15 @@ module Blend.ui {
 
         constructor(config?: SplitterConfigInterface) {
             var me = this;
+            super(config);
+
             me.activeCssClass = <string>Blend.cssPrefix('splitter-active');
             me.hoverCssClass = <string>Blend.cssPrefix('splitter-hover');
             me.isActive = false;
             me.ghostEl = null;
-            me.cursorCssClass = <string>Blend.cssPrefix('splitter-' + me.splitType + '-cursor');
+            me.cursorCssClass = <string>Blend.cssPrefix('splitter-' + me.initialConfig.splitType + '-cursor');
 
-            if (me.splitType === 'hbox') {
+            if (me.initialConfig.splitType === 'hbox') {
                 me.positionProperty = 'left';
                 me.sizeProperty = 'width';
                 me.movementProperty = 'screenX';
@@ -49,23 +50,16 @@ module Blend.ui {
                 me.movementProperty = 'screenY';
             }
 
-            me.cssClass = Blend.cssPrefix(['splitter', 'splitter-' + me.splitType]);
-            super(config);
-            me.splitType = me.initialConfig.splitType;
+            me.cssClass = Blend.cssPrefix(['splitter', 'splitter-' + me.initialConfig.splitType]);
         }
 
         /**
          * Bind Views before and after this splitter so we can process them later
          */
-        protected bindAdjacentViews() {
-            // var me = this, childIndex = me.getAttribute<number>('childIndex'),
-            //     beforeIndex = childIndex - 1,
-            //     afterIndex = childIndex + 1,
-            //     views: Array<Blend.ui.View> = (<Blend.ui.Container>me.parent).getViews(function(view: Blend.ui.View, index: number) {
-            //         return (index === beforeIndex) || (index === afterIndex);
-            //     });
-            // me.beforeView = views[0];
-            // me.afterView = views[1];
+        bindAdjacentViews(beforeView: Blend.ui.View, afterView: Blend.ui.View) {
+            var me = this;
+            me.beforeView = beforeView;
+            me.afterView = afterView;
         }
 
         /**
@@ -149,7 +143,6 @@ module Blend.ui {
                 me.setCssClass({ [me.activeCssClass]: true, [me.cursorCssClass]: true });
                 me.setCssClass({ [me.hoverCssClass]: false });
                 me.positionGhost();
-                me.bindAdjacentViews();
                 me.prepareMovementLimits();
                 me.moveHandlerFn = function(ev: MouseEvent) {
                     me.handleMovement.apply(me, arguments);

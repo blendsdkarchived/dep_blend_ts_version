@@ -24,8 +24,10 @@ module Blend.layout.container {
 
         protected addChildViews(childViews: Array<Blend.ui.View>) {
             var me = this;
-            Blend.forEach(me.initialConfig.views || [], function(childView: Blend.ui.View) {
-                me.addChildView(childView);
+            Blend.forEach(childViews || [], function(childView: Blend.ui.View) {
+                if (childView.isVisible()) {
+                    me.addChildView(childView);
+                }
             });
         }
 

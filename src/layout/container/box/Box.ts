@@ -15,6 +15,7 @@ module Blend.layout.container.box {
         protected marginBeforeProperty: string;
         protected marginAfterProperty: string;
         private calculateMargins: boolean;
+        private hasSplitter: boolean;
 
         constructor(config: BoxLayoutConfigInterface) {
             var me = this;
@@ -87,8 +88,7 @@ module Blend.layout.container.box {
         }
 
         private createLayoutContext(): BoxLayoutContextInterface {
-            var me = this;
-            return {
+            var me = this, ctx: BoxLayoutContextInterface = {
                 align: me.initialConfig.align,
                 pack: me.initialConfig.pack,
                 margin: me.initialConfig.defaultItemMargin,
@@ -96,6 +96,10 @@ module Blend.layout.container.box {
                 allowScroll: me.initialConfig.allowScroll,
                 bounds: Blend.Dom.getBounds(me.bodyElement)
             }
+            if (me.hasSplitter === true) {
+                ctx.align = eBoxLayoutAlign.stretch;
+            }
+            return ctx;
         }
 
 
@@ -129,45 +133,57 @@ module Blend.layout.container.box {
                 lastView: Blend.ui.View;
 
             Blend.forEach(childViews, function(view: Blend.ui.View, index: number) {
-                split = view.getInitialConfig('split') === true ? true : false;
-                if (split && numViews > 1) {
-                    isFirst = index === 0;
-                    isLast = index === (numViews - 1);
-                    isLastViewSplitter = Blend.isInstanceOf(lastView, Blend.ui.Splitter) === true;
+                if (view.isVisible()) {
+                    split = view.getInitialConfig('split') === true ? true : false;
+                    if (split && numViews > 1) {
+                        isFirst = index === 0;
+                        isLast = index === (numViews - 1);
+                        isLastViewSplitter = me.isSplitter(lastView);
 
-                    if (isFirst) {
-                        strategy = 'vs';
-                    } else {
-                        if (isLast) {
-                            if (isLastViewSplitter) {
-                                strategy = 'v';
-                            } else {
-                                strategy = 'sv';
-                            }
-                        } else { // the middle
-                            if (isLastViewSplitter) {
-                                strategy = 'vs';
-                            } else {
-                                strategy = 'sv';
+                        if (isFirst) {
+                            strategy = 'vs';
+                        } else {
+                            if (isLast) {
+                                if (isLastViewSplitter) {
+                                    strategy = 'v';
+                                } else {
+                                    strategy = 'sv';
+                                }
+                            } else { // the middle
+                                if (isLastViewSplitter) {
+                                    strategy = 'vs';
+                                } else {
+                                    strategy = 'sv';
+                                }
                             }
                         }
-                    }
 
-                    if (strategy === 'vs') {
-                        me.childViews.push(view);
-                        me.childViews.push(me.createSplitter())
-                    } else if (strategy == 'sv') {
-                        me.childViews.push(me.createSplitter())
-                        me.childViews.push(view);
+                        if (strategy === 'vs') {
+                            me.childViews.push(view);
+                            me.childViews.push(me.createSplitter())
+                        } else if (strategy == 'sv') {
+                            me.childViews.push(me.createSplitter())
+                            me.childViews.push(view);
+                        } else {
+                            me.childViews.push(view);
+                        }
+
                     } else {
-                        me.childViews.push(view);
+                        me.childViews.push(view); // for only a single view regardless of splitting
                     }
-
-                } else {
-                    me.childViews.push(view); // for only a single view regardless of splitting
+                    lastView = me.childViews[me.childViews.length - 1];
                 }
-                lastView = me.childViews[me.childViews.length - 1];
             });
+
+            Blend.forEach(me.childViews, function(splitter: Blend.ui.Splitter, index: number) {
+                if (me.isSplitter(splitter)) {
+                    splitter.bindAdjacentViews(me.childViews[index - 1], me.childViews[index + 1]);
+                }
+            });
+        }
+
+        private isSplitter(view: Blend.ui.View) {
+            return Blend.isInstanceOf(view, Blend.ui.Splitter) === true
         }
 
         protected implementSplitters(childViews: Array<Blend.ui.View>): boolean {
@@ -187,7 +203,7 @@ module Blend.layout.container.box {
                 }
             });
 
-            return strategy === 's' ? true : false;
+            return me.hasSplitter = (strategy === 's' ? true : false);
         }
 
         protected initConfig(config?: BoxLayoutConfigInterface) {
