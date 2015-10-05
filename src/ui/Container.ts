@@ -117,7 +117,9 @@ module Blend.ui {
                 allowScroll: eScroll.None,
                 bodyPadding: 0,
                 views: [],
-                layout: null
+                layout: null,
+                width: 200,
+                height:200
             };
 
             return Blend.apply(Blend.apply(super.initConfig(), defaultConfig, true), config || {}, true);
