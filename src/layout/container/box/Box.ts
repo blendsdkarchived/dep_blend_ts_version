@@ -57,7 +57,6 @@ module Blend.layout.container.box {
                 mrgBefore: number,
                 mrgAfter: number,
                 flex: number,
-                fixedSize:number,
                 viewBounds: ViewBoundsInterface,
                 ctx: BoxLayoutItemContextInterface,
                 margins: BoxLayoutMarginInterface;
@@ -71,13 +70,6 @@ module Blend.layout.container.box {
                         mrgBefore = (<any>margins)[me.marginBeforeProperty] || 0;
                         mrgAfter = (<any>margins)[me.marginAfterProperty] || 0;
                     }
-                }
-
-                fixedSize = view.getInitialConfig<number>(me.sizeProperty);
-                flex = view.getInitialConfig<number>('flex') || 0;
-                if (!me.isSplitter(view) && fixedSize === null && flex === 0) {
-                    // is there is no width/height set then we flex the view!
-                    flex = 1;
                 }
 
                 ctx = {
