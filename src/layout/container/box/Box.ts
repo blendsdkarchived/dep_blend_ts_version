@@ -71,7 +71,7 @@ module Blend.layout.container.box {
                         mrgAfter = (<any>margins)[me.marginAfterProperty] || 0;
                     }
                 }
-
+                flex = view.getInitialConfig<number>('flex') || 0;
                 ctx = {
                     flex: flex > 0 ? true : false,
                     flexSize: flex > 0 ? flex : 0,
